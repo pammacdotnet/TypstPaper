@@ -1,0 +1,41 @@
+[[authors]]
+name = "Martin Haug"
+include = true
+corresponding = false
+email = "martin.haug@typst.app"
+institution = "Typst GmbH, Wattstraße 11, 13355 Berlin, Germany"
+bio = "Martin Ernst Haug is the co-founder and Chief Executive Officer (CEO) of Typst, a Berlin-based company specializing in developing a modern typesetting system designed to supersede LaTeX. He holds a Master of Science degree in Computer Science from the Technical University of Berlin. In his role at Typst, Martin focuses on full-stack development and operations, contributing significantly to the company's growth and the development of its products. His previous research includes work on incremental compilation for fast typesetting, which aligns with Typst's mission to streamline and enhance the typesetting process."
+
+[[authors]]
+name = "Laurenz Mädje"
+include = true
+corresponding = false
+email = "laurenz.maedje@typst.app"
+institution = "Typst GmbH, Wattstraße 11, 13355 Berlin, Germany"
+bio = "Laurenz Mädje is the co-founder and Chief Technology Officer (CTO) of Typst, a company based in Berlin, Germany, that specializes in developing innovative typesetting software. He co-founded Typst with Martin Haug in 2022 to create a more efficient and user-friendly typesetting system. Laurenz completed his Master's thesis at the Technical University of Berlin, laying the groundwork for Typst's development. In his role as CTO, Laurenz focuses on compiler development and actively contributes to the open-source community, with projects like the Typst compiler and related libraries available on GitHub."
+
+[[authors]]
+name = "Alberto Corbi"
+include = true
+corresponding = true
+email = "alberto.corbi@unir.net"
+institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, España"
+bio = "Alberto Corbi an assistant professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events"
+
+
+[paper]
+abstract = "Typst is a modern, markup-based typesetting system designed for creating professional documents with a focus on simplicity, performance, and consistency. Combining a clean syntax with powerful scripting capabilities, it allows users to write structured content while automating layout and styling. Unlike LaTeX, which is known for its steep learning curve and verbose syntax, Typst offers a more intuitive and concise approach, reducing boilerplate code. It compiles documents incrementally, enabling faster rendering compared to traditional engines. Typst also integrates built-in version control and collaborative features, addressing gaps in LaTeX’s workflow. Compared to LaTeX, Typst is lighter and more approachable, though LaTeX remains dominant in academia due to its extensive package ecosystem. Alternatives like Markdown (with Pandoc) are simpler but lack Typst's fine-grained control over layout. Microsoft Word and other WYSIWYG tools offer ease of use but fall short in reproducibility and automation. Typst strikes a balance, blending Markdown’s readability with LaTeX’s precision, while adding modern features like real-time collaboration. Its growing library of templates and functions positions it as a compelling alternative for technical writing, academic papers, and beyond."
+journal = "International Journal of Interactive Multimedia and Artificial Intelligence"
+volume = 0
+number = 0
+starting-page = 93
+publication-year = 2025
+title = "Typst, a new typesetting engine for the modern era"
+doi = "10.9781/ijimai.XXXX.02.006"
+short-author-list = "J. Doe and J. Smith"
+special-issue-title = "A special issue about something cool"
+special-issue = false
+keywords = "Typesetting system, Incremental parsers, Markup language, Paper composition, Reproducibility, Performance"
+received-date = 2024-07-08
+accepted-date = 2024-12-18
+published-date = 2025-02-10

@@ -44,10 +44,7 @@
 #first-paragraph(
   conf: conf,
   first-word: "Typst",
-)[is a new markup-based typesetting language (and its associated tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Word and Google Docs. The goal with Typst is to build a typesetting tool that is highly capable, extensible, reliable, fast and a pleasure to use.
-]
-
-For instance, with Typst, it is possible to:
+)[is a new markup-based typesetting language (and its associated tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Word and Google Docs. The goal with Typst is to build a typesetting tool that is highly capable, extensible, reliable, fast and a pleasure to use. For instance, with Typst, it is possible to:]
 
 - Create professional-quality documents with ease.
 - Access extensive functionality, including advanced mathematical typesetting, effective figure management, and an automatically generated table of contents.
@@ -61,9 +58,7 @@ For instance, with Typst, it is possible to:
 - Modify document formatting at any time.
 
 The Typst ecosystem comprises a refined and simple to use/understand markup language for defining the content, structure and style of a document, a superfast (and community-driven) document renderer, and a companion web application tha enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler and @sec:typstapp, respectively.
-Besides, the project also hosts a repository of extensions, packages and templates, Typst Universe, discussed in @sec:universe.
-
-However, to begin with, and given that Typst is often compared (and even set to rival) against the reputed and consolidated TeX/LaTeX systems, we will start with quick comparison of both environments in @sec:latex.
+Besides, the project also hosts a repository of extensions, packages and templates, Typst Universe, discussed in @sec:universe. However, given that Typst is often compared (and even set to rival) against the reputed and consolidated TeX/LaTeX systems, we will start with quick comparison of both environments.
 
 
 #show raw.where(block: true): block.with(
@@ -89,20 +84,20 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, bu
     columns: (1fr, 1fr),
     rows: (auto, auto),
     gutter: 5pt,
-    column-gutter: 2pt,
+    column-gutter: 3.0pt,
     align(center)[#text(font: "Buenard", fill: rgb("#229cac"), weight: "extrabold", "Typst")], align(center, latex),
     raw(affine-typ, lang: "typst", block: true), raw(affine-tex, lang: "latex", block: true),
   ),
 )
 
-Focusing on the renderer and local installs, Typst offers significantly faster and incremental compilation times, often completing in milliseconds, which allows for shockingly fast instant previews (under the so called _Doherty threshold_ @Doherty82). The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads extneral packages on-demand, keeping installations minimal and secure (all operations take place in userland).
+Focusing on the renderer and local installs, Typst offers significantly faster and incremental compilation times, often completing in milliseconds, which allows for shockingly fast instant previews (under the so called _Doherty threshold_ @Doherty82). The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads external packages on-demand, keeping installations minimal and secure. All operations take place in _userland_ (no need for admin priviledges).
 
-Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the proyect hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external solutions, such as Overleaf @Ewelina20 or other alternatives like Papeeria and Authorea. These two offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMlatex, developed by the French National Centre for Scientific Research (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration.
+Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the proyect hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20.
 
 #figure(
   align(center)[#table(
-      columns: (1fr, 2fr, 2fr),
-      align: (auto, auto, auto),
+      columns: (1fr, 2.0fr, 2.0fr),
+      align: (auto, left, left),
       table.header([Feature], [#latex], [#text(font: "Buenard", fill: rgb("#229cac"), weight: "extrabold", "Typst")]),
       table.hline(), stroke: .01cm,
       [Syntax], [Command-based
@@ -141,53 +136,55 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 = State of the art
 
 == Typesetting systems
-Modern typesetting relies heavily on computers, with most printed materials now created digitally rather than through traditional methods like typewriters or movable type. Professional desktop publishing tools such as Adobe InDesign and QuarkXPress offer precise control over elements like kerning and ligatures, while more general-purpose tools like Microsoft Word have adopted some of these features @Chagnon02. Still, these general tools lack the full suite of typesetting capabilities, such as high-quality hyphenation or the ability to flow text across multiple custom regions. This gap has led to the use of text-based systems, especially in academia, where LaTeX dominates due to its powerful formula rendering and flexible layout control. These systems rely on compiling source text into formatted outputs like PDFs, separating content from presentation to allow easy reuse and adaptation of document styles @Clark07.
-Typesetting systems are designed not only to produce high-quality visual documents but also to support the complex process of creating structured content. A well-designed system must consider numerous layout features such as line and page breaking, kerning, ligatures, contextual glyph positioning, and the treatment of languages with varied directionalities. Additionally, avoiding formatting issues like widows and orphans is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner. Markup-based systems excel here by explicitly encoding structural elements, thereby enabling automation and content abstraction. In contrast, WYSIWYG (_What you see is what you get_) systems lack this abstraction, limiting automation and making them less suitable for large-scale or highly structured documents.
+Modern typesetting relies heavily on computers, with most printed materials now created digitally rather than through traditional methods like typewriters or movable type. Professional desktop publishing tools such as Adobe InDesign and QuarkXPress offer precise control over elements like kerning and ligatures, while more general-purpose tools like Microsoft Word have adopted some of these features @Chagnon02. Still, these general tools lack the full suite of typesetting capabilities, such as high-quality hyphenation or the ability to flow text across multiple custom regions. This gap has led to the use of text-based systems, especially in academia, where LaTeX dominates due to its powerful formula rendering and flexible layout control.
+
+These systems rely on compiling source text into formatted outputs like PDFs, separating content from presentation to allow easy reuse and adaptation of document styles @Clark07. Typesetting systems are designed not only to produce high-quality visual documents but also to support the complex process of creating structured content. A well-designed system must consider numerous layout features such as line and page breaking, kerning, ligatures, contextual glyph positioning, and the treatment of languages with varied directionalities. Additionally, avoiding formatting issues like widows and orphans is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting). Markup-based systems excel here by explicitly encoding structural elements, thereby enabling automation and content abstraction. In contrast, WYSIWYG (_What you see is what you get_) systems lack this abstraction, limiting automation and making them less suitable for large-scale or highly structured documents.
 
 #figure(
+  caption: "Main challenges and their ad hoc algorithms and approaches related to markup-based typesetting systems",
   align(center)[#table(
       columns: (1fr, 2fr, 2fr),
       align: (auto, auto, auto), stroke: .01cm,
       table.header([#strong[Challenge];], [#strong[Description];], [#strong[Algorithm/Approach];]),
       table.hline(),
       "Paragraph breaking", [Breaking text into lines with
-        aesthetically pleasing spacing/hyphenation.], [Knuth-Plass line
+        aesthetically pleasing spacing/hyphenation], [Knuth-Plass line
         breaking algorithm @Hassan15.],
-      [Justification], [Spacing so lines align evenly at margins without looking awkward.], [Variable spacing adjustments using the Knuth-Plass model],
+      [Justification], [Spacing so lines align evenly at margins without looking awkward], [Variable spacing adjustments using the Knuth-Plass model @Knuth81],
       [Column Balancing], [Ensuring multi-column layouts have
-        equal or visually balanced content.], [Multiple layout passes with
+        equal or visually balanced content], [Multiple layout passes with
         measurement and balancing heuristics],
-      [Grid Layout Allocation], [Pptimal space for
-        rows/columns in grids.], [Constraint-based layout
-        calculation],
-      [Footnote Placement], [Footnotes appear on the same page as references, adjusting breaks.], [Intelligent page-breaking with constraints and fallback layout strategies],
-      [Content Collision], [Text wrapping non-rectangular elements.], [Line reshaping with contour-aware logic],
-      [Page Breaking], [Page division while respecting layout.], [Greedy +
-        backtracking algorithms],
+      [Grid Layout], [Pptimal space for
+        rows/columns in grids], [Constraint-based layout calculation @Feiner98],
+      [Footnote Placement], [Footnotes appear on the same page as references, adjusting breaks], [Intelligent page-breaking with constraints and fallback layout strategies],
+      [Content Collision], [Text wrapping non-rectangular elements], [Line reshaping with contour-aware logic],
+      [Page Breaking], [Page division while respecting layout], [Greedy +
+        backtracking algorithms @Plass81],
       [Text Shaping (Glyph Selection)], [Selecting the correct
-        glyphs depending on context (e.g., ligatures, combining
-        characters).], [Font shaping using engines like HarfBuzz;
-        context-sensitive glyph substitution],
+        glyphs depending on context], [Font shaping and
+        context-sensitive glyph substitution @Rougier18],
       [Bidirectional Text], [Mixing LTR and
-        RTL scripts.], [Unicode
-        Bidirectional Algorithm],
+        RTL scripts], [Unicode
+        Bidirectional Algorithm @Toledo01],
       [Incremental Layout Caching], [Reusing layout computations
-        after small edits to avoid full re-layouts.], [Constraint-based
+        after small edits to avoid full re-layouts], [Constraint-based
         layout cache with region-based reuse],
       [Incremental Parsing], [Re-parsing only
-        changed parts of the document.], [Red-Green Tree structure with
-        subtree reuse],
-      [Styling and Theming], [Consistent styles across documents.], [Style scope, cascades, and programmable layouts],
-      [Dynamic Layout], [Layout based on runtime-determined values.], [Cyclical re-evaluation with convergence.],
-      [Unicode], [Modern scripts, ligatures, and grapheme clusters.], [Shaping
-        engines and grapheme line breaking],
+        changed parts of the document], [Red-Green Tree structure with subtree reuse],
+      [Styling and Theming], [Consistent styles across documents], [Style scope, cascades, and programmable layouts],
+      [Dynamic Layout], [Layout based on runtime-determined values], [Cyclical re-evaluation with convergence],
+      [Unicode], [Modern scripts, ligatures, and grapheme clusters], [Shaping and grapheme line breaking @Elkhayati2022],
     )],
   kind: table,
-)
+) <tab:typesetting>
 
-Historically, the development of markup-based systems began in the 1960s with tools like Runoff and evolved significantly with systems like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TEX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing descriptive markup, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time, styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
+Historically, the development of markup-based systems began in the 1960s with tools like Runoff and evolved significantly with systems like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing descriptive markup, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time, styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
-Recent efforts in the typesetting world have aimed at modernizing or replacing older systems. Lightweight languages like Markdown and AsciiDoc prioritize ease of use but sacrifice typesetting power. On the other hand, advanced systems like LuaTeX @Pegourie13 attempt to extend or replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 programming layer and a new hook system @Mittelbach24. Nevertheless, many challenges remain unsolved, especially around usability and accessibility. These ongoing limitations highlight the need for a modern system that offers both powerful automation and a significantly improved user experience.
+
+#figure(image("typesetting systems.svg", width: 98%), kind: image, caption: "Evolution of Typessetting technologies")
+
+
+Recent efforts in the typesetting world have aimed at modernizing or replacing older systems. Lightweight languages like Markdown and AsciiDoc prioritize ease of use but sacrifice typesetting power. On the other hand, advanced systems like LuaTeX @Pegourie13 attempt to extend or replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 programming layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved, especially around usability, accessibility, automation and a significantly improved user experience. We believe that the arrival of Typst will mark a turning point in all of these issues.
 
 == Computed documents
 Modern document languages increasingly blend static content with dynamic computation, creating powerful tools for authoring rich, interactive documents. However, this combination often leads to subtle challenges in how content and code interact. For instance, template systems can behave unpredictably when computation and document structure are mixed, and reactivity features may not account for changes in document layout. These issues become especially noticeable in systems like PHP, React, and Scribble, where document behavior can be unintuitive or error-prone without careful design. To better understand and prevent these issues, a structured approach is needed to analyze and model the behavior of document languages @Crichton24.
@@ -354,15 +351,17 @@ The Neoplot package for Typst is a specialized tool designed to integrate Gnuplo
 //https://yurichev.com/mirrors/knuth1989.pdf
 //
 
-== Security
-The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. Additionally, Typst prohibits features like shell escapes and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration @Lacombe21 . These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
+== Security <sec:sec>
+The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. Additionally, Typst prohibits features like shell escapes and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the TeX-sphere @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
 
 = Math
 Typst has robust support for mathematical expressions, allowing you to seamlessly integrate math into your documents. It's math mode is designed to be intuitive for LaTeX users while being more concise and integrated into the document syntax.
 #code-example("physica example.typ", "Physica example")
 
 = Web application <sec:typstapp>
-The Typst.app (@fig:typstapp) online editor is a collaborative, web-based platform designed for creating and typesetting documents with Typst, a modern markup-based typesetting system. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for drafting academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images, equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
+XXX ,Overleaf or other alternatives like Papeeria and Authorea. These two offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMlatex, developed by the French National Centre for Scientific Research (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration. All these services may suffer from security vulnerabilities, as commented in @sec:sec.
+
+The Typst.app (@fig:typstapp) online editor is a collaborative, web-based platform designed for creating and typesetting documents with Typst, a modern markup-based typesetting system. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for drafting academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images, equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration through the WebSockets standard @Lombardi2015, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
 
 The development team is actively working on improvements, including better mobile usability and additional features like offline PWA support and private templates for teams. The editor is available for free with basic features, while a Pro subscription unlocks advanced capabilities like Git integration, presentation mode, and increased storage.
 

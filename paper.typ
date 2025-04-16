@@ -57,7 +57,7 @@
 - Collaborate seamlessly with team members.
 - Modify document formatting at any time.
 
-The Typst ecosystem comprises a refined and simple to use/understand markup language for defining the content, structure and style of a document, a superfast (and community-driven) document renderer, and a companion web application tha enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler and @sec:typstapp, respectively.
+The Typst ecosystem comprises a refined and simple to use/understand markup language for defining the content, structure and style of a document, a superfast (and community-driven) document renderer, and a companion web application that enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler and @sec:typstapp, respectively.
 Besides, the project also hosts a repository of extensions, packages and templates, Typst Universe, discussed in @sec:universe. However, given that Typst is often compared (and even set to rival) against the reputed and consolidated TeX/LaTeX systems, we will start with quick comparison of both environments.
 
 
@@ -79,13 +79,13 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, bu
 #figure(
   placement: none,
   kind: table,
-  caption: "Quick Typst vs. LaTeX comparison.",
+  caption: "Typst vs. LaTeX comparison example.",
   grid(
     columns: (1fr, 1fr),
     rows: (auto, auto),
     gutter: 5pt,
     column-gutter: 3.0pt,
-    align(center)[#text(font: "Buenard", fill: rgb("#229cac"), weight: "extrabold", "Typst")], align(center, latex),
+    align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")], align(center, latex),
     raw(affine-typ, lang: "typst", block: true), raw(affine-tex, lang: "latex", block: true),
   ),
 )
@@ -98,7 +98,11 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
   align(center)[#table(
       columns: (1fr, 2.0fr, 2.0fr),
       align: (auto, left, left),
-      table.header([Feature], [#latex], [#text(font: "Buenard", fill: rgb("#229cac"), weight: "extrabold", "Typst")]),
+      table.header(
+        [*Feature*],
+        align(center)[*#latex*],
+        align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")],
+      ),
       table.hline(), stroke: .01cm,
       [Syntax], [Command-based
         (`\command{arg}`)], [Markdown-inspired (`= Heading`, `_italic_`) +
@@ -380,7 +384,12 @@ XXX todo se está yendo a la nube @Corbi23
 
 #code-example("diagraph example.typ", "diagraph example.typ")
 
-#figure(image("universe.jpg"), placement: bottom, scope: "parent")
+#figure(
+  image("universe.jpg"),
+  placement: bottom,
+  scope: "parent",
+  caption: "A screenshot ot the Typst Universe website with XXX",
+)
 = Typst Universe <sec:universe>
 Typst Universe is an online platform that offers a curated collection of templates and packages designed to enhance and automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment for Typst users.
 

@@ -141,20 +141,19 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
       [Commands], [Macros
         (`\newcommand`)], [First-class functions (`#let f(x) = x + 1`),
         composable],
-      [Compilation], [Slow (seconds), multi-pass], [Fast
-        (milliseconds), incremental],
+      [Compiler], [Slow and multi-pass], [Fast
+        (ms) and incremental],
       [Packages], [Large TeX Live/MiKTeX
         distributions], [On-demand cached downloads (@sec:universe)],
       [Errors], [Cryptic], [User-friendly, detailed],
       [Graphics], [TikZ, PSTricks, etc.], [SVG-based (e.g.,
         CeTZ#footnote("http://cetz-package.github.io")), no PDF/EPS support],
       [Team work], [Overleaf (third-party)], [Own
-        app for real-time collaboration (@sec:typstapp)],
+        app (@sec:typstapp)],
       [Code blocks], [Limited (e.g., `listings`
-        package)], [Tight scripting integration (e.g.,
+        package)], [Nice scripting (e.g.,
         `#for x in range(3)[...]`)],
-      [Citations], [Mainly managed through BibTeX], [Built-in, no
-        external software required],
+      [Citations], [Managed through BibTeX], [Built-in],
       [Deploy], [Heavy (GBs)], [Single binary (\~20MB)],
     )],
   kind: table,
@@ -226,6 +225,16 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 
 Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such as RMarkdown @Baumer15 and Jupyter Notebooks, integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
+
+#figure(
+  code-grid("diagraph example.typ"),
+  caption: [Example of a realtime rendered Graphviz-based diagram.],
+  kind: image,
+  placement: none,
+) <fig:dot>
+
+
+
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (tackled in @sec:wasm), the possibilities are almost endless.
 For instance, the package Pyrunner#footnote("https://typst.app/universe/package/pyrunner") allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
@@ -243,6 +252,7 @@ Other current WebAssembly-grounded integration solutions for computational docum
 - Callisto#footnote("https://github.com/knuesel/callisto"), for reading and rendering Jupyter notebooks.
 - Diagraph#footnote("https://github.com/Robotechnic/diagraph"), for binding simple Graphviz-based diagrams (see @fig:dot).
 - Nulite#footnote("https://github.com/j-mueller/typst-vegalite"), for plotting Vega-based charts (like the one shown in @fig:mlevolution).
+
 
 
 = The markup language <sec:markup>
@@ -562,7 +572,8 @@ The development team is actively working on improvements, including better mobil
 
 Typst has garnered significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a growing community, with its GitHub repository amassing over 37,000 stars, indicating strong developer engagement. While Typst is gaining traction among academics and researchers, its adoption in formal publishing remains limited. Currently, most scientific journals do not accept Typst files for submission, and there is no direct export to LaTeX, which poses challenges for integration into traditional academic workflows. Nonetheless, Typst's open-source nature and active development community suggest a promising future as it continues to evolve and address the needs of its users.
 
-The Typst community is also providing template for the most reputed scientific editorials and journals (@fig:papers).
+From 2020–2025, Typst evolved from a niche LaTeX alternative into a growing document-formatting tool. Early development (2020–2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like CeTZ for graphics expanded its reach. Projections for 2025 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., `tinymist`) aim to solidify its position against LaTeX. The Typst community is also providing template for the most reputed scientific editorials and journals (@fig:papers).
+
 
 #figure(
   placement: top,
@@ -587,7 +598,6 @@ Finally, although not its intention, Typst.app can also be used as an scientific
 
 
 
-​The `diagraph` package is a Typst extension that allows users to embed Graphviz diagrams directly within Typst documents (@fig:dot).
 
 #figure(
   image("typstapp.jpg", width: 100%),
@@ -595,13 +605,6 @@ Finally, although not its intention, Typst.app can also be used as an scientific
   placement: auto,
   caption: [Screenshot of the Typst.app web application for online Typst editing and collaboration.],
 ) <fig:typstapp>
-
-
-#figure(
-  code-grid("diagraph example.typ"),
-  caption: [Example of a realtime rendered Graphviz-based diagram.],
-  kind: image,
-) <fig:dot>
 
 
 #figure(

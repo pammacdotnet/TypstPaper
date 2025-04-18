@@ -6,4 +6,4 @@ $
   arrow.r quad arrow.l.long.squiggly
 $
 The Pythagorean theorem is:
-$ a^2 + b^2 = c^2 $.
+$ a^2 + b^2 = c^2 $

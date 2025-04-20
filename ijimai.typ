@@ -48,7 +48,7 @@
   show figure.where(kind: table): set block(breakable: true, below: .6cm, sticky: false)
   show figure.where(kind: image): set figure(placement: none)
   show figure.where(kind: table): set figure(placement: none)
-
+  //show figure.where(kind: image): set block(above: .25cm)
 
   let regex-fig = regex("Figure\s(\d+)")
   show regex-fig: it => {
@@ -245,7 +245,7 @@
       //set par(first-line-indent: 0pt)
       set text(style: "italic")
       show: block.with(spacing: 10pt, sticky: true)
-      v(.15cm)
+      v(.2cm)
       if it.numbering != none {
         emph(text(fill: azulunir)[#numbering("A.", deepest)])
         h(7pt, weak: true)

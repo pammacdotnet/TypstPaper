@@ -404,11 +404,11 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 It is worth mentionning the Typst `CeTZ` library#footnote("http://cetz-package.github.io"). `CeTZ` is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's `TikZ` for creating vector graphics. While `TikZ` is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, `CeTZ` is tailored to integrate seamlessly with Typst's syntax and design philosophy.
 
-Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are Lilaq#footnote("https://lilaq.org") and `CeTZ-Plot`#footnote("https://github.com/cetz-package/cetz-plot"). Lilaq provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
+Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are `lilaq`#footnote("https://lilaq.org") and `CeTZ-Plot`#footnote("https://github.com/cetz-package/cetz-plot"). The tool `lilaq` provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
   code-grid("lilaq example.typ"),
-  caption: [Example of a plot made with the Lilaq plotting package.],
+  caption: [Example of a plot made with the `lilaq` plotting package.],
   kind: image,
   placement: none,
 ) <fig:lilaq>
@@ -417,7 +417,7 @@ On the other hand, `CeTZ-Plot` extends the `CeTZ` drawing library, offering func
 
 #figure(
   code-grid("cetz example.typ"),
-  caption: [Example of a Venn diagram composed through CeTZ.],
+  caption: [Example of a Venn diagram composed through `CeTZ`.],
   kind: image,
   placement: none,
 ) <fig:cetz>
@@ -551,7 +551,7 @@ Packages are typically stored in a directory hierarchy following the pattern `{n
 #figure(
   kind: image,
   placement: none,
-  caption: [Complex image manipulation via the Grayness WASM plugin.],
+  caption: [Complex image manipulation via the `grayness` WASM plugin.],
   [#stack(dir: ltr, spacing: 45pt, [`image-show`], [`image-blur`], [`image-darken`])
     #stack(
       dir: ltr,
@@ -570,7 +570,7 @@ As an example, the `neoplot` package for Typst is a specialized tool designed to
 
 #figure(
   code-grid("neoplot example.typ"),
-  caption: [Neoplot WASM-based package example.],
+  caption: [Parabola plot with the `neoplot` WASM-based package.],
   kind: image,
   placement: none,
 ) <fig:neoplot>
@@ -688,6 +688,6 @@ Typst is a markup language for typesetting documents, combining ease of use, spe
 
 
 = Acknowledgment
-Authors would like to express their gratitude to the Typst community for their invaluable contributions. From active participation in forums and Discord channels to the development of innovative packages and templates, all these efforts have been instrumental in shaping Typst's growth.
+Authors would like to express their gratitude to the Typst community for their invaluable contributions. From active participation in forums and Discord channels, to the development of innovative packages and templates, all these efforts have been instrumental in shaping Typst's growth.
 
-Authors would also like to thank the courageus research journals, like IJIMAI, for having bet of this typesetting language as a key technology for paper submission and scientifc dissemination
+Authors would also like to thank the courageus research journals and editorials, like IJIMAI (and its mothership, UNIR), for having bet of this typesetting ecosystem as a key technology for paper submission and scientifc dissemination.

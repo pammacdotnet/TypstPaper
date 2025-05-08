@@ -1,26 +1,27 @@
 [[authors]]
-name = "Martin Haug"
-include = true
-corresponding = false
-email = "martin.haug@typst.app"
-institution = "Typst GmbH, Wattstraße 11, 13355 Berlin, Germany"
-bio = "Martin Ernst Haug is the co-founder and Chief Executive Officer (CEO) of Typst, a Berlin-based company specializing in developing a modern typesetting system designed to supersede LaTeX. He holds a Master of Science degree in Computer Science from the Technical University of Berlin. In his role at Typst, Martin focuses on full-stack development and operations, contributing significantly to the company's growth and the development of its products. His previous research includes work on incremental compilation for fast typesetting, which aligns with Typst's mission to streamline and enhance the typesetting process."
-
-[[authors]]
-name = "Laurenz Mädje"
-include = true
-corresponding = false
-email = "laurenz.maedje@typst.app"
-institution = "Typst GmbH, Wattstraße 11, 13355 Berlin, Germany"
-bio = "Laurenz Mädje is the co-founder and Chief Technology Officer (CTO) of Typst, a company based in Berlin, Germany, that specializes in developing innovative typesetting software. He co-founded Typst with Martin Haug in 2022 to create a more efficient and user-friendly typesetting system. Laurenz completed his Master's thesis at the Technical University of Berlin, laying the groundwork for Typst's development. In his role as CTO, Laurenz focuses on compiler development and actively contributes to the open-source community, with projects like the Typst compiler and related libraries available on GitHub."
-
-[[authors]]
 name = "Alberto Corbi"
 include = true
 corresponding = true
 email = "alberto.corbi@unir.net"
 institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, España"
-bio = "Alberto Corbi an assistant professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events"
+bio = "Alberto Corbi an assistant professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
+
+
+[[authors]]
+name = "Pau Oliver"
+include = true
+corresponding = false
+email = "pau.oliver@uv.es"
+institution = "Universitat de València (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, España"
+bio = "Pau López Oliver is a budding theoretical physicist currently pursuing his Master's in Advanced Physics at the University of Valencia. He completed his undergraduate studies in Physics at the University of Murcia, where he developed a strong foundation in both theoretical and computational physics. Pau's academic interests span quantum mechanics, mathematical physics, and science communication. He actively shares his passion for physics through his personal website, where he documents projects such as calculating Planck’s constant using a Raspberry Pi and LEDs, and reflects on his academic journey. Beyond his studies, Pau is committed to making complex scientific concepts accessible and engaging, blending rigorous research with creative outreach."
+
+[[authors]]
+name = "David Gil"
+include = true
+corresponding = false
+email = "david.gil@aemet.es"
+institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Barcelona, España"
+bio = "David Gil is a dedicated meteorologist at the Spanish State Meteorological Agency (AEMET), currently contributing to the development of the AEMET-γSREPS operational forecasting system. Simultaneously, he is pursuing a Bachelor's degree in Physics, demonstrating a strong commitment to enhancing his scientific expertise. His dual role allows him to apply theoretical knowledge to practical forecasting challenges, bridging the gap between academic study and real-world meteorological applications. David's work is instrumental in advancing the accuracy and reliability of weather predictions in Spain."
 
 
 [paper]

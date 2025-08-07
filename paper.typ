@@ -1,35 +1,31 @@
-//#import "@local/ijimai:0.0.4": *
-#import "ijimai.typ": *
+//#import "@local/ijimai:0.0.5": *
+//#import "ijimai2.typ": *
+#import "@local/ijimai:0.0.5": *
 #let conf = toml("paper.toml")
 #let author-photos = conf.authors.map(author => read(author.name + ".jpg", encoding: none))
-#import "@preview/grayness:0.3.0": image-grayscale, image-blur, image-show, image-huerotate, image-darken
-#show: ijimai.with(
-  conf: conf,
-  photos: author-photos,
-  logo: image("unir logo.svg", width: 17.5%),
-  bib-data: read("bibliography.bib", encoding: none),
-)
+#import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
+#show: ijimai.with(conf: conf, photos: author-photos, logo: image("unir logo.svg", width: 17.5%), bib-data: read(
+  "bibliography.bib",
+  encoding: none,
+))
 #set text(lang: "en")
 
 #let latex = {
   set text(font: "New Computer Modern")
-  box(
-    width: 2.55em,
-    {
-      place(top, dx: 0.1em, dy: .02cm, text(size: 0.7em)[L])
-      place(top, dx: 0.3em, text(size: 0.7em)[A])
-      place(top, dx: 0.7em)[T]
-      place(top, dx: 1.26em, dy: 0.22em)[E]
-      place(top, dx: 1.8em)[X]
-    },
-  )
+  box(width: 2.55em, {
+    place(top, dx: 0.1em, dy: .02cm, text(size: 0.7em)[L])
+    place(top, dx: 0.3em, text(size: 0.7em)[A])
+    place(top, dx: 0.7em)[T]
+    place(top, dx: 1.26em, dy: 0.22em)[E]
+    place(top, dx: 1.8em)[X]
+  })
 }
 
 
-#let code-grid(typ-file) = {
+#let code-grid(typ-file, leftcol: 1fr) = {
   let typ = read(typ-file)
   grid(
-    columns: (2.5fr, 1.5fr),
+    columns: (leftcol, 1.0fr),
     rows: (auto, auto),
     gutter: 1pt,
     raw(typ, lang: "typst", block: true), text(size: 7.5pt)[#eval(typ, mode: "markup")],
@@ -38,18 +34,20 @@
 
 #let code-example(typ-file, caption: none, placement: none) = {
   let typ = read(typ-file)
-  figure(
-    placement: placement,
-    kind: image,
-    caption: none,
-    grid(
-      columns: (2.5fr, 1.5fr),
-      rows: (auto, auto),
-      gutter: 1pt,
-      raw(typ, lang: "typst", block: true), text(size: 7.5pt)[#eval(typ, mode: "markup")],
-    ),
-  )
+  figure(placement: placement, kind: image, caption: none, grid(
+    columns: (2.5fr, 1.5fr),
+    rows: (auto, auto),
+    gutter: 1pt,
+    raw(typ, lang: "typst", block: true), text(size: 7.5pt)[#eval(typ, mode: "markup")],
+  ))
 }
+
+#let package-link(name) = {
+  link("https://typst.app/universe/package/" + lower(name), name)
+}
+
+#set math.equation(numbering: none)
+#let mathbf(input) = { $upright(bold(#input))$ }
 
 = Introduction
 #first-paragraph(
@@ -71,9 +69,10 @@
 The Typst ecosystem comprises a refined and simple to use/understand markup language for defining the content, structure and style of a document, a superfast (and community-driven) document renderer, and a companion web application that enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler and @sec:typstapp, respectively.
 Besides, the project also hosts a repository of extensions, packages and templates, Typst Universe, discussed in @sec:universe. However, given that Typst is becoming popular and its adoption is growing steadily over the years (as observed in @sec:adoption), it is now often compared against the consolidated LaTeX system. For this reason, we will start with quick comparison of both environments.
 
+For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will focus on the application of this new typesetting system in more specific science and engineering domains such as theoretical Physics, Cosmology, Chemistry, Mathematics, Algorithmics, Signal Processing, and Computer Science.
 
 #show raw.where(block: true): block.with(
-  fill: luma(250),
+  fill: softblueunir,
   inset: 4pt,
   radius: 2pt,
 )
@@ -81,83 +80,102 @@ Besides, the project also hosts a repository of extensions, packages and templat
 #show raw: set text(size: 6.5pt, font: "Fira Code")
 
 
-
 = Typst and LaTeX <sec:latex>
-Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each _package_ (@sec:package). Here it is a side-by-side example:
+Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These extensions are called _packages_ in the Typst semantic field (@sec:package).
+
+Next it is a side-by-side example of the same TeX and Typst code and whose output is shown in @fig:affine:
 #let affine-typ = read("affine example.typ")
 #let affine-tex = read("affine example.tex")
 
-#figure(
-  kind: table,
-  caption: "Typst vs. LaTeX comparison example.",
-  grid(
-    columns: (1fr, 1fr),
-    rows: (auto, auto),
-    gutter: 5pt,
-    column-gutter: 3.0pt,
-    align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")], align(center, latex),
-    raw(affine-typ, lang: "typst", block: true), raw(affine-tex, lang: "latex", block: true),
-  ),
-) <tab:LaTeXvTypst>
+#figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
+  columns: (1fr, 1.4fr),
+  rows: (auto, auto),
+  gutter: 4pt,
+  column-gutter: 0pt,
+  align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")], align(center, latex),
+  raw(affine-typ, lang: "typst", block: true), raw(affine-tex, lang: "latex", block: true),
+)) <tab:LaTeXvTypst>
 
-#figure(caption: [Ouput generated by the Typst code in @tab:LaTeXvTypst (with the style rules shown in @fig:setshow).])[
+
+
+Focusing on the renderer and local installs, Typst offers significantly faster and incremental compilation times, often completing in milliseconds, which allows for shockingly fast instant previews (under the so called _Doherty threshold_ @Doherty82). The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads external packages on-demand, keeping installations minimal and secure. All operations take place in userland (no need for admin priviledges).
+
+#figure(caption: [Same ouput generated by the Typst (and TeX) code in @tab:LaTeXvTypst.])[
   #set text(
-    font: "Cantarell",
+    font: "Times",
     ligatures: false,
     size: 9pt,
   )
   #show heading: it => [
+    #v(-0.3em)
     #set align(center)
     #set text(9pt, weight: "bold")
     #block(smallcaps(it.body))
+
   ]
-  #rect(stroke: 0.01cm)[
+  #rect(stroke: 0.01cm, inset: (bottom: .1cm, top: .25cm))[
     #eval(affine-typ, mode: "markup")
   ]
 ] <fig:affine>
-
-Focusing on the renderer and local installs, Typst offers significantly faster and incremental compilation times, often completing in milliseconds, which allows for shockingly fast instant previews (under the so called _Doherty threshold_ @Doherty82). The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads external packages on-demand, keeping installations minimal and secure. All operations take place in _userland_ (no need for admin priviledges).
 
 Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the proyect hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences is presented in @tab:diffs.
 
 #figure(
   align(center)[#table(
-      columns: (1fr, 2.0fr, 2.0fr),
-      align: (auto, left, left),
-      table.header(
-        [*Feature*],
-        align(center)[*#latex*],
-        align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")],
-      ),
-      table.hline(stroke: 1pt), stroke: .01cm,
-      [Syntax], [Command-based
-        (`\command{arg}`)], [Markdown-inspired (`= Heading`, `_italic_`) +
-        code mode (`#func()`)],
-      [Math Mode], [`$...$` or `\[...\]`, verbose
-        (`\frac{}{}`)], [`$...$`, concise (`1/2` auto-fractions, `phi.alt`
-        for variants)],
-      [Headings], [`\section{}`, `\subsection{}`], [`= Heading`,
-        `== Subheading` (no backslashes)],
-      [Lists], [`itemize`/`enumerate` environments], [`-`
-        (bullets), `+` (numbers), `/ Term:` (descriptions)],
-      [Commands], [Macros
-        (`\newcommand`)], [First-class functions (`#let f(x) = x + 1`),
-        composable],
-      [Compiler], [Slow and multi-pass], [Fast
-        (ms) and incremental],
-      [Packages], [Large TeX Live/MiKTeX
-        distributions], [On-demand cached downloads (@sec:universe)],
-      [Errors], [Cryptic], [User-friendly, detailed],
-      [Graphics], [TikZ, PSTricks, etc.], [SVG-based (e.g.,
-        CeTZ), no PDF/EPS support],
-      [Team work], [Overleaf (third-party)], [Own
-        app (@sec:typstapp)],
-      [Code blocks], [Limited (e.g., `listings`
-        package)], [Nice scripting (e.g.,
-        `#for x in range(3)[...]`)],
-      [Citations], [Managed through BibTeX], [Built-in],
-      [Deploy], [Heavy (GBs)], [Single binary (\~20MB)],
-    )],
+    columns: (1fr, 2.0fr, 2.0fr),
+    align: (auto, left, left),
+    table.header(
+      [*Feature*], align(center)[*#latex*], align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")]
+    ),
+    table.hline(stroke: 1pt),
+    stroke: .01cm,
+    [Syntax],
+    [Command-based
+      (`\command{arg}`)],
+    [Markdown-inspired (`= Heading`, `_italic_`) +
+      code mode (`#func()`)],
+    [Math Mode],
+    [`$...$` or `\[...\]`, verbose
+      (`\frac{}{}`)],
+    [`$...$`, concise (auto-fractions, variants, etc.)],
+    [Headings],
+    [`\section{}`, `\subsection{}`],
+    [`= Heading`,
+      `== Subheading` (no backslashes)],
+    [Lists],
+    [`itemize`/`enumerate` environments],
+    [`-`
+      (bullets), `+` (numbers), `/ Term:` (descriptions)],
+    [Commands],
+    [Macros
+      (`\newcommand`)],
+    [First-class functions (`#let f(x) = x + 1`),
+      composable],
+    [Compiler],
+    [Slow and multi-pass],
+    [Fast
+      (ms) and incremental],
+    [Packages],
+    [Large TeX Live/MiKTeX
+      distributions],
+    [On-demand cached downloads (@sec:universe)],
+    [Errors], [Cryptic], [User-friendly, detailed],
+    [Graphics],
+    [TikZ, PSTricks, etc.],
+    [SVG-based (e.g.,
+      CeTZ), no PDF/EPS support],
+    [Team work],
+    [Overleaf (third-party)],
+    [Own
+      app (@sec:typstapp)],
+    [Code blocks],
+    [Limited (e.g., `listings`
+      package)],
+    [Nice scripting (e.g.,
+      `#for x in range(3)[...]`)],
+    [Citations], [Managed through BibTeX], [Built-in (also Hayagriva)],
+    [Deploy], [Heavy (GBs)], [Single binary (\~20MB)],
+  )],
   kind: table,
   caption: [Main differences between LaTeX and Typst],
 ) <tab:diffs>
@@ -172,32 +190,46 @@ Modern typesetting relies heavily on computers, with most printed materials now 
 These systems rely on compiling source text into formatted outputs like PDFs, separating content from presentation to allow easy reuse and adaptation of document styles @Clark07. Typesetting systems are designed not only to produce high-quality visual documents but also to support the complex process of creating structured content. A well-designed system must consider numerous layout features such as _line_ and _page breaking_, _kerning_, _ligatures_, contextual _glyph positioning_, and the treatment of languages with varied directionalities. Additionally, avoiding formatting issues like _widows_ and _orphans_ is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
 #figure(
-  caption: "Main challenges and their ad hoc algorithms and approaches related to markup-based typesetting systems",
+  caption: "Most important typesetting algorithms",
   align(center)[#table(
-      columns: (1fr, 2fr, 2fr),
-      align: (auto, auto, auto), stroke: .01cm,
-      table.header([#strong[Challenge];], [#strong[Description];], [#strong[Algorithm/Approach];]),
-      table.hline(stroke: 1pt),
-      "Paragraph breaking", [Breaking text into lines with
-        aesthetically pleasing spacing/hyphenation], [Knuth-Plass line
-        breaking algorithm @Hassan15.],
-      [Justification], [Spacing so lines align evenly at margins without looking awkward], [Variable spacing adjustments using the Knuth-Plass model @Knuth81],
-      [Grid Layout], [Pptimal space for
-        rows/columns in grids], [Constraint-based layout calculation @Feiner98],
-      [Page Breaking], [Page division while respecting layout], [Greedy +
-        backtracking algorithms @Plass81],
-      [Text Shaping (Glyph Selection)], [Selecting the correct
-        glyphs depending on context], [Font shaping and
-        context-sensitive glyph substitution @Rougier18],
-      [Bidirectional Text], [Mixing LTR and
-        RTL scripts], [Unicode
-        Bidirectional Algorithm @Toledo01],
-      [Incremental Layout], [Reusing layout computations
-        after small edits], [Constraint-based
-        layout cache/region reuse @Fisher91],
-      [Styling and Theming], [Consistent styles across documents], [Style scope, cascades, and programmable layouts],
-      [Unicode], [Modern scripts, ligatures, and grapheme clusters], [Shaping and grapheme line breaking @Elkhayati2022],
-    )],
+    columns: (1fr, 2fr, 2fr),
+    align: (auto, auto, auto),
+    stroke: .01cm,
+    table.header([#strong[Challenge];], [#strong[Description];], [#strong[Algorithm/Approach];]),
+    table.hline(stroke: 1pt),
+    "Paragraph breaking",
+    [Breaking text into lines with
+      aesthetically pleasing spacing/hyphenation],
+    [Knuth-Plass line
+      breaking algorithm @Hassan15.],
+    [Justification],
+    [Lines align evenly at margins looking fine],
+    [Spacing adjustments with the Knuth-Plass @Knuth81],
+    [Grid Layout],
+    [Pptimal space for
+      rows/columns in grids],
+    [Constraint-based layout calculation @Feiner98],
+    [Page Breaking],
+    [Page division while respecting layout],
+    [Greedy + backtracking algorithms @Plass81],
+    [Glyph Selection],
+    [Correct glyphs depending on context],
+    [Font shaping and context-sensitive glyphs @Rougier18],
+    [Bidirectional Text],
+    [Mixing LTR and
+      RTL scripts],
+    [Unicode
+      Bidirectional Algorithm @Toledo01],
+    [Incremental Layout],
+    [Reusing layout computations
+      after small edits],
+    [Constraint-based
+      layout cache/region reuse @Fisher91],
+    [Styling and Theming], [Consistent styles across documents], [Style scope, cascades, and programmable layouts],
+    [Unicode],
+    [Modern scripts, ligatures, and grapheme clusters],
+    [Shaping and grapheme line breaking @Elkhayati2022],
+  )],
   kind: table,
 ) <tab:typesetting>
 
@@ -222,7 +254,7 @@ Historically, the development of markup-based systems began in the 1960s with to
 
 Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like Markdown#footnote("https://daringfireball.net/projects/markdown") and AsciiDoc#footnote("https://asciidoc.org") prioritize ease of use but sacrifice typesetting power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
 
-On the other hand, advanced systems like LuaTeX @Pegourie13 or ConTeXt#footnote("http://wiki.contextgarden.net") attempt to replace TeX while maintaining its output quality. However, these oftAen inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 programming layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved, especially around usability, accessibility, automation and a significantly improved user experience.
+On the other hand, advanced systems like LuaTeX @Pegourie13 or ConTeXt#footnote("http://wiki.contextgarden.net") attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 programming layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved, especially around usability, accessibility, automation and a significantly improved user experience.
 
 == Computed documents and dynamic content <sec:computed>
 Dynamic content generation is a crucial feature of modern markup languages and typesetting systems, enabling documents to adapt and update automatically based on data, user input, or external conditions. By integrating programming logic, such as loops, conditionals, and variable interpolation, these systems can produce personalized, data-driven outputs, from dynamically generated reports in LaTeX to interactive web pages in Markdown with embedded scripts. This capability reduces manual repetition, minimizes errors, and ensures consistency when dealing with large or evolving datasets. Furthermore, dynamic generation supports real-time updates in interactive documents, such as dashboards or educational materials, enhancing usability and engagement. By blending structured markup with computational power, these systems bridge the gap between static documents and flexible, automated publishing workflows, making them indispensable for technical, scientific, and web-based documentation.
@@ -231,7 +263,7 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 
 
 #figure(
-  code-grid("diagraph example.typ"),
+  code-grid("diagraph example.typ", leftcol: 1.6fr),
   caption: [Example of a realtime rendered Graphviz-based diagram.],
   kind: image,
   placement: none,
@@ -239,8 +271,8 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 
 
 
-In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (tackled in @sec:wasm), the possibilities are almost endless.
-For instance, the package Pyrunner#footnote("https://typst.app/universe/package/pyrunner") allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
+In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or WASM, tackled in @sec:wasm), the possibilities are almost endless.
+For instance, the package #package-link("Pyrunner")#footnote("https://typst.app/universe/package/pyrunner") allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #let pyrunner-typ = read("pyrunner example.typ")
 #figure(
@@ -251,11 +283,11 @@ For instance, the package Pyrunner#footnote("https://typst.app/universe/package/
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-- Neoplot#footnote("https://github.com/KNnut/neoplot"), for generating plots with Gnuplot (see @fig:neoplot).
-- Jlyfish#footnote("https://github.com/andreasKroepelin/TypstJlyfish.jl"), for integrating Julia code.
-- Callisto#footnote("https://github.com/knuesel/callisto"), for reading and rendering Jupyter notebooks.
-- Diagraph#footnote("https://github.com/Robotechnic/diagraph"), for binding simple Graphviz-based diagrams (see @fig:dot).
-- Nulite#footnote("https://github.com/j-mueller/typst-vegalite"), for plotting Vega-based charts (like the one shown in @fig:mlevolution).
+- #package-link("Neoplot")#footnote("https://github.com/KNnut/neoplot"), for generating plots with Gnuplot (see @fig:neoplot).
+- #package-link("Jlyfish")#footnote("https://github.com/andreasKroepelin/TypstJlyfish.jl"), for integrating Julia code.
+- #package-link("Callisto")#footnote("https://github.com/knuesel/callisto"), for reading and rendering Jupyter notebooks.
+- #package-link("Diagraph")#footnote("https://github.com/Robotechnic/diagraph"), for binding simple Graphviz-based diagrams (see @fig:dot).
+- #package-link("Nulite")#footnote("https://github.com/j-mueller/typst-vegalite"), for plotting Vega-based charts (like the one shown in @fig:mlevolution).
 
 
 
@@ -270,17 +302,13 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
     inset: 5pt,
     align: left,
     stroke: .01cm,
-    table.header(
-      [*Mode*],
-      [*Syntax*],
-      [*Example*],
-    ),
+    table.header([*Mode*], [*Syntax*], [*Example*]),
 
     [Code], [Prefix code with \#], raw("Number: #(1 + 2)", lang: "typ"),
     [Math], [Surround math with \$…\$], raw("$-x$ is the opposite of $x$", lang: "typ"),
     [Markup], [Put markup in \[…\]], raw("#let name = [*Typst!*]", lang: "typ"),
   ),
-  caption: [Typst syntactical modes.],
+  caption: [Typst syntactical modes],
   placement: none,
 ) <tab:modes>
 
@@ -288,7 +316,7 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 All this content is written in Unicode. Typst has embraced this computing standard a first-class citizen (as can be seen in @fig:mathunicode), making it much more modern and intuitive than traditional typesetting systems.
 
 #figure(
-  code-grid("unicode math example.typ"),
+  code-grid("unicode math example.typ", leftcol: 1.7fr),
   caption: [Example of modern Unicode use in Typst and math expressions.],
   kind: image,
   placement: none,
@@ -306,8 +334,8 @@ Typst makes styling documents flexible, and consistent with a modern and declara
 
 One of Typst's key strengths is its composability: styles can be defined as functions or _mixins_, enabling modular and reusable design systems. For instance, a custom heading style can encapsulate font choices, spacing, and numbering logic, then be reused across the document with variations. The system also handles inheritance and cascading predictably, avoiding the complexity seen in some web CSS models. By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
 #figure(
-  caption: [Example of a global `set` command and `show` rule (on the heading elements) necessary to render the content of @fig:affine],
-  kind: table,
+  caption: [Example of a global `set` command and `show` rule (on the heading elements) necessary to render the content of @fig:affine.],
+  kind: image,
   grid(
     columns: (1.5fr, 2fr),
     rows: (auto, auto),
@@ -315,7 +343,7 @@ One of Typst's key strengths is its composability: styles can be defined as func
     [Global `set` rule], [Style mixin],
     [#v(.1cm)], [],
     raw("#set text(
-  font: \"Cantarell\",
+  font: \"Times\",
   ligatures: false,
   size: 9pt,
 )", lang: "typst", block: true),
@@ -339,40 +367,47 @@ Typst incorporates several control structures that facilitate dynamic content ge
 For iterative operations, Typst offers `for` and `while` loops. The `for` loop is versatile, capable of iterating over strings, arrays, dictionaries, and more. For example, `for letter in "abc" { letter }` processes each character in the string. Control statements like `break` and `continue` are available to manage loop execution, allowing for early exits or skipping iterations. The `while` loop continues execution as long as a specified condition remains true. These loops can be utilized within content blocks to dynamically generate document elements, such as populating tables or lists based on data structures.
 
 == Math
+#figure(
+  placement: none,
+  kind: image,
+  [
+    ```typ
+    $ cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
+    + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "(h.c.)" - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu ((u_L), (d_L)) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "(h.c.)" - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^T vec(-d_L, u_L)] + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2) $
+    ```
 
-Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces can be added or newlines between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's `\left` and `\right` commands. This ensures that complex expressions are rendered clearly and accurately.
+  ],
+  caption: [Typst code for the lagrangian of the Standard Model.],
+) <fig:sm>
+Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces can be added or newlines between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's `\left` and `\right` commands. This ensures that complex expressions are rendered clearly and accurately. For instance, the Typst math code in @fig:sm allows the typesetting of the lagrangian of the Standard Model of Physics (@fig:rsm).
 
-For instance, the following Typst math code allows the typesetting of the lagrangian of the Standard Model of Physics (rendered next):
-
-```typ
-$ cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
-+ (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "(h.c.)" - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu ((u_L), (d_L)) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "(h.c.)" - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^T vec(-d_L, u_L)] + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2) $
-```
-
+#figure(
+  placement: none,
+  kind: image,
+  caption: [Rendering of the code in @fig:sm],
+  align(
+    center,
+    rect(stroke: 0.005cm, outset: .0cm)[
+      $
+        cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
+        + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "h.c."\
+        - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) \
+        - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] \
+        + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu (u_L, d_L) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "h.c.   " \
+        - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] \
+        - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^tack.b vec(-d_L, u_L)] \
+        + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2)
+      $],
+  ),
+) <fig:rsm>
 #import "@preview/physica:0.9.1": *
 
-#set math.equation(numbering: none)
-#let mathbf(input) = { $upright(bold(#input))$ }
-#align(
-  center,
-  rect(stroke: 0.005cm, outset: .0cm)[
-    $
-      cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
-      + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "h.c."\
-      - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) \
-      - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] \
-      + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu (u_L, d_L) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "h.c.   " \
-      - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] \
-      - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^tack.b vec(-d_L, u_L)] \
-      + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2)
-    $],
-)
 
 
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
-  code-grid("physica example.typ"),
-  caption: [Example of advanced math with the `physica` package#footnote[https://typst.app/universe/package/physica].],
+  code-grid("physica example.typ", leftcol: 1.5fr),
+  caption: [Example of advanced math with the #package-link("Physica") package#footnote[https://typst.app/universe/package/physica].],
   kind: image,
   placement: none,
 ) <fig:physica>
@@ -385,11 +420,11 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 - `equate` enhances the formatting and numbering of mathematical equations, improving readability and reference.
 - `mitex` integrates LaTeX math syntax into Typst, allowing users to write equations using familiar LaTeX commands.
 
-== Drawing capabilitues
+== Drawing capabilities
 Typst's visualize module#footnote("https://typst.app/docs/reference/visualize") offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke and radius.
 
 #figure(
-  code-grid("gradient stack.typ"),
+  code-grid("gradient stack.typ", leftcol: 2fr),
   caption: [Gradient stack example showing Typst drawing capabilities.],
   kind: image,
 ) <fig:gradient>
@@ -397,27 +432,27 @@ Typst's visualize module#footnote("https://typst.app/docs/reference/visualize") 
 The module also allows for the inclusion of images (both raster and vector) and supports advanced styling options such as gradients (@fig:gradient) and tiled patterns (@fig:chess).
 
 #figure(
-  align(left)[#code-grid("chess example.typ")],
-  caption: [Chessboard tiled pattern (with the `board-n-pieces` package#footnote("https://typst.app/universe/package/board-n-pieces")).],
+  align(center)[#code-grid("chess example.typ", leftcol: 1.6fr)],
+  caption: [Chessboard tiled pattern (with the board-n-pieces package).],
   kind: image,
 ) <fig:chess>
 
-It is worth mentionning the Typst `CeTZ` library#footnote("http://cetz-package.github.io"). `CeTZ` is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's `TikZ` for creating vector graphics. While `TikZ` is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, `CeTZ` is tailored to integrate seamlessly with Typst's syntax and design philosophy.
+It is worth mentionning the Typst #package-link("CeTZ") library#footnote("http://cetz-package.github.io"). CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #package-link("TikZ") for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
 
-Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are `lilaq`#footnote("https://lilaq.org") and `CeTZ-Plot`#footnote("https://github.com/cetz-package/cetz-plot"). The tool `lilaq` provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
+Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #package-link("Lilaq")#footnote("https://lilaq.org") and #package-link("CeTZ-Plot")#footnote("https://github.com/cetz-package/cetz-plot"). The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
-  code-grid("lilaq example.typ"),
-  caption: [Example of a plot made with the `lilaq` plotting package.],
+  code-grid("lilaq example.typ", leftcol: 1.1fr),
+  caption: [Example of a plot made with the Lilaq plotting package.],
   kind: image,
   placement: none,
 ) <fig:lilaq>
 
-On the other hand, `CeTZ-Plot` extends the `CeTZ` drawing library, offering functionalities for creating plots and charts within the `CeTZ` canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids, and allows for detailed customization of plot elements. `CeTZ-Plot` is particularly suited for users who require intricate control over their visualizations and wish to integrate plots with other graphical elements.
+On the other hand, CeTZ-Plot extends the CeTZ drawing library, offering functionalities for creating plots and charts within the CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids, and allows for detailed customization of plot elements. CeTZ-Plot is particularly suited for users who require intricate control over their visualizations and wish to integrate plots with other graphical elements.
 
 #figure(
-  code-grid("cetz example.typ"),
-  caption: [Example of a Venn diagram composed through `CeTZ`.],
+  code-grid("cetz example.typ", leftcol: 1.55fr),
+  caption: [Example of a Venn diagram composed through CeTZ.],
   kind: image,
   placement: none,
 ) <fig:cetz>
@@ -432,11 +467,11 @@ Hayagriva#footnote[https://github.com/typst/hayagriva] is a Rust-based bibliogra
 #figure(
   caption: [Sample of a BibTeX entry and its Hayagriva equivalent for @Corbi23.],
   kind: image,
-  placement: bottom,
+  placement: none,
   grid(
-    columns: (4fr, 4.5fr),
+    columns: (4.5fr, 5.5fr),
     rows: (auto, auto),
-    gutter: 1pt,
+    gutter: 5pt,
     raw(
       "@article{Corbi23,
   title     = {Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder},
@@ -513,10 +548,9 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
 Abstractions in Typst enables users to manage
 complexity by hiding irrelevant details through two primary mechanisms:
 
-- Functions. Typst functions are defined using `let` syntax and support positional arguments, optional named arguments with defaults, and _argument sinks_ for variadic inputs. A key convenience is the shorthand for passing content as the last argument using brackets (`[...]`). Functions implicitly join multiple content pieces and return them without requiring an explicit `return` statement, streamlining common use cases like document formatting. However, the section notes that functions in Typst lack explicit return types or visibility modifiers, which could aid in abstraction.
+/ Functions: are defined using `let` syntax and support positional arguments, optional named arguments with defaults, and _argument sinks_ for variadic inputs. A key convenience is the shorthand for passing content as the last argument using brackets (`[...]`). Functions implicitly join multiple content pieces and return them without requiring an explicit `return` statement, streamlining common use cases like document formatting. However, the section notes that functions in Typst lack explicit return types or visibility modifiers, which could aid in abstraction.
 
-- Modules. Typst conflates modules with files, simplifying the language design. Modules can be imported (`#import`) or inlined (`#include`).
-- Typst, highlights implicit copying to prevent side effects. This enables as a trade-off between predictability and performance.
+/ Modules: simplify the language design. Modules can be imported (`#import`) or inlined (`#include`). Typst, highlights implicit copying to prevent side effects. This enables as a trade-off between predictability and performance.
 
 
 == Value semantics and coercion
@@ -534,10 +568,10 @@ A unique feature is _implicit coercion_: values like numbers or strings are auto
 == Modules
 As aforementioned, Typst's other form of abstraction is modules. There are three ways to _import_ a module:
 
-- `#import "mymodule.typ"` makes `mymodule` _visible_. Then, it is possible to write `mymodule.functionality` to access what it is
+/ `#import "mymodule.typ"`: makes `mymodule` _visible_. Then, it is possible to write `mymodule.functionality` to access what it is
   defined with `let functionality = ...` in `mymodule.typ`.
-- `#import "mymodule.typ": functionality` puts `functionality` directly in scope, so that a prefix is not needed anymore.
-- `#include "mymodule.typ"` inlines the _content_ (and only the content) from "mymodule.typ".
+/ `#import "mymodule.typ" `: functionality puts `functionality` directly in scope, so that a prefix is not needed anymore.
+/ `#include "mymodule.typ"`: inlines the _content_ (and only the content) from `mymodule.typ`.
 
 Modules do not give the user/developer any way to mark items as
 public or private. Thus every `let` statement in the whole module is exported (_public_). Some users#footnote("https://justinpombrio.net/2024/11/30/typst.html") have suggested some _solutions_, such as extending `set/show` to user-defined functions (e.g., `set sequence(codon-sep: "-")`) and improving `show` to tweak elements without reimplementing them entirely, like adding decorations to headings robustly.
@@ -551,37 +585,33 @@ Packages are typically stored in a directory hierarchy following the pattern `{n
 #figure(
   kind: image,
   placement: none,
-  caption: [Complex image manipulation via the `grayness` WASM plugin.],
-  [#stack(dir: ltr, spacing: 45pt, [`image-show`], [`image-blur`], [`image-darken`])
-    #stack(
-      dir: ltr,
-      spacing: 2pt,
-      image-show(data, width: 33%),
-      image-blur(data, sigma: 20, width: 33%),
-      image-darken(data, amount: 0.4, width: 33%),
-    )],
+  caption: [Complex image manipulation via the #package-link("Grayness") WASM plugin.],
+
+  [
+    #stack(dir: ltr, spacing: 2pt, image-show(data, width: 33%), image-blur(data, sigma: 20, width: 33%), image-darken(
+      data,
+      amount: 0.4,
+      width: 33%,
+    ))],
+  //image("mileva all.jpg"),
 ) <fig:mileva>
 == Web technologies <sec:wasm>
 As introduced in @sec:computed, Typst leverages WebAssembly (WASM) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to WASM, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
 
 
-As an example, the `neoplot` package for Typst is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The `grayness`#footnote("https://github.com/nineff/grayness") package allows the application of complex image manipulation algorithms (@fig:mileva).
+As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote("https://github.com/nineff/grayness") package allows the application of complex image manipulation algorithms (@fig:mileva).
 
 
 #figure(
-  code-grid("neoplot example.typ"),
-  caption: [Parabola plot with the `neoplot` WASM-based package.],
+  code-grid("neoplot example.typ", leftcol: 1.7fr),
+  caption: [Parabola plot with the Neoplot WASM-based package.],
   kind: image,
   placement: none,
 ) <fig:neoplot>
 
 
-
-
-
-
 == Security <sec:sec>
-The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. Additionally, Typst prohibits features like _shell escapes_ and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the TeX-sphere @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
+The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. Additionally, Typst prohibits features like _shell escapes_ and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the _TeX-sphere_ @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
 
 
 
@@ -589,28 +619,29 @@ The Typst compiler ensures safety by implementing strict security measures that 
 Typst's introspection system provides a suite of functions that enable dynamic interaction with a document's structure and content. Central to this system are functions like `counter` and `query`. The `counter` function allows for tracking and manipulating counts of elements such as pages, headings, figures, and equations. Users can access current counter values, display them in various formats, and even define custom counters for specific needs. For instance, one can create a custom counter to number specific elements uniquely throughout the document. On the other hand, the `query` function facilitates searching the document for elements that match certain criteria, such as all headings of a particular level or elements with specific labels. This is particularly useful for generating dynamic content like tables of contents or lists of figures, as it allows for real-time retrieval and display of relevant elements based on the document's current state.
 
 Complementing these are functions like `here`, `locate`, and `metadata`, which offer deeper insights into the document's structure:
-- The `here` function retrieves the current location within the document, which can be used in conjunction with other functions to determine positional information. For example, combining `here` with `query` can yield the number of specific elements preceding the current point.
-- The `locate` function identifies the position of a specific element, allowing for precise referencing or manipulation based on location.
-- Additionally, the `metadata` function enables embedding arbitrary values into the document without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
+/ `here`: retrieves the current location within the document, which can be used in conjunction with other functions to determine positional information. For example, combining `here` with `query` can yield the number of specific elements preceding the current point.
+/ `locate`: identifies the position of a specific element, allowing for precise referencing or manipulation based on location.
+/ `metadata`: function enables embedding arbitrary values into the document without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
 
 == Integrated development environments
 Typst integrates seamlessly with existen integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like Tinymist#footnote("https://github.com/Myriad-Dreamin/tinymist"), provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
+
 #figure(
   image("vscode.jpg"),
   kind: image,
   caption: [Typst can also be used through modern code editors.],
-  placement: top,
+  placement: none,
 ) <fig:vscode>
 
 == Export options
-As of April 2025, Typst supports exporting documents in three formats: PDF, SVG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web app. SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selections. HTML export is currently experimental (@fig:compiler) and under active development; it requires enabling a feature flag (`--features html`) in the CLI, supports basic markup elements, and is not yet available in the web app.
+As of mid 2025, Typst supports exporting documents in three formats: PDF, SVG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web app. SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selections. HTML export is currently experimental (@fig:compiler) and under active development; it requires enabling a feature flag (`--features html`) in the CLI, supports basic markup elements, and is not yet available in the web app.
 
 = Web application <sec:typstapp>
 The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and Notion#footnote("https://www.notion.com"), highlight a broader trend: the cloud is breaking down barriers to access, fostering collaboration, and integrating advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
   image("typstapp2.jpg", width: 100%),
-  placement: bottom,
+  placement: none,
   caption: [Screenshot of the Typst.app web application.],
 ) <fig:typstapp>
 
@@ -618,11 +649,11 @@ Papeeria#footnote("https://papeeria.com") and Authorea#footnote("https://www.aut
 
 The Typst online editor (@fig:typstapp) is a collaborative, web-based platform designed for creating and typesetting documents with Typst, a modern markup-based typesetting system. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for drafting academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images, equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration through the WebSockets standard @Lombardi2015, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
 
-The development team is actively working on improvements, including better mobile usability and additional features like offline PWA support and private templates for teams. The editor is available for free with basic features, while a Pro#footnote("https://typst.app/pro") subscription unlocks advanced capabilities like Git integration, presentation mode, and increased storage.
+The development team is actively working on improvements, including better mobile usability and additional features like offline PWA support and private templates for teams. The editor is available for free with basic features, while a _pro_#footnote("https://typst.app/pro") subscription unlocks advanced capabilities like Git integration, presentation mode, and increased storage.
 
 #let image-width = 100%
 #figure(
-  placement: bottom,
+  placement: none,
   //caption: [Some journal Typst-based templates already qualified to be used for editorial pourposes: _Joint Accelerator Conferences Website_#footnote("https://jacow.org"), _Journal of Machine Learning Research_#footnote("https://www.jmlr.org"), _Institute of Electrical and Electronics Engineers_#footnote("https://ieee.org"), and _Multidisciplinary Digital Publishing Institute_#footnote("https://mdpi.com").],
   caption: [Some Typst-based journal templates already qualified to be used for editorial pourposes: _Institute of Electrical and Electronics Engineers_#footnote("https://ieee.org"), and _Multidisciplinary Digital Publishing Institute_#footnote("https://mdpi.com").],
   grid(
@@ -647,7 +678,7 @@ Finally, although not its intention, the online service Typst.app can also be us
 
 #figure(
   image("universe3.jpg"),
-  placement: top,
+  placement: none,
   caption: "A screenshot ot the Typst Universe website.",
 ) <fig:universe>
 
@@ -656,27 +687,802 @@ Typst Universe#footnote("http://typst.app/universe") is an online platform that 
 
 #figure(
   align(center)[#table(
-      columns: (0.9fr, 4fr),
-      align: (right, left), stroke: 0.01cm,
-      table.header([*Package*], [*Description*]),
-      table.hline(),
-      [`touying`], [A powerful package for creating presentation
-        slides.],
-      [`unify`], [Simplifies the typesetting of numbers, units,
-        and ranges, similar to LaTeX's
-        `siunitx`.],
-      [`finite`], [Renders finite automata diagrams using
-        `CeTZ`.],
-      [`tiaoma`], [A barcode generator that supports various
-        barcode types by compiling Zint to
-        WebAssembly.],
-      [`problemst`], [Provides a simple template for problem sets,
-        homeworks, or
-        assignments.], [`quill`], [Quill is a package for quantum circuit diagrams#footnote("https://github.com/Mc-Zen/quill").]
-    )],
+    columns: (0.9fr, 4fr),
+    align: (right, left),
+    stroke: 0.01cm,
+    table.header([*Package*], [*Description*]),
+    table.hline(),
+    [Touying],
+    [A powerful package for creating presentation
+      slides.],
+    [Unify],
+    [Simplifies the typesetting of numbers, units,
+      and ranges, similar to LaTeX's
+      siunitx @Wright11.],
+    [Finite],
+    [Renders finite automata diagrams using
+      `CeTZ`.],
+    [Tiaoma],
+    [A barcode generator that supports various
+      barcode types by compiling Zint to
+      WebAssembly.],
+    [Problemst],
+    [Provides a simple template for problem sets,
+      homeworks, or
+      assignments.],
+    [Quill],
+    [Quill is a package for quantum circuit diagrams#footnote("https://github.com/Mc-Zen/quill").],
+  )],
   kind: table,
   caption: "Some of the most reputed packages in Typst Universe.",
 ) <tab:packages>
+
+
+
+
+= Application of Typst for theoretical Physics <sec:theophys>
+#import "@preview/commute:0.3.0": *
+#import "@preview/cetz:0.3.4": *
+#let scr(it) = text(features: ("ss01",), box($cal(it)$))
+
+Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the `CeTZ` package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
+
+#figure(
+  caption: [Penrose-Carter diagram of the Schwarzschild manifold.
+    //The $I$ region corresponds to the exterior (universe) region, the $I I$ region corresponds to the interior of the black hole, the $I I I$ corresponds to a parallel exterior region and the $I V$ region is the interior of a white hole. Moreover, $i^(plus.minus)$ denotes future/past temporal infinity, $scr(I)^(plus.minus)$ denotes future/past null infinity and $i^(0)$ denotes spatial infinity @Wald84.
+  ],
+  align(center)[
+    #canvas(
+      length: 2cm,
+      {
+        import draw: content, line
+
+        // define colors and line thickness
+        //let teal = rgb("008080")
+        let teal = blueunir
+        //let brown = rgb("A52A2A")
+        let brown = blue
+        let lt = 0.6pt
+
+        // define the function for the kruskal coordinate wordlines and auxilliary variables
+        let nx = 100
+        let M = 1
+        let Nlines = 4
+        let xmax = 2
+        let xmin = 0
+
+        let kruskal(x, c) = calc.asin(c * calc.sin(2 * x)).rad() * (2 / calc.pi)
+
+        let wordlines-universe(xoffset, yoffset, color) = {
+          for i in range(0, Nlines) {
+            let c = 2 * i / (Nlines + 1)
+            let cs = calc.sin(c)
+            line(stroke: (paint: color, thickness: 0.4pt), ..(
+              for x in range(0, nx + 1) {
+                let x = xmin + x / nx * (xmax - xmin)
+                ((xoffset + x, yoffset - kruskal(x * calc.pi / 4, cs)),)
+              }
+            ))
+            line(stroke: (paint: color, thickness: 0.4pt), ..(
+              for x in range(0, nx + 1) {
+                let x = xmin + x / nx * (xmax - xmin)
+                ((xoffset + x, yoffset + kruskal(x * calc.pi / 4, cs)),)
+              }
+            ))
+            line(stroke: (paint: color, thickness: 0.4pt), ..(
+              for x in range(0, nx + 1) {
+                let x = xmin + x / nx * (xmax - xmin)
+                ((xoffset + 1 - kruskal(x * calc.pi / 4, cs), yoffset + x - 1),)
+              }
+            ))
+            line(stroke: (paint: color, thickness: 0.4pt), ..(
+              for x in range(0, nx + 1) {
+                let x = xmin + x / nx * (xmax - xmin)
+                ((xoffset + 1 + kruskal(x * calc.pi / 4, cs), yoffset + x - 1),)
+              }
+            ))
+          }
+        }
+
+        // add the singularity lines first.
+        // we do this because then we will overlap other object and we can just fill this with color. Only downside is that the zizag line on the bottom is a bit wonky
+        decorations.zigzag(
+          line((-1, 1), (+1, 1), (1, -1), (-1, -1)),
+          amplitude: .03,
+          segments: 101,
+          fill: red.lighten(95%),
+          stroke: (paint: blueunir, thickness: .05cm),
+          thickness: 0.15pt,
+          name: "origin-top",
+        )
+
+        // normal lines, plus colors to denote
+        line(
+          (0, 0),
+          (1, 1),
+          (2, 0),
+          (1, -1),
+          (0, 0),
+          stroke: (paint: black, thickness: lt),
+          fill: blue.lighten(95%),
+          name: "universe",
+        )
+        line(
+          (0, 0),
+          (-1, 1),
+          (-2, 0),
+          (-1, -1),
+          (0, 0),
+          stroke: (paint: black, thickness: lt),
+          fill: teal.lighten(95%),
+          name: "alt-universe",
+        )
+
+        wordlines-universe(0, 0, blue)
+        wordlines-universe(-2, 0, teal)
+
+        // manually add wordlines for the inside of the black hole and white hole
+        let xoffset = 1
+        let yoffset = 1
+
+        for i in range(1, Nlines) {
+          let c = 2 * i / (Nlines + 1)
+          line(stroke: (paint: brown, thickness: 0.4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = xmin + x / nx * (xmax - xmin)
+              let cs = calc.sin(c)
+              ((x - xoffset, -kruskal(x * calc.pi / 4, cs) + yoffset),)
+            }
+          ))
+          line(stroke: (paint: brown, thickness: 0.4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = xmin + x / nx * (xmax - xmin)
+              let cs = calc.sin(c)
+              ((x - xoffset, +kruskal(x * calc.pi / 4, cs) - yoffset),)
+            }
+          ))
+        }
+
+        for i in range(0, Nlines) {
+          let c = 2 * i / (Nlines + 1)
+          let cs = calc.sin(c)
+          line(stroke: (paint: brown, thickness: 0.4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = xmin + x / nx * (xmax - xmin) / 2
+              ((1 - xoffset - kruskal(x * calc.pi / 4, cs), x - 1 + yoffset),)
+            }
+          ))
+          line(stroke: (paint: brown, thickness: 0.4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = xmin + x / nx * (xmax - xmin) / 2
+              ((1 - xoffset + kruskal(x * calc.pi / 4, cs), x - 1 + yoffset),)
+            }
+          ))
+          line(stroke: (paint: brown, thickness: 0.4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = (xmin + xmax) / 2 + x / nx * (xmax - xmin) / 2
+              ((1 - xoffset + kruskal(x * calc.pi / 4, cs), x - 1 - yoffset),)
+            }
+          ))
+          line(stroke: (paint: brown, thickness: .4pt), ..(
+            for x in range(0, nx + 1) {
+              let x = (xmin + xmax) / 2 + x / nx * (xmax - xmin) / 2
+              ((1 - xoffset - kruskal(x * calc.pi / 4, cs), x - 1 - yoffset),)
+            }
+          ))
+        }
+
+        // add labels for spacetime regions
+        content((rel: (0, 0), to: "universe.centroid"), box(
+          fill: blue.lighten(95%),
+          inset: 2.5pt,
+          radius: 3pt,
+          stroke: none,
+          [$I$],
+        ))
+
+        content((rel: (0, 0), to: "alt-universe.centroid"), box(
+          fill: blue.lighten(95%),
+          inset: 2.5pt,
+          radius: 4pt,
+          stroke: none,
+          [$I I I$],
+        ))
+
+        content((0, +0.63), box(fill: brown.lighten(95%), inset: 2.5pt, radius: 4pt, stroke: none, [$I I$]))
+
+        content((0, -0.63), box(fill: brown.lighten(95%), inset: 2.5pt, radius: 7pt, stroke: none, [$I V$]))
+
+        content((0, 1.15), $r = 0$)
+        content((0, -1.15), $r = 0$)
+        content((rel: (0.05, 1.05), to: "universe.centroid"), $i^(+)$, anchor: "west")
+        content((rel: (0.5, 0.6), to: "universe.centroid"), $scr(I)^(+)$, anchor: "west")
+        content((rel: (1.05, 0.02), to: "universe.centroid"), $i^(0)$, anchor: "west")
+        content((rel: (0.5, -0.6), to: "universe.centroid"), $scr(I)^(-)$, anchor: "west")
+        content((rel: (0.05, -1.05), to: "universe.centroid"), $i^(-)$, anchor: "west")
+
+        // redraw lines on top to avoid wordlines getting on  the way
+        line((0, 0), (1, 1), (2, 0), (1, -1), (0, 0), stroke: (paint: blueunir, thickness: .05cm))
+        line((0, 0), (-1, 1), (-2, 0), (-1, -1), (0, 0), stroke: (paint: blueunir, thickness: .05cm))
+      },
+    )
+  ],
+)<fig:penrose-carter>
+
+In addition to spacetime visualizations, Typst's `CeTZ` package can be applied to particle physics through the creation of Feynman diagrams. In particle physics, we relate the initial and final states of a physical system via a mathematical object, called the scattering matrix or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted on @fig:feynman-diagram.
+
+#figure(
+  caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$.],
+  align(center)[
+    #canvas({
+      import draw: circle, content, line, mark
+      let marklen = 0.15 // length of the arrowhead
+      let r = 0.8 // Radius of the loop
+      let fs = 7pt // Font size for math
+
+      let arrow-style = (
+        mark: (end: "stealth", fill: black, scale: .5, angle: 50deg, length: marklen, width: .25),
+      )
+
+      let mark-arrow-style = (
+        symbol: "stealth",
+        fill: blueunir,
+        stroke: blueunir,
+        mark: (width: .5, length: marklen, stroke: .7pt, angle: 60deg, scale: .7, fill: black),
+      )
+
+      let linemidmark(x1, y1, x2, y2, lname) = {
+        line((x1, y1), (x2, y2), name: lname, stroke: blueunir)
+        let angl = calc.atan2(x2 - x1, y2 - y1)
+        let xmark = (x1 + x2) / 2 + marklen * calc.cos(angl)
+        let ymark = (y1 + y2) / 2 + marklen * calc.sin(angl)
+        mark((xmark, ymark), (x2, y2), ..mark-arrow-style)
+      }
+
+      let rel-mom-arrow(len, obj, anchor, name) = {
+        for i in range(2) {
+          let start = (name: obj, anchor: "start")
+          difpose.at(i) = (name: obj, anchor: "start").at(i) - (name: obj, anchor: "end").at(i)
+        }
+        let centroid = (name: obj, anchor: "start")
+        let Dx = difpos.at(0)
+        let Dy = difpos.at(1)
+        let angl = calc.atan2(Dx, Dy)
+        let start = centroid + (+len * calc.cos(angl), +marklen * calc.sin(angl))
+        let end = centroid + (-len * calc.cos(angl), -marklen * calc.sin(angl))
+        line(start, end, ..arrow-style, anchor: anchor, name: name, padding: 5pt)
+        content((rel: (-0, 0.3), to: "p1"), $p$)
+      }
+
+      linemidmark(-2, 0, -3, 1, "e+1")
+      linemidmark(-3, -1, -2, 0, "e-1")
+      linemidmark(3, 1, 2, 0, "e+2")
+      linemidmark(2, 0, 3, -1, "e-2")
+
+      decorations.wave(
+        line((-2, 0), (-r, 0)),
+        amplitude: 0.2,
+        segments: 3,
+        stroke: blueunir,
+        name: "photon1",
+      )
+      decorations.wave(
+        line((r, 0), (2, 0)),
+        amplitude: 0.2,
+        segments: 3,
+        stroke: blueunir,
+        name: "photon2",
+      )
+      content("e+1.end", anchor: "north-east", padding: 1pt, $e^(+)$)
+      content("e-1.start", anchor: "south-east", padding: 1pt, $e^(-)$)
+      content("e+2.start", anchor: "north-west", padding: 1pt, $e^(+)$)
+      content("e-2.end", anchor: "south-west", padding: 1pt, $e^(-)$)
+      content((-r / 2 - 1, -0.3), $gamma$)
+      content((+r / 2 + 1, -0.3), $gamma$)
+      circle(
+        (0, 0),
+        radius: r,
+        fill: white,
+        mark: (symbol: "stealth", pos: (ratio: 40%)),
+        name: "loop",
+        stroke: blueunir,
+      )
+      for (label, pos) in (($$, "0.25"), ($$, "0.75")) {
+        let angle = float(pos) * 360
+        // Add arrow marks
+        mark(
+          symbol: "stealth",
+          (name: "loop", anchor: (angle) * 1deg),
+          (name: "loop", anchor: (angle + 1) * 1deg),
+          ..mark-arrow-style,
+        )
+      }
+    })
+  ],
+) <fig:feynman-diagram>
+
+Another different diagram, common in maths and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram @fig:commutative-diagram appears, and we can handily reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
+
+#figure(
+  caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex @Giachetta09.],
+  align(center)[#commutative-diagram(
+      node-padding: (32pt, 30pt),
+      node((0, -1), $dots$, "dots_upper"),
+      node((0, 0), $cal(O)^(n-1)_infinity$, "n-1"),
+      node((0, 1), $cal(O)^(n)_infinity$, "n"),
+      node((0, 2), $cal(O)^(n+1)_infinity$, "n+1"),
+      node((0, 3), $cal(O)^(n+2)_infinity$, "n+2"),
+      node((0, 4), $dots$, "dots_upper_right"),
+      node((1, -1), $dots$, "dots_lower"),
+      node((1, 0), $cal(O)^(0, n-1)_infinity$, "0, n-1"),
+      node((1, 1), $cal(O)^(0, n)_infinity$, "0, n"),
+      node((1, 2), $bold(E)_(1)$, "E_1"),
+      node((1, 3), $bold(E)_(2)$, "E_2"),
+      node((1, 4), $dots$, "dots_lower_right"),
+      arr("dots_upper", "n-1", ""),
+      arr("n-1", "n", $d$),
+      arr("n", "n+1", $d$),
+      arr("n+1", "n+2", $d$),
+      arr("n+2", "dots_upper_right", ""),
+      arr("n-1", "0, n-1", $h_(0)$),
+      arr("n", "0, n", $h_(0)$),
+      arr("n+1", "E_1", $rho$),
+      arr("n-1", "0, n-1", $h_(0)$),
+      arr("n+2", "E_2", $h_(0)$),
+      arr("dots_lower", "0, n-1", ""),
+      arr("0, n-1", "0, n", $d_(H)$),
+      arr("0, n", "E_1", $delta$),
+      arr("E_1", "E_2", $delta$),
+      arr("E_2", "dots_lower_right", ""),
+    )
+  ],
+)<fig:commutative-diagram>
+
+The flexibility of the #package-link("CeTZ") package allows us to create a wide range of diagrams, while many other, not here mentioned, packages specialize in convenience and ease of use. Moreover, the near real-time output preview intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in physics and math, not just communicate them via papers, books, etc.
+
+
+#import "@preview/physica:0.9.5": *
+#import "@preview/unify:0.7.1": add-prefix, add-unit, num, numrange, qty, qtyrange, unit
+#import "@preview/mannot:0.3.0": *
+#import "@preview/atomic:1.0.0": atom
+#import "@preview/typsium:0.2.0": ce
+
+#set text(
+  lang: "es",
+)
+#set par(justify: true)
+
+= More on mathematics and scientific notation <sec:moremath>
+== Annotated Mathematics
+
+The #package-link("Mannot")#footnote("https://github.com/ryuryu-ymj/mannot") package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
+
+#v(3em)
+#figure(
+  caption: [#package-link("Mannot")-annotated math expression.],
+  $
+    mark(V_g, tag: #<vg>, color: blueunir) eq.triple
+    markrect(hat(k), tag: #<k>, color: #blue) crossproduct
+    markhl(\(1/(rho f), tag: #<rhof>, color: blueunir) markul(grad P, tag: #<gradientp>, color: #black)
+    #annot(<vg>, pos: left, dx: -2.0em)[Geostrophic wind])
+    #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
+    #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
+    #annot(<gradientp>, pos: top + right, dy: -1.0em)[Pressure gradient]#v(2em)
+  $,
+) <fig:mannot>
+
+
+Using Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
+
+The annotations are customizable in terms of style and positioning, allowing authors to fine-tune the didactic layout. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
+
+== Physics and Chemistry
+
+Scientific typesetting can be cumbersome, but packages like #package-link("Physica")#footnote("https://github.com/Leedehai/typst-physics") make it much more straightforward. Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from vector calculus to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted: $dd(x)$, $dv(T, t)$, $pdv(P, x)$, $pdv(rho, y, 2)$.
+
+#grid(
+  columns: (3.5fr, 1fr),
+  gutter: 1em,
+  [Regarding matrix and tensor operations, Hessian matrices can be written as easily as a single line: `$hmat(f; x, y)$`, which renders the matrix on the right.],
+  $hmat(f; x, y)$,
+)
+
+
+
+And tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the Dirac bra-ket notation: $bra(u) "and" ket(u)$.
+
+Isotopes can be easily typset with the #package-link("Typsium") package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
+
+#figure(
+  caption: [Signals rendered with the #package-link("Physica") package.],
+  $
+    "clk:" & signals("|1....|0....|1....|0....|1....|0....|1....|0..", step: #0.5em, color: blueunir) \
+    "bus:" & signals(" #.... X=... ..... ..... X=... ..... ..... X#.", step: #0.5em, color: blueunir)
+  $,
+) <fig:signals>
+
+For Chemistry, formulas and reactions can be easily written with `typsium`: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #package-link("Atomic") comes in handy (@fig:atom).
+
+#figure(kind: image, caption: [Atom shells rendered with the #package-link("Atomic") package.], grid(
+  columns: (2.2fr, 1fr),
+  gutter: 1em,
+  [
+    ```typc
+    #import "@preview/atomic:1.0.0": atom
+
+    #atom(8, 16, "O", (2, 6)]
+    ```],
+  atom(8, 16, "O", (2, 6), step: 0.34, center: 0.4, orbitals: .7, color: softblueunir),
+)) <fig:atom>
+
+
+#import "kanban.typ": kanban, kanban-column, kanban-item
+#import "@preview/codly:1.3.0": *
+#import "@preview/codly-languages:0.1.8": codly-languages
+#import "@preview/chronos:0.2.1"
+#import "autofletcher.typ"
+#import "@preview/suiji:0.4.0": gen-rng-f, random-f
+#import "gantty.typ": gantt
+#import "@preview/cetz:0.3.4"
+
+
+#set scale(reflow: true)
+#show: codly-init
+#show raw: set text(font: "Fira Code")
+#show raw.where(block: true): set par(justify: false, leading: 0.5em)
+#codly(number-align: right, stroke: stroke(black), languages: codly-languages)
+
+
+
+
+= Application of Typst for Computer Science <sec:cs>
+
+Computer Science (CS) is a diverse field that covers algorithms and information
+theory, as well as computer hardware and software. Typst ecosystem can already
+accommodate it with many general-purpose packages and even more niche ones.
+
+== Algorithms & hardware
+#let Algorithmic = package-link("Algorithmic")
+#let Autofletcher = package-link("Autofletcher")
+#let Fletcher = package-link("Fletcher")
+#let Diagraph = package-link("Diagraph")
+#let Truthfy = package-link("Truthfy")
+#let CeTZ = package-link("CeTZ")
+
+For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudo code syntax. Also, the #Autofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown on @fig:flowchart.
+
+#let flowchart = autofletcher.diagram(
+  spacing: (2mm, 7mm),
+  node-stroke: 1pt,
+  edge-stroke: 1pt + blueunir,
+  node-inset: 0.1em,
+  edge-corner-radius: 0pt,
+  mark-scale: 70%,
+  {
+    import autofletcher: *
+    import fletcher.shapes: *
+    let height = 7mm
+    let node-style = (width: height * 2, height: height)
+    node = node.with(..node-style)
+    edge = edge.with(marks: (none, "|>"))
+    let angle-edge(a, b, right: true, ..args) = {
+      let angle = if right { "-|" } else { "|-" }
+      edge(a, (a, angle, b), b, ..args)
+    }
+    let zig-zag-edge(a, b) = edge(a, "d", ((), "-|", b), b)
+    let flowchart-placer = placer((0, 1), (1, 0))
+    let patch-nodes(args) = {
+      let (pos, nodes) = args
+      nodes = nodes.map(n => n.with(..node-style))
+      (pos, nodes)
+    }
+    let place-new-nodes(..args) = {
+      patch-nodes(place-nodes(..args, flowchart-placer))
+    }
+    let place-answers(spread: 1, dy: 1, ..args) = {
+      let placer = placer((1, dy), (-1, dy))
+      patch-nodes(place-nodes(..args, spread: spread, placer))
+    }
+    let place-node(pos, dx, dy) = {
+      patch-nodes(place-nodes(pos, 1, placer((dx, dy))))
+    }
+    let r = (0, 0)
+    node(r, shape: pill)[start]
+    let ((read-pos,), (read,)) = place-new-nodes(r, 1)
+    edge()
+    read(shape: parallelogram)[`read a, b, c`]
+    edge()
+    let ((q-pos,), (question,)) = place-new-nodes(read-pos, 1)
+    question(shape: diamond)[`a > b`]
+    let ((yes-pos, no-pos), (yes, no)) = place-answers(q-pos, 2, spread: 1.8)
+    angle-edge(q-pos, yes-pos, label: [yes])
+    yes(shape: diamond)[`a > c`]
+    angle-edge(q-pos, no-pos, label: [no])
+    no(shape: diamond)[`b > c`]
+    let old-q-pos = q-pos
+    let old-no-pos = no-pos
+    q-pos = yes-pos
+    let ((yes-pos1, no-pos1), (yes, no)) = place-answers(q-pos, 2)
+    angle-edge(q-pos, yes-pos1, label: [yes])
+    yes[`max = a`]
+    angle-edge(q-pos, no-pos1, label: [no])
+    no[`max = c`]
+    q-pos = old-no-pos
+    let ((yes-pos2, no-pos2), (yes, no)) = place-answers(q-pos, 2)
+    angle-edge(q-pos, yes-pos2, label: [yes])
+    yes[`max = b`]
+    angle-edge(q-pos, no-pos2, label: [no])
+    no[`max = c`]
+    let ((print-pos,), (print,)) = place-node(old-q-pos, 0, 4)
+    zig-zag-edge(no-pos1, print-pos)
+    zig-zag-edge(yes-pos1, print-pos)
+    zig-zag-edge(no-pos2, print-pos)
+    zig-zag-edge(yes-pos2, print-pos)
+    print(shape: parallelogram)[`print max`]
+    let (_, (end,)) = place-new-nodes(print-pos, 1)
+    edge()
+    end(shape: pill)[end]
+  },
+)
+
+#figure(
+  {
+    set text(font: "Liberation Sans")
+    set par(justify: false)
+    scale(95%, flowchart)
+  },
+  caption: [Example of a flowchart.],
+) <fig:flowchart>
+
+
+As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using WASM to render them without the need for an external program.
+#import "@preview/diagraph:0.3.0": *
+#let venn = read("venn.dot")
+#figure(
+  kind: image,
+  align(center + horizon, stack(
+    dir: ltr,
+    spacing: 1fr,
+    [#table(
+      columns: 2,
+      align: center,
+      table.vline(x: 1, start: 1),
+      table.header([$A$], [$B$]),
+      [🛼],
+      [💧],
+      [🦋],
+      [🪼],
+      [🐬],
+      [🪼],
+      [🩵],
+      [🪼],
+      [], [🥶],
+    )],
+    scale(73%, align(center)[
+      #raw-render(raw(venn, lang: "html"))
+    ]),
+  )),
+  caption: [Diagram of a Cartesian product of two emoji sets created with WASM, Graphviz and the #package-link("Diagraph") package.],
+) <fig:venn>
+
+
+
+
+
+
+#let item(..numbers) = {
+  set text(font: "Liberation Sans")
+  set table(
+    fill: softblueunir,
+    stroke: 0.5pt,
+    inset: 0.6em,
+  )
+  table(columns: numbers.pos().len(), ..numbers.pos().map(str))
+}
+
+#let tree = cetz.canvas({
+  import cetz.draw: *
+  import cetz.tree
+  let edge-color = rgb("#0300bc")
+  set-style(line: (
+    stroke: blueunir,
+    mark: (end: (symbol: "stealth", scale: 0.5, fill: edge-color)),
+  ))
+  tree.tree(name: "t", spread: 1.5, grow: 1.2, (
+    item(77, 15, 5, 32, 1, 12),
+    (
+      item(77, 15, 5),
+      (item(77), item(77)),
+      (
+        item(15, 5),
+        item(15),
+        item(5),
+      ),
+    ),
+    (
+      item(32, 1, 12),
+      (
+        item(32, 1),
+        item(32),
+        item(1),
+      ),
+      (item(12), item(12)),
+    ),
+  ))
+})
+
+
+
+#let Zap = package-link("Zap")
+#let Circuiteria = package-link("Circuiteria")
+#let Quill = package-link("Quill")
+
+For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware, you can benefit from circuit diagram packages:
+/ #Zap: draws electronic circuits that are aligned with IEC and IEEE/ANSI standards.
+/ #Circuiteria: draws block circuit diagrams for a more abstract layer.
+/ #Quill: draws quantum circuit diagrams with concise syntax.
+
+#figure(scale(90%, tree), caption: [Example of a tree diagram.]) <tree>
+== Software
+#let Codly = package-link("Codly")
+#let Lilaq = package-link("Lilaq")
+#let ReXLlenT = package-link("ReXLlenT")
+#let Chronos = package-link("Chronos")
+#let Pintorita = package-link("Pintorita")
+
+A prominent part of CS is software and software engineering. For that, Typst has:
+/ built-in listings: with automatic syntax highlighting (or custom
+  parsers/themes), that can be further enhanced with #Codly (@fig:listing),
+/ built-in data loading: functions for JSON, CSV, XML, etc. (or XLSX with #ReXLlenT) for generating native tables or #Lilaq graphs,
+/ sequence diagrams: provided by #Chronos (@fig:sequence),
+/ activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited WASM limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. @fig:compiler was also created with this package.
+
+#codly(zebra-fill: softblueunir, stroke: 1pt + blueunir, languages: (
+  rust: (name: "Rust", color: blueunir, stroke: blueunir),
+))
+
+#let listing = ```rust
+fn main() {
+    let x = 5u32;
+    let y = {
+        let x_squared = x * x; let x_cube = x_squared * x;
+    };
+    let z = { 2 * x; };
+}
+```
+
+
+#let sequence-diagram = chronos.diagram({
+  import chronos: *
+  _par("A", display-name: "Alice", show-bottom: false, color: softblueunir)
+  _par("B", display-name: "Bob", show-bottom: false, color: softblueunir)
+  _par("C", display-name: "Charlie", show-bottom: false, color: softblueunir)
+  _par("D", display-name: "Derek", show-bottom: false, color: softblueunir)
+  let style = (lifeline-style: (fill: blueunir))
+  _seq("A", "B", comment: "hello", enable-dst: true)
+  _seq("B", "B", comment: "self call", enable-dst: true)
+  _seq("C", "B", comment: "hello from thread 2", enable-dst: true, ..style)
+  _seq("B", "D", comment: "create", create-dst: true)
+  _seq("B", "C", comment: "done in thread 2", disable-src: true, dashed: true)
+  _seq("B", "B", comment: "rc", disable-src: true, dashed: true)
+  _seq("B", "D", comment: "delete", destroy-dst: true)
+  _seq("B", "A", comment: "success", disable-src: true, dashed: true)
+})
+
+#figure(
+  scale(90%, text(font: "Liberation Sans", sequence-diagram)),
+  caption: [Example of a sequence diagram.],
+) <fig:sequence>
+
+
+Typst scripting language can tackle a lot of problems, such as preprocessing data, visualizing data, implementing algorithms (e.g., sort, search, calendar-related, BNF-based recursive decent parser), generating raster images based on raw pixel data (supporting different pixel encodings), modifying SVG images with simple or regex-based substring replacement.
+
+#let Pyrunner = package-link("Pyrunner")
+#let Jogs = package-link("Jogs")
+#let Matryoshka = link(
+  "https://github.com/freundTech/typst-matryoshka",
+  "Matryoshka",
+)
+
+#figure(
+  listing,
+  caption: [Sample program written in Rust and its styled representation with the Codly package.],
+  kind: image,
+) <fig:listing>
+
+There are other several packages that ship with WASM plugins for different language compilers and interpreters, such as:
+/ #Pyrunner: for Python using RustPython,
+/ #Jogs: for JavaScript using QuickJS, or
+/ #Matryoshka: for running Typst inside Typst.
+
+The notable limitation within WASM-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these addons. The second, and more impactful limitation, is their slower execution time. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
+
+#let Prequery = package-link("Prequery")
+
+The #package-link("Prequery") package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of reports and other documents.
+
+#let MiTeX = package-link("MiTeX")
+#let Eqalc = package-link("Eqalc")
+#let eval = link("https://typst.app/docs/reference/foundations/eval/")[`eval`]
+#let idwtet = package-link("idwtet")
+
+Similarly, if a LaTeX math expression is generated, for example, by the SymPy library, it is possible to use it in Typst through the #MiTeX package, that will convert LaTeX math to Typst native math. This allows to have a single source of truth for math expressions. If the source comes from Typst, then with #Eqalc, it is possible to convert that math expression to a Typst function, e.g., for plotting graphs, or to a table, for automatically generated table of
+sampled input/output values. However, the current limitation of the package is that only one variable is allowed in the right hand side of the equation.
+
+== Other use cases
+#let self-example = package-link("self-example")
+#let pdf-embed = link(
+  "https://typst.app/docs/reference/pdf/embed/",
+  `pdf.embed`,
+)
+#let Gantyy = package-link("Gantyy")
+#let Timeliney = package-link("Timeliney")
+
+If you are going with a Typst implementation for solving a particular problem, to provide the result of the implementation and list its source code, the #eval built-in function can help with writing the code only once. Additionally, packages such as "#self-example" and "#idwtet" can be used as an abstraction.
+
+Reproducibility can be important, therefore saving a full source code, or an image, without necessarily including them visually in a document is desired. For this, Typst has a #pdf-embed function, than can embed an arbitrary sequence of bytes as files inside a PDF document, that can be later extracted if necessary.
+#let gantt_yaml = yaml("gantt.yaml")
+
+// Change, for instance, the colour of the milestones
+#let gant_style = (
+  gridlines: (
+    table: (stroke: (paint: blueunir), thickness: 1pt),
+  ),
+)
+#{ gantt_yaml.style = gant_style }
+
+#figure(
+  scale(65%, gantt(gantt_yaml)),
+  caption: "Example of a Gantt diagram.",
+) <fig:gantt>
+
+From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantyy (@fig:gantt). Separately, it is possible to replicate a modern Kanban board with Typst scripting system, where each task is a single line, which makes it easy to move tasks up and down or left and right between stages (@fig:kanban).
+
+
+
+
+
+#figure(
+  {
+    set align(left)
+    set par(justify: false)
+    // @typstyle off
+    kanban(
+      font-size: 0.59em,
+      font: "Liberation Sans",
+      kanban-column("Backlog", color: red,
+        kanban-item(stroke: rgb("#FF5733"))[41][high][Authorization and data validation],
+        kanban-item(stroke: rgb("#33FF57"))[18][high][Cart API integration],
+        kanban-item(stroke: rgb("#8D33FF"))[18][medium][City dropdown menu],
+        kanban-item(stroke: rgb("#FF33A1"))[7][medium][Dynamic cart item count],
+        kanban-item(stroke: rgb("#33C1FF"))[5][medium][Main page prototype],
+        kanban-item(stroke: rgb("#8D33FF"))[1][low][Tests for cart API],
+      ),
+      kanban-column("Work in progress", color: yellow,
+        kanban-item(stroke: rgb("#FF5733"))[7][medium][John][Checkout page],
+        kanban-item(stroke: rgb("#FF0000"))[18][medium][John][Stock availability check],
+        kanban-item(stroke: rgb("#33FF57"))[18][medium][Olivia][Add/remove book tests],
+        kanban-item(stroke: rgb("#33C1FF"))[7][medium][Stephen]["About Us" page layout],
+      ),
+      kanban-column("Testing", color: aqua,
+        kanban-item(stroke: rgb("#FF5733"))[18][high][John][Add-to-cart API],
+        kanban-item(stroke: rgb("#33C1FF"))[5][medium][Emily]["Contact Us" page],
+        kanban-item(stroke: rgb("#FFC300"))[5][medium][Alex]["News" page mockup],
+      ),
+      kanban-column("Done", color: green,
+        kanban-item(stroke: rgb("#FFC300"))[50][high][Michael][Books database],
+        kanban-item(stroke: rgb("#FF33A1"))[32][high][Stephen][Books catalog with filters],
+        kanban-item(stroke: rgb("#33FF57"))[1][low][Arthur]["About Us" page mockup],
+      ),
+    )
+  },
+  kind: image,
+  caption: [Example of a Kanban board made with the Kanban package.],
+) <fig:kanban>
+
+#let tiaoma = package-link("tiaoma")
+
+For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #tiaoma package, using a WASM version of Zint.
 
 
 
@@ -688,6 +1494,4 @@ Typst is a markup language for typesetting documents, combining ease of use, spe
 
 
 = Acknowledgment
-Authors would like to express their gratitude to the Typst community for their invaluable contributions. From active participation in forums and Discord channels, to the development of innovative packages and templates, all these efforts have been instrumental in shaping Typst's growth.
-
-Authors would also like to thank the courageus research journals and editorials, like IJIMAI (and its mothership, UNIR), for having bet of this typesetting ecosystem as a key technology for paper submission and scientifc dissemination.
+Authors would like to express their gratitude to the Typst community, with a special focus on their two creators and main developers, Martin Haug and Laurenz Mädje, for their invaluable contributions. They would also love to thank the Editorial Board of IJIMAI for taking a leap of faith regarding the inclusion of Typst as a default mechanism to submit scientific papers.

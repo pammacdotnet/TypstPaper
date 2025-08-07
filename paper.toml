@@ -1,3 +1,11 @@
+
+[[authors]]
+name = "Andrey Voynov"
+include = true
+corresponding = false
+institution = "Bauman Moscow State Technical University (BMSTU), Russia"
+bio = "Andrey Voynov is a master's student in software engineering with a strong passion for programming and free/open-source software. He began coding in QBasic and Pascal during school, actively competed in Informatics Olympiads, and earned a 2nd-degree diploma at the 2020 All-Russian Forum of Scientific Youth. Andrey has created hundreds of projects, contributed to many others, and since discovering Typst in 2023, uses it exclusively for documents and slides, promoting its adoption in Russia through teaching, curriculum updates, and feature contributions."
+
 [[authors]]
 name = "Alberto Corbi"
 include = true
@@ -7,13 +15,15 @@ institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137,
 bio = "Alberto Corbi an assistant professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
 
 
+
+
 [[authors]]
 name = "Pau Oliver"
 include = true
 corresponding = false
 email = "pau.oliver@uv.es"
 institution = "Universitat de València (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, España"
-bio = "Pau López Oliver is a budding theoretical physicist currently pursuing his Master's in Advanced Physics at the University of Valencia. He completed his undergraduate studies in Physics at the University of Murcia, where he developed a strong foundation in both theoretical and computational physics. Pau's academic interests span quantum mechanics, mathematical physics, and science communication. He actively shares his passion for physics through his personal website, where he documents projects such as calculating Planck’s constant using a Raspberry Pi and LEDs, and reflects on his academic journey. Beyond his studies, Pau is committed to making complex scientific concepts accessible and engaging, blending rigorous research with creative outreach."
+bio = "Pau López Oliver is a theoretical physicist with a M.Sc. in Advanced Physics at the University of Valencia. He completed his undergraduate studies in Physics at the University of Murcia, where he developed a strong foundation in both theoretical and computational physics. Pau's academic interests span quantum mechanics, mathematical physics, and science communication. He actively shares his passion for physics through his personal website (ploliver.github.io). Beyond his studies, Pau is committed to rigorous research with creative outreach."
 
 [[authors]]
 name = "David Gil"
@@ -21,8 +31,7 @@ include = true
 corresponding = false
 email = "david.gil@aemet.es"
 institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Barcelona, España"
-bio = "David Gil is a dedicated meteorologist at the Spanish State Meteorological Agency (AEMET), currently contributing to the development of the AEMET-γSREPS operational forecasting system. Simultaneously, he is pursuing a Bachelor's degree in Physics, demonstrating a strong commitment to enhancing his scientific expertise. His dual role allows him to apply theoretical knowledge to practical forecasting challenges, bridging the gap between academic study and real-world meteorological applications. David's work is instrumental in advancing the accuracy and reliability of weather predictions in Spain."
-
+bio = "David Gil is a dedicated meteorologist at the Spanish State Meteorological Agency (AEMET), currently contributing to the development of the γSREPS operational forecasting system. Simultaneously, he is pursuing a Bachelor's degree in Physics, demonstrating a strong commitment to enhancing his scientific expertise. His dual role allows him to apply theoretical knowledge to practical forecasting, bridging the gap between academic study and real-world meteorological applications. David's work advances the accuracy/reliability of weather predictions in Spain."
 
 [paper]
 abstract = "Typst is a modern, markup-based typesetting system designed for creating professional documents with a focus on simplicity and performance. Combining a clean syntax with powerful scripting capabilities, it allows users to write structured content while automating layout and styling. Unlike LaTeX, which is known for its steep learning curve and verbose syntax, Typst offers a more intuitive approach. It compiles documents incrementally, enabling faster rendering compared to traditional engines. Typst also integrates built-in version control and collaborative features, addressing gaps in other typesetting systems workflow. Compared to other alternatives, Typst is lighter and more approachable, though LaTeX remains dominant in academia due to its extensive package ecosystem. Alternatives like Markdown (with Pandoc) are simpler but lack Typst's fine-grained control over layout. Microsoft Word and other WYSIWYG tools offer ease of use but fall short in reproducibility and automation. Typst strikes a balance, blending Markdown's readability with TeX's precision, while adding modern features like real-time collaboration. Its growing library of templates and functions positions it as a compelling alternative for technical writing, academic papers, and beyond."
@@ -31,12 +40,12 @@ volume = 0
 number = 0
 starting-page = 1
 publication-year = 2025
-title = "Typst: a modern, fast and versatile typesetting engine"
+title = "Typst: a modern typesetting engine for science"
 doi = "10.9781/ijimai.XXXX.02.006"
 short-author-list = "M. Haug,  L. Mädje and A. Corbi"
 special-issue-title = "A special issue about something cool"
 special-issue = false
-keywords = "Typesetting system, Incremental parsers, Markup language, Paper composition, Reproducibility, Performance"
+keywords = ["Typesetting system", "Incremental parsers", "Markup language", "Paper composition", "Reproducibility", "Performance"]
 received-date = 2024-07-08
 accepted-date = 2024-12-18
 published-date = 2025-02-10

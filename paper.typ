@@ -1045,11 +1045,6 @@ The flexibility of the #package-link("CeTZ") package allows us to create a wide 
 #import "@preview/atomic:1.0.0": atom
 #import "@preview/typsium:0.2.0": ce
 
-#set text(
-  lang: "es",
-)
-#set par(justify: true)
-
 = More on mathematics and scientific notation <sec:moremath>
 == Annotated Mathematics
 

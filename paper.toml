@@ -11,7 +11,7 @@ name = "Alberto Corbi"
 include = true
 corresponding = true
 email = "alberto.corbi@unir.net"
-institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, España"
+institution = "The International University of La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, Spain"
 bio = "Alberto Corbi an assistant professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
 
 
@@ -22,7 +22,7 @@ name = "Pau Oliver"
 include = true
 corresponding = false
 email = "pau.oliver@uv.es"
-institution = "Universitat de València (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, España"
+institution = "The University of Valencia (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, Spain"
 bio = "Pau López Oliver is a theoretical physicist with a M.Sc. in Advanced Physics at the University of Valencia. He completed his undergraduate studies in Physics at the University of Murcia, where he developed a strong foundation in both theoretical and computational physics. Pau's academic interests span quantum mechanics, mathematical physics, and science communication. He actively shares his passion for physics through his personal website (ploliver.github.io). Beyond his studies, Pau is committed to rigorous research with creative outreach."
 
 [[authors]]
@@ -30,7 +30,7 @@ name = "David Gil"
 include = true
 corresponding = false
 email = "david.gil@aemet.es"
-institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Barcelona, España"
+institution = "The State Meteorological Agency (AEMET), Leonardo Prieto Castro, 8, Barcelona, Spain"
 bio = "David Gil is a dedicated meteorologist at the Spanish State Meteorological Agency (AEMET), currently contributing to the development of the γSREPS operational forecasting system. Simultaneously, he is pursuing a Bachelor's degree in Physics, demonstrating a strong commitment to enhancing his scientific expertise. His dual role allows him to apply theoretical knowledge to practical forecasting, bridging the gap between academic study and real-world meteorological applications. David's work advances the accuracy/reliability of weather predictions in Spain."
 
 [paper]

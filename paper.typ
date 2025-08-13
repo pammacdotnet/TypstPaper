@@ -1,6 +1,4 @@
-//#import "@local/ijimai:0.0.5": *
-//#import "ijimai2.typ": *
-#import "@local/ijimai:0.0.5": *
+#import "@preview/ijimai:0.0.5": *
 #let conf = toml("paper.toml")
 #let author-photos = conf.authors.map(author => read(author.name + ".jpg", encoding: none))
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show

@@ -86,7 +86,7 @@ Next it is a side-by-side example of the same TeX and Typst code and whose outpu
 #let affine-tex = read("affine example.tex")
 
 #figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
-  columns: (1fr, 1.4fr),
+  columns: (1fr, 1.25fr),
   rows: (auto, auto),
   gutter: 4pt,
   column-gutter: 0pt,

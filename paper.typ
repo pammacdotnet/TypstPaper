@@ -1224,7 +1224,7 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 
 
 As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using WASM to render them without the need for an external program.
-#import "@preview/diagraph:0.3.0": *
+#import "@preview/diagraph:0.3.5": *
 #let venn = read("venn.dot")
 #figure(
   kind: image,

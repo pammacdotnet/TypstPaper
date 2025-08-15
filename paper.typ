@@ -14,6 +14,10 @@
 #let LaTeX = text(font: "New Computer Modern")[*#metalogo.LaTeX*]
 #let typst = text(font: "Buenard", baseline: 0.26em, rgb("#229cac"))[*typst*]
 
+/// Automatically detect language via the file extension.
+#let code-block(file) = {
+  raw(read(file), lang: file.split(".").last(), block: true)
+}
 
 #let code-grid(typ-file, leftcol: 1fr) = {
   let typ = read(typ-file)
@@ -77,15 +81,16 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These extensions are called _packages_ in the Typst semantic field (@sec:package).
 
 Next it is a side-by-side example of the same TeX and Typst code and whose output is shown in @fig:affine:
-#let affine-typst = read("affine example/typst.typ")
-#let affine-latex = read("affine example/latex.tex")
+#let affine-typst = "affine example/typst.typ"
+#let affine-latex = "affine example/latex.tex"
 
 #figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
   columns: (1fr, 1.25fr),
   align: (_, y) => if y == 0 { center + horizon } else { auto },
   row-gutter: 4pt,
   grid.header(..(typst, LaTeX).map(strong)),
-  raw(affine-typst, lang: "typst", block: true), raw(affine-latex, lang: "latex", block: true),
+  code-block(affine-typst),
+  code-block(affine-latex),
 )) <tab:LaTeXvTypst>
 
 
@@ -99,7 +104,7 @@ Focusing on the renderer and local installs, Typst offers significantly faster a
     show heading: set text(9pt, weight: "bold")
     show heading: it => block(smallcaps(it.body))
     rect(stroke: 0.1mm, inset: (bottom: 1.5mm), context {
-      eval(affine-typst, mode: "markup")
+      eval(read(affine-typst), mode: "markup")
       // Maybe use Matryoshka package.
       counter(heading).update(counter(heading).get())
     })

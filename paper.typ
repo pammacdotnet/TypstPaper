@@ -1,6 +1,6 @@
 #import "@preview/ijimai:0.0.5": *
 #let conf = toml("paper.toml")
-#let author-photos = conf.authors.map(author => read(author.name + ".jpg", encoding: none))
+#let author-photos = conf.authors.map(author => read("photos/" + author.name + ".jpg", encoding: none))
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
 #show: ijimai.with(conf: conf, photos: author-photos, logo: image("unir logo.svg", width: 17.5%), bib-data: read(
   "bibliography.bib",

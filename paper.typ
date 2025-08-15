@@ -77,8 +77,8 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These extensions are called _packages_ in the Typst semantic field (@sec:package).
 
 Next it is a side-by-side example of the same TeX and Typst code and whose output is shown in @fig:affine:
-#let affine-typst = read("affine example.typ")
-#let affine-latex = read("affine example.tex")
+#let affine-typst = read("affine example/typst.typ")
+#let affine-latex = read("affine example/latex.tex")
 
 #figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
   columns: (1fr, 1.25fr),

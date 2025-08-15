@@ -1,4 +1,5 @@
 #import "@preview/ijimai:0.0.5": *
+#import "@preview/metalogo:1.2.0"
 #let conf = toml("paper.toml")
 #let author-photos = conf.authors.map(author => read("photos/" + author.name + ".jpg", encoding: none))
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
@@ -8,16 +9,10 @@
 ))
 #set text(lang: "en")
 
-#let latex = {
-  set text(font: "New Computer Modern")
-  box(width: 2.55em, {
-    place(top, dx: 0.1em, dy: .02cm, text(size: 0.7em)[L])
-    place(top, dx: 0.3em, text(size: 0.7em)[A])
-    place(top, dx: 0.7em)[T]
-    place(top, dx: 1.26em, dy: 0.22em)[E]
-    place(top, dx: 1.8em)[X]
-  })
-}
+// Both looks good/correct only with bold font.
+// Buenard font for some reason makes text jump high, hence the `baseline` fix.
+#let LaTeX = text(font: "New Computer Modern")[*#metalogo.LaTeX*]
+#let typst = text(font: "Buenard", baseline: 0.26em, rgb("#229cac"))[*typst*]
 
 
 #let code-grid(typ-file, leftcol: 1fr) = {
@@ -82,15 +77,15 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems, but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These extensions are called _packages_ in the Typst semantic field (@sec:package).
 
 Next it is a side-by-side example of the same TeX and Typst code and whose output is shown in @fig:affine:
-#let affine-typ = read("affine example.typ")
-#let affine-tex = read("affine example.tex")
+#let affine-typst = read("affine example.typ")
+#let affine-latex = read("affine example.tex")
 
 #figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
   columns: (1fr, 1.25fr),
   align: (_, y) => if y == 0 { center + horizon } else { auto },
   row-gutter: 4pt,
-  grid.header(..(text(rgb("#229cac"), "Typst"), latex).map(strong)),
-  raw(affine-typ, lang: "typst", block: true), raw(affine-tex, lang: "latex", block: true),
+  grid.header(..(typst, LaTeX).map(strong)),
+  raw(affine-typst, lang: "typst", block: true), raw(affine-latex, lang: "latex", block: true),
 )) <tab:LaTeXvTypst>
 
 
@@ -104,7 +99,7 @@ Focusing on the renderer and local installs, Typst offers significantly faster a
     show heading: set text(9pt, weight: "bold")
     show heading: it => block(smallcaps(it.body))
     rect(stroke: 0.1mm, inset: (bottom: 1.5mm), context {
-      eval(affine-typ, mode: "markup")
+      eval(affine-typst, mode: "markup")
       // Maybe use Matryoshka package.
       counter(heading).update(counter(heading).get())
     })
@@ -115,12 +110,13 @@ Focusing on the renderer and local installs, Typst offers significantly faster a
 Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the proyect hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences is presented in @tab:diffs.
 
 #figure(
-  align(center)[#table(
+  caption: [Main differences between LaTeX and Typst],
+  table(
     columns: (1fr, 2.0fr, 2.0fr),
-    align: (auto, left, left),
-    table.header(
-      [*Feature*], align(center)[*#latex*], align(center)[#text(fill: rgb("#229cac"), weight: "extrabold", "Typst")]
-    ),
+    align: (x, y) => {
+      if y == 0 { center + horizon } else if x == 0 { auto } else { left }
+    },
+    table.header(..([Feature], LaTeX, typst).map(strong)),
     table.hline(stroke: 1pt),
     stroke: .01cm,
     [Syntax],
@@ -169,9 +165,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
       `#for x in range(3)[...]`)],
     [Citations], [Managed through BibTeX], [Built-in (also Hayagriva)],
     [Deploy], [Heavy (GBs)], [Single binary (\~20MB)],
-  )],
-  kind: table,
-  caption: [Main differences between LaTeX and Typst],
+  ),
 ) <tab:diffs>
 
 = State of the art

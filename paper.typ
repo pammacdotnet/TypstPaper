@@ -8,11 +8,18 @@
   encoding: none,
 ))
 #set text(lang: "en")
+#set text(fallback: false, font: (
+  "Libertinus Serif",
+  "Noto Serif CJK SC",
+  "Noto Naskh Arabic UI",
+  "Noto Color Emoji",
+))
 
 // Both looks good/correct only with bold font.
 // Buenard font for some reason makes text jump high, hence the `baseline` fix.
+// See https://github.com/typst/typst/issues/6769.
 #let LaTeX = text(font: "New Computer Modern")[*#metalogo.LaTeX*]
-#let typst = text(font: "Buenard", baseline: 0.26em, rgb("#229cac"))[*typst*]
+#let typst = text(font: "Buenard", baseline: -0.04em, rgb("#229cac"))[*typst*]
 
 /// Automatically detect language via the file extension.
 #let code-block(file) = {
@@ -74,7 +81,23 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
   radius: 2pt,
 )
 
-#show raw: set text(size: 6.5pt, font: "Fira Code")
+// Add note about Noto Color Emoji being bad and glyphs not being centered,
+// or use another one.
+#show raw: set text(size: 6.5pt, font: (
+  "Fira Code",
+  "Noto Sans Mono CJK SC",
+  "Kawkab Mono",
+  "Noto Color Emoji",
+))
+#show math.equation: set text(font: (
+  "New Computer Modern Math",
+  "Noto Color Emoji",
+))
+#show raw: it => {
+  show emph: set text(font: "Fira Mono")
+  show strong: set text(font: "Fira Mono")
+  it
+}
 
 
 = Typst and LaTeX <sec:latex>
@@ -99,7 +122,7 @@ Focusing on the renderer and local installs, Typst offers significantly faster a
 
 #figure(
   {
-    set text(9pt, font: "Times", ligatures: false)
+    set text(9pt)
     show heading: set align(center)
     show heading: set text(9pt, weight: "bold")
     show heading: it => block(smallcaps(it.body))
@@ -335,11 +358,7 @@ One of Typst's key strengths is its composability: styles can be defined as func
     gutter: 1pt,
     [Global `set` rule], [Style mixin],
     [#v(.1cm)], [],
-    raw("#set text(
-  font: \"Times\",
-  ligatures: false,
-  size: 9pt,
-)", lang: "typst", block: true),
+    raw("#set text(9pt)", lang: "typst", block: true),
     raw(
       "#show heading: it => [
   #set align(center)

@@ -2,6 +2,7 @@
 [[authors]]
 name = "Andrey Voynov"
 include = true
+photo = "andrey.jpg"
 corresponding = false
 institution = "Bauman Moscow State Technical University (BMSTU), Russia"
 bio = "Andrey Voynov is a master's student in software engineering with a strong passion for programming and free/open-source software. He began coding in QBasic and Pascal during school, actively competed in Informatics Olympiads, and earned a 2nd-degree diploma at the 2020 All-Russian Forum of Scientific Youth. Andrey has created hundreds of projects, contributed to many others, and since discovering Typst in 2023, uses it exclusively for documents and slides, promoting its adoption in Russia through teaching, curriculum updates, and feature contributions."
@@ -9,6 +10,7 @@ bio = "Andrey Voynov is a master's student in software engineering with a strong
 [[authors]]
 name = "Alberto Corbi"
 include = true
+photo = "alberto.jpg"
 corresponding = true
 email = "alberto.corbi@unir.net"
 institution = "The International University of La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, Spain"
@@ -18,7 +20,8 @@ bio = "Alberto Corbi an assistant professor at the Universidad Internacional de 
 
 
 [[authors]]
-name = "Pau Oliver"
+name = "Pau López-Oliver"
+photo = "pau.jpg"
 include = true
 corresponding = false
 email = "pau.oliver@uv.es"
@@ -27,6 +30,7 @@ bio = "Pau López Oliver is a theoretical physicist with a M.Sc. in Advanced Phy
 
 [[authors]]
 name = "David Gil"
+photo = "david.jpg"
 include = true
 corresponding = false
 email = "dgilo@aemet.es"

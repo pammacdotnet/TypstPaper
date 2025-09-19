@@ -3,7 +3,7 @@ ${(x, 💩), (x, 🔥), (y, 💩)}\
   A times B = {(🍷,🍺) | 🍷 in B}$
 #table(
   columns: 6,
-  gutter: 4pt,
+  gutter: 2pt,
   stroke: 0.1pt,
   [炬], [كتاب], [🍺], [🤡], [🍷], [🤡],
   [#emoji.checkmark], [👻], [∆], math.arrow, emoji.alien, sym.angstrom)

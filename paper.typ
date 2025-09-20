@@ -140,12 +140,12 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 #figure(
   caption: [Main differences between LaTeX and Typst],
   table(
-    columns: (1.01fr, 2fr, 2.0fr),
+    columns: (1.01fr, 2fr, 2.0fr), // 2.01fr
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
     table.header(..([Feature], LaTeX, typst).map(strong)),
-    table.hline(stroke: 1pt),
+    table.hline(stroke: 1pt), // ugly
     stroke: .01cm,
     [Syntax],
     [Command-based (`\command{arg}`)],
@@ -202,6 +202,7 @@ These systems rely on compiling source text into formatted outputs like PDFs, se
     table.header(..([Challenge], [Description], [Algorithm/Approach]).map(strong)),
     table.hline(stroke: 1pt),
     "Paragraph breaking",
+    // Do table cells must be justified? The big spaces between words don't look good.
     [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
     [Knuth-Plass line breaking algorithm @Hassan15.],
     [Justification],
@@ -273,16 +274,17 @@ Other current WebAssembly-grounded integration solutions for computational docum
 - #package-link("Neoplot")#footnote[https://github.com/KNnut/neoplot], for generating plots with Gnuplot (see @fig:neoplot).
 - #package-link("Jlyfish")#footnote[https://github.com/andreasKroepelin/TypstJlyfish.jl], for integrating Julia code.
 - #package-link("Callisto")#footnote[https://github.com/knuesel/callisto], for reading and rendering Jupyter notebooks.
-- #package-link("Diagraph")#footnote[https://github.com/Robotechnic/diagraph], for binding simple Graphviz-based diagrams (see @fig:dot).
+- #package-link("Diagraph")#footnote[https://github.com/Robotechnic/diagraph], for binding simple Graphviz-based diagrams (see @fig:dot). // the figure is too far behind
 - #package-link("Nulite")#footnote[https://github.com/j-mueller/typst-vegalite], for plotting Vega-based charts.
 
 
 
 = The markup language <sec:markup>
-Typst employs straightforward markup syntax for standard formatting operations. For instance, headings can be created with the `=` symbol, while text can be italicized by enclosing it in `_underscores_`.
+Typst employs straightforward markup syntax for standard formatting operations. For instance, headings can be created with the `=` symbol, while text can be italicized by enclosing it in `_underscores_`. // inconsistent example/description narrative.
 
 Typst employs three distinct syntactical modes: markup, math, and code. By default, a Typst document operates in _markup mode_, which handles standard text formatting. _Math mode_ enables the composition of mathematical expressions, while _code mode_ provides access to Typst's scripting capabilities for dynamic content generation. Transitions between these modes are governed by specific markers (@tab:modes).
 
+// This table doesn't show the transitions between modes, like in a matrix.
 #figure(
   table(
     columns: (0.55fr, 1.5fr, 1.7fr),
@@ -300,6 +302,7 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 
 
 All this content is written in Unicode. Typst has embraced this computing standard as a first-class citizen (as can be seen in @fig:mathunicode), making it much more modern and intuitive than traditional typesetting systems.
+// First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability.
 
 #figure(
   code-grid("unicode math example.typ", left-column: 1.8fr),
@@ -432,6 +435,7 @@ Regarding data visualization, Typst also offers powerful capabilities through it
 
 On the other hand, CeTZ-Plot extends the CeTZ drawing library, offering functionalities for creating plots and charts within the CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids, and allows for detailed customization of plot elements. CeTZ-Plot is particularly suited for users who require intricate control over their visualizations and wish to integrate plots with other graphical elements.
 
+// I expected a cetz-plot example here
 #figure(
   code-grid("cetz example.typ", left-column: 1.55fr),
   caption: [Example of a Venn diagram composed through CeTZ.],
@@ -519,6 +523,7 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
   +++++++++ PDF
   ```,
 ) <fig:compiler>
+// Why not include HTML?
 
 
 == Abstraction and mutation
@@ -533,7 +538,7 @@ complexity by hiding irrelevant details through two primary mechanisms:
 == Value semantics and coercion
 Typst employs _value semantics_, meaning values are treated as if they are copied whenever they are passed or modified. This approach prevents unintended side effects and simplifies reasoning about code. For instance, modifying a dictionary inside a function or during iteration does not affect the original structure because the function or loop receives a copy. This avoids common pitfalls such as cyclic data structures, iterator invalidation, and unintended global mutations. As a result, code becomes easier to test and debug, and features like multi-threading are safer and simpler to implement. In Typst, even function arguments and global variables behave as immutable within the scope of a function, reinforcing this isolation.
 
-Although value semantics suggest potential performance costs due to frequent copying, Typst mitigates this with copy-on-write—data is only duplicated when it's modified and shared across references. This offers a practical balance between performance and clarity. Unlike some languages that explicitly distinguish between owned and shared data, Typst keeps its model implicit, which aligns well with its role as a typesetting tool. Users can focus on layout and content without needing to understand or manage complex memory models. For example, mutating a dictionary inside a function does not affect the original.
+Although value semantics suggest potential performance costs due to frequent copying, Typst mitigates this with copy-on-write—data is only duplicated when it's modified and shared across references. This offers a practical balance between performance and clarity. Unlike some languages that explicitly distinguish between owned and shared data, Typst keeps its model implicit, which aligns well with its role as a typesetting tool. Users can focus on layout and content without needing to understand or manage complex memory models. For example, mutating a dictionary inside a function does not affect the original. // same example as above
 
 // ```typ
 // #let modify(dict) = { dict.x = 100 }
@@ -576,7 +581,7 @@ Packages are typically stored in a directory hierarchy following the pattern `{n
 As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
 
 
-As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
+As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva). // too far back for referencing
 
 
 #figure(
@@ -601,9 +606,14 @@ Complementing these are functions like `here`, `locate`, and `metadata`, which o
 / `metadata`: function enables embedding arbitrary values without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
 
 == Integrated development environments
-Typst integrates seamlessly with existing integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like Tinymist#footnote[https://github.com/Myriad-Dreamin/tinymist], provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
+Typst integrates seamlessly with existing integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like Tinymist#footnote[https://github.com/Myriad-Dreamin/tinymist], provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting. // Mention Neovim etc.
 
 #figure(
+  // Update image:
+  // - use VSCodium (if UI is any different)
+  // - hide copilot
+  // - Use English (or create a i18n-like example, though one already exists)
+  // - include code that is on the screenshot
   image("vscode.jpg"),
   kind: image,
   caption: [Typst can also be used through modern code editors.],
@@ -755,6 +765,7 @@ The flexibility of the #package-link("CeTZ") package allows us to create a wide 
 #import "@preview/physica:0.9.5": *
 #import "@preview/unify:0.7.1": add-prefix, add-unit, num, numrange, qty, qtyrange, unit
 #import "@preview/mannot:0.3.0": *
+// Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.
 #import "@preview/atomic:1.0.0": atom
 #import "@preview/typsium:0.2.0": ce
 
@@ -785,6 +796,7 @@ The annotations are customizable in terms of style and positioning, allowing aut
 
 == Physics and Chemistry
 Scientific typesetting can be cumbersome, but packages like the aforementioned #package-link("Physica")#footnote[https://github.com/Leedehai/typst-physics] make it much more straightforward. Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from vector calculus to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
+// If quad is added in the preview, it must be added in the code.
 
 // #grid(
 //   columns: (3.5fr, 1fr),

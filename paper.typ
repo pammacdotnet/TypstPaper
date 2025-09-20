@@ -32,7 +32,7 @@
     columns: (leftcol, 1.0fr),
     rows: (auto, auto),
     gutter: 1pt,
-    raw(typ, lang: "typst", block: true), text(size: 7.5pt)[#eval(typ, mode: "markup")],
+    raw(typ, lang: "typst", block: true), text(size: 7.5pt, include typ-file),
   )
 }
 
@@ -442,7 +442,7 @@ It is worth mentionning the Typst #package-link("CeTZ") library#footnote("http:/
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #package-link("Lilaq")#footnote("https://lilaq.org") and #package-link("CeTZ-Plot")#footnote("https://github.com/cetz-package/cetz-plot"). The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
-  code-grid("lilaq example.typ", leftcol: 1.1fr),
+  code-grid("lilaq example/example.typ", leftcol: 1.1fr),
   caption: [Example of a plot made with the Lilaq plotting package.],
   kind: image,
   placement: none,

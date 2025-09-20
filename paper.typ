@@ -324,10 +324,10 @@ Typst makes styling documents flexible, and consistent with a modern and declara
 One of Typst's key strengths is its composability: styles can be defined as functions or _mixins_, enabling modular and reusable design systems. For instance, a custom heading style can encapsulate font choices, spacing, and numbering logic, then be reused across the document with variations. The system also handles inheritance and cascading predictably, avoiding the complexity seen in some web CSS models. By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
 #figure(
   placement: none,
-  caption: [Example of a global `set` command and `show` rule (on the heading elements) necessary to render the content of @fig:affine.],
+  caption: [Example of a global `set` rule and `show`-`set` & `show` rules (on the heading elements) necessary to render the content of @fig:affine.],
   kind: image,
   grid(
-    columns: (1.5fr, 2fr),
+    columns: (1fr, 3fr),
     gutter: 1pt,
     [Global `set` rule], [Style mixin],
     [#v(.1cm)], [],
@@ -335,11 +335,9 @@ One of Typst's key strengths is its composability: styles can be defined as func
     #set text(9pt)
     ```,
     ```typ
-    #show heading: it => [
-      #set align(center)
-      #set text(9pt, weight: \"bold\")
-      #block(smallcaps(it.body))
-    ]
+    #show heading: set align(center)
+    #show heading: set text(9pt)
+    #show heading: it => block(smallcaps(it.body))
     ```
   ),
 ) <fig:setshow>
@@ -472,13 +470,13 @@ Hayagriva#footnote[https://github.com/typst/hayagriva] is a Rust-based bibliogra
     ```yaml
     Corbi23:
       type: article
-      title: 'Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder'
+      title: "Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder"
       author:
-      - Corbi, Alberto
-      - Burgos, Daniel
-      - Pérez, Antonio María
+        - Corbi, Alberto
+        - Burgos, Daniel
+        - Pérez, Antonio María
       date: 2023
-      page-range: 893–902
+      page-range: 893-902
       parent:
         type: periodical
         title: IEEE Transactions on Learning Technologies

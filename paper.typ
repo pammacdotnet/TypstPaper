@@ -723,7 +723,6 @@ Typst Universe#footnote("http://typst.app/universe") is an online platform that 
 
 = Application of Typst for theoretical Physics <sec:theophys>
 #import "@preview/commute:0.3.0": *
-#import "@preview/cetz:0.3.4": *
 
 Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the `CeTZ` package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
 
@@ -738,93 +737,8 @@ Typst's robustness, powerful features and intuitive syntax make it an all-in-one
 In addition to spacetime visualizations, Typst's `CeTZ` package can be applied to particle physics through the creation of Feynman diagrams. In particle physics, we relate the initial and final states of a physical system via a mathematical object, called the scattering matrix or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted on @fig:feynman-diagram.
 
 #figure(
+  include "feynman diagram.typ",
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$.],
-  align(center)[
-    #canvas({
-      import draw: circle, content, line, mark
-      let marklen = 0.15 // length of the arrowhead
-      let r = 0.8 // Radius of the loop
-      let fs = 7pt // Font size for math
-
-      let arrow-style = (
-        mark: (end: "stealth", fill: black, scale: .5, angle: 50deg, length: marklen, width: .25),
-      )
-
-      let mark-arrow-style = (
-        symbol: "stealth",
-        fill: blueunir,
-        stroke: blueunir,
-        mark: (width: .5, length: marklen, stroke: .7pt, angle: 60deg, scale: .7, fill: black),
-      )
-
-      let linemidmark(x1, y1, x2, y2, lname) = {
-        line((x1, y1), (x2, y2), name: lname, stroke: blueunir)
-        let angl = calc.atan2(x2 - x1, y2 - y1)
-        let xmark = (x1 + x2) / 2 + marklen * calc.cos(angl)
-        let ymark = (y1 + y2) / 2 + marklen * calc.sin(angl)
-        mark((xmark, ymark), (x2, y2), ..mark-arrow-style)
-      }
-
-      let rel-mom-arrow(len, obj, anchor, name) = {
-        for i in range(2) {
-          let start = (name: obj, anchor: "start")
-          difpose.at(i) = (name: obj, anchor: "start").at(i) - (name: obj, anchor: "end").at(i)
-        }
-        let centroid = (name: obj, anchor: "start")
-        let Dx = difpos.at(0)
-        let Dy = difpos.at(1)
-        let angl = calc.atan2(Dx, Dy)
-        let start = centroid + (+len * calc.cos(angl), +marklen * calc.sin(angl))
-        let end = centroid + (-len * calc.cos(angl), -marklen * calc.sin(angl))
-        line(start, end, ..arrow-style, anchor: anchor, name: name, padding: 5pt)
-        content((rel: (-0, 0.3), to: "p1"), $p$)
-      }
-
-      linemidmark(-2, 0, -3, 1, "e+1")
-      linemidmark(-3, -1, -2, 0, "e-1")
-      linemidmark(3, 1, 2, 0, "e+2")
-      linemidmark(2, 0, 3, -1, "e-2")
-
-      decorations.wave(
-        line((-2, 0), (-r, 0)),
-        amplitude: 0.2,
-        segments: 3,
-        stroke: blueunir,
-        name: "photon1",
-      )
-      decorations.wave(
-        line((r, 0), (2, 0)),
-        amplitude: 0.2,
-        segments: 3,
-        stroke: blueunir,
-        name: "photon2",
-      )
-      content("e+1.end", anchor: "north-east", padding: 1pt, $e^(+)$)
-      content("e-1.start", anchor: "south-east", padding: 1pt, $e^(-)$)
-      content("e+2.start", anchor: "north-west", padding: 1pt, $e^(+)$)
-      content("e-2.end", anchor: "south-west", padding: 1pt, $e^(-)$)
-      content((-r / 2 - 1, -0.3), $gamma$)
-      content((+r / 2 + 1, -0.3), $gamma$)
-      circle(
-        (0, 0),
-        radius: r,
-        fill: white,
-        mark: (symbol: "stealth", pos: (ratio: 40%)),
-        name: "loop",
-        stroke: blueunir,
-      )
-      for (label, pos) in (($$, "0.25"), ($$, "0.75")) {
-        let angle = float(pos) * 360
-        // Add arrow marks
-        mark(
-          symbol: "stealth",
-          (name: "loop", anchor: (angle) * 1deg),
-          (name: "loop", anchor: (angle + 1) * 1deg),
-          ..mark-arrow-style,
-        )
-      }
-    })
-  ],
 ) <fig:feynman-diagram>
 
 Another different diagram, common in maths and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram @fig:commutative-diagram appears, and we can handily reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.

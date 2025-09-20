@@ -26,12 +26,14 @@
   raw(read(file), lang: file.split(".").last(), block: true)
 }
 
-#let code-grid(typ-file, leftcol: 1fr) = {
+#let code-grid(typ-file, gutter: 1pt, left-column: 1fr) = {
   let typ = read(typ-file)
+  let columns = if left-column == none { () } else { (left-column, 1.0fr) }
+  let align = if left-column == none { left } else { auto }
   grid(
-    columns: (leftcol, 1.0fr),
-    rows: (auto, auto),
-    gutter: 1pt,
+    columns: columns,
+    align: align,
+    gutter: gutter,
     raw(typ, lang: "typst", block: true), text(size: 7.5pt, include typ-file),
   )
 }
@@ -263,7 +265,7 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
-  code-grid("diagraph example.typ", leftcol: 1.6fr),
+  code-grid("diagraph example.typ", left-column: 1.6fr),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm.],
   kind: image,
   placement: none,
@@ -274,10 +276,9 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or WASM, tackled in @sec:wasm), the possibilities are almost endless.
 For instance, the package #package-link("Pyrunner")#footnote("https://typst.app/universe/package/pyrunner") allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
-#let pyrunner-typ = read("pyrunner example.typ")
 #figure(
-  raw(pyrunner-typ, lang: "typ", block: true),
-  caption: [Python code running at render time within a Typst document.],
+  code-grid("pyrunner example.typ", gutter: 0.5em, left-column: none),
+  caption: [Python code and its output produced by Pyrunner.],
   kind: image,
 ) <fig:pyrunner>
 
@@ -314,7 +315,7 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 All this content is written in Unicode. Typst has embraced this computing standard as a first-class citizen (as can be seen in @fig:mathunicode), making it much more modern and intuitive than traditional typesetting systems.
 
 #figure(
-  code-grid("unicode math example.typ", leftcol: 1.8fr),
+  code-grid("unicode math example.typ", left-column: 1.8fr),
   caption: [Example of modern Unicode use in Typst and math expressions.],
   kind: image,
   placement: none,
@@ -403,7 +404,7 @@ Typst offers robust support for mathematical expressions, providing a syntax tha
 
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
-  code-grid("physica example.typ", leftcol: 1.5fr),
+  code-grid("physica example.typ", left-column: 1.5fr),
   caption: [Example of advanced math with the #package-link("Physica") package#footnote[https://typst.app/universe/package/physica].],
   kind: image,
   placement: none,
@@ -423,7 +424,7 @@ Typst's visualize module#footnote("https://typst.app/docs/reference/visualize") 
 // Should be different to show the diversity.
 #figure(
   placement: none,
-  code-grid("gradient stack.typ", leftcol: 2fr),
+  code-grid("gradient stack.typ", left-column: 2fr),
   caption: [Gradient stack example showing Typst drawing capabilities.],
   kind: image,
 ) <fig:gradient>
@@ -432,7 +433,7 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 #figure(
   placement: none,
-  align(center)[#code-grid("chess example.typ", leftcol: 1.6fr)],
+  align(center)[#code-grid("chess example.typ", left-column: 1.6fr)],
   caption: [Chessboard tiled pattern (with the board-n-pieces package).],
   kind: image,
 ) <fig:chess>
@@ -442,7 +443,7 @@ It is worth mentionning the Typst #package-link("CeTZ") library#footnote("http:/
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #package-link("Lilaq")#footnote("https://lilaq.org") and #package-link("CeTZ-Plot")#footnote("https://github.com/cetz-package/cetz-plot"). The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
-  code-grid("lilaq example/example.typ", leftcol: 1.1fr),
+  code-grid("lilaq example/example.typ", left-column: 1.1fr),
   caption: [Example of a plot made with the Lilaq plotting package.],
   kind: image,
   placement: none,
@@ -451,7 +452,7 @@ Regarding data visualization, Typst also offers powerful capabilities through it
 On the other hand, CeTZ-Plot extends the CeTZ drawing library, offering functionalities for creating plots and charts within the CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids, and allows for detailed customization of plot elements. CeTZ-Plot is particularly suited for users who require intricate control over their visualizations and wish to integrate plots with other graphical elements.
 
 #figure(
-  code-grid("cetz example.typ", leftcol: 1.55fr),
+  code-grid("cetz example.typ", left-column: 1.55fr),
   caption: [Example of a Venn diagram composed through CeTZ.],
   kind: image,
   placement: none,
@@ -605,7 +606,7 @@ As an example, the #package-link("Neoplot") package is a specialized tool design
 
 
 #figure(
-  code-grid("neoplot example.typ", leftcol: 1.7fr),
+  code-grid("neoplot example.typ", left-column: 1.7fr),
   caption: [Parabola plot with the Neoplot WASM-based package.],
   kind: image,
   placement: none,

@@ -103,7 +103,7 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 
 #figure(
   kind: table,
-  caption: "Typst vs. LaTeX comparison example",
+  caption: [Typst vs. LaTeX comparison example],
   grid(
     columns: (1fr, 1.25fr),
     align: (_, y) => if y == 0 { center + horizon } else { auto },
@@ -140,7 +140,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 #figure(
   caption: [Main differences between LaTeX and Typst],
   table(
-    columns: (1.01fr, 2.0fr, 2.0fr),
+    columns: (1.01fr, 2fr, 2.0fr),
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
@@ -195,17 +195,15 @@ These systems rely on compiling source text into formatted outputs like PDFs, se
 
 #figure(
   caption: "Most important typesetting algorithms",
-  align(center)[#table(
+  table(
     columns: (1fr, 2fr, 2fr),
     align: (auto, auto, auto),
     stroke: .01cm,
-    table.header([#strong[Challenge];], [#strong[Description];], [#strong[Algorithm/Approach];]),
+    table.header(..([Challenge], [Description], [Algorithm/Approach]).map(strong)),
     table.hline(stroke: 1pt),
     "Paragraph breaking",
-    [Breaking text into lines with
-      aesthetically pleasing spacing/hyphenation],
-    [Knuth-Plass line
-      breaking algorithm @Hassan15.],
+    [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
+    [Knuth-Plass line breaking algorithm @Hassan15.],
     [Justification],
     [Lines align evenly at margins looking fine],
     [Spacing adjustments with the Knuth-Plass @Knuth81],
@@ -220,28 +218,22 @@ These systems rely on compiling source text into formatted outputs like PDFs, se
     [Correct glyphs depending on context],
     [Font shaping and context-sensitive glyphs @Rougier18],
     [Bidirectional Text],
-    [Mixing LTR and
-      RTL scripts],
-    [Unicode
-      Bidirectional Algorithm @Toledo01],
+    [Mixing LTR and RTL scripts],
+    [Unicode Bidirectional Algorithm @Toledo01],
     [Incremental Layout],
-    [Reusing layout computations
-      after small edits],
-    [Constraint-based
-      layout cache/region reuse @Fisher91],
+    [Reusing layout computations after small edits],
+    [Constraint-based layout cache/region reuse @Fisher91],
     [Styling and Theming], [Consistent styles across documents], [Style scope, cascades, and programmable layouts],
     [Unicode],
     [Modern scripts, ligatures, and grapheme clusters],
     [Shaping and grapheme line breaking @Elkhayati2022],
-  )],
-  kind: table,
+  ),
 ) <tab:typesetting>
 
 Historically, the development of markup-based systems began in the 1960s with tools like Runoff and evolved significantly with systems like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
 
 #figure(
-  kind: image,
   caption: [Evolution of some Typessetting technologies.],
   placement: none,
   include "typesetting systems.typ",
@@ -333,20 +325,19 @@ One of Typst's key strengths is its composability: styles can be defined as func
   kind: image,
   grid(
     columns: (1.5fr, 2fr),
-    rows: (auto, auto),
     gutter: 1pt,
     [Global `set` rule], [Style mixin],
     [#v(.1cm)], [],
-    raw("#set text(9pt)", lang: "typst", block: true),
-    raw(
-      "#show heading: it => [
-  #set align(center)
-  #set text(9pt, weight: \"bold\")
-  #block(smallcaps(it.body))
-]",
-      lang: "typst",
-      block: true,
-    ),
+    ```typ
+    #set text(9pt)
+    ```,
+    ```typ
+    #show heading: it => [
+      #set align(center)
+      #set text(9pt, weight: \"bold\")
+      #block(smallcaps(it.body))
+    ]
+    ```
   ),
 ) <fig:setshow>
 
@@ -358,16 +349,23 @@ Typst incorporates several control structures that facilitate dynamic content ge
 For iterative operations, Typst offers `for` and `while` loops. The `for` loop is versatile, capable of iterating over strings, arrays, dictionaries, and more. For example, `for letter in "abc" { letter }` processes each character in the string. Control statements like `break` and `continue` are available to manage loop execution, allowing for early exits or skipping iterations. The `while` loop continues execution as long as a specified condition remains true. These loops can be utilized within content blocks to dynamically generate document elements, such as populating tables or lists based on data structures.
 
 == Math
+#let lagrangian = ```typ
+$
+  cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
+  + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "h.c."\
+  - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) \
+  - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] \
+  + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu (u_L, d_L) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "h.c.   " \
+  - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] \
+  - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^tack.b vec(-d_L, u_L)] \
+  + (D_mu phi)^dagger D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2)
+$
+```
+
 #figure(
   placement: none,
   kind: image,
-  [
-    ```typ
-    $ cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
-    + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "(h.c.)" - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu ((u_L), (d_L)) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "(h.c.)" - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^T vec(-d_L, u_L)] + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2) $
-    ```
-
-  ],
+  lagrangian,
   caption: [Typst code for the lagrangian of the Standard Model.],
 ) <fig:sm>
 Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces can be added or newlines between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's `\left` and `\right` commands. This ensures that complex expressions are rendered clearly and accurately. For instance, the Typst math code in @fig:sm allows the typesetting of the lagrangian of the Standard Model of Physics (@fig:rsm).
@@ -375,23 +373,11 @@ Typst offers robust support for mathematical expressions, providing a syntax tha
 
 #figure(
   placement: none,
-  kind: image,
   caption: [Rendering of the code in @fig:sm],
-  align(
-    center,
-    rect(stroke: 0.005cm, outset: .0cm)[
-      #set par(leading: 0pt)
-      $
-        cal(L) = -1 / 4 B_(mu nu) B^(mu nu) - 1 / 8 tr(mathbf(W)_(mu nu) mathbf(W)^(mu nu)) - 1 / 2 tr(bold(G)_(mu nu) G^(mu nu)) \
-        + (macron(nu)_L, macron(e)_L) tilde(sigma)^mu i D_mu vec(nu_L, e_L) + macron(e)_R sigma^mu i D_mu e_R + macron(nu)_R sigma^mu i D_mu nu_R + "h.c."\
-        - sqrt(2) / mu [macron(nu)_L, macron(e)_L] phi M^e e_R + macron(e)_R macron(M)^e macron(phi) vec(nu_L, e_L) \
-        - sqrt(2) / mu [(- macron(e)_L, macron(nu)_L) phi^* M^nu nu_R + macron(nu)_R macron(M)^nu phi^T vec(-e_L, nu_L)] \
-        + (macron(u)_L, macron(d)_L) tilde(sigma)^mu i D_mu (u_L, d_L) + macron(u)_R σ^mu i D_mu u_R + macron(d)_R σ^mu i D_mu d_R + "h.c.   " \
-        - sqrt(2) / mu [(macron(u)_L, macron(d)_L) phi M^d d_R + macron(d)_R macron(M)^d macron(phi) vec(u_L, d_L)] \
-        - sqrt(2) / mu [(- macron(d)_L, macron(u)_L) phi^* M^u u_R + macron(u)_R macron(M)^u phi^tack.b vec(-d_L, u_L)] \
-        + (D_mu phi)^† D^mu phi - m_h^2 [macron(phi) phi - nu^2 / 2]^2 / (2 nu^2)
-      $],
-  ),
+  rect(stroke: 0.05mm, {
+    set par(leading: 0pt)
+    eval(lagrangian.text, scope: (mathbf: mathbf))
+  }),
 ) <fig:rsm>
 #import "@preview/physica:0.9.1": *
 
@@ -468,38 +454,33 @@ Hayagriva#footnote[https://github.com/typst/hayagriva] is a Rust-based bibliogra
     columns: (4.5fr, 5.5fr),
     rows: (auto, auto),
     gutter: 5pt,
-    raw(
-      "@article{Corbi23,
-  title     = {Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder},
-  author    = {Corbi, Alberto and Burgos, Daniel and Pérez, Antonio María},
-  journal   = {IEEE Transactions on Learning Technologies},
-  volume    = {17},
-  pages     = {893--902},
-  year      = {2023},
-  publisher = {IEEE}
-}",
-      lang: "bibtex",
-      block: true,
-    ),
-    raw(
-      "Corbi23:
-  type: article
-  title: 'Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder'
-  author:
-  - Corbi, Alberto
-  - Burgos, Daniel
-  - Pérez, Antonio María
-  date: 2023
-  page-range: 893–902
-  parent:
-    type: periodical
-    title: IEEE Transactions on Learning Technologies
-    publisher: IEEE
-    volume: 17
-",
-      lang: "yaml",
-      block: true,
-    ),
+    ```bib
+    @article{Corbi23,
+      title     = {Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder},
+      author    = {Corbi, Alberto and Burgos, Daniel and Pérez, Antonio María},
+      journal   = {IEEE Transactions on Learning Technologies},
+      volume    = {17},
+      pages     = {893--902},
+      year      = {2023},
+      publisher = {IEEE}
+    }
+    ```,
+    ```yaml
+    Corbi23:
+      type: article
+      title: 'Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder'
+      author:
+      - Corbi, Alberto
+      - Burgos, Daniel
+      - Pérez, Antonio María
+      date: 2023
+      page-range: 893–902
+      parent:
+        type: periodical
+        title: IEEE Transactions on Learning Technologies
+        publisher: IEEE
+        volume: 17
+    ```
   ),
 ) <fig:haya>
 
@@ -579,17 +560,15 @@ public or private. Thus every `let` statement in the whole module is exported (_
 As with LaTeX, Typst also supports the addition of functionalities via _packages_. A Typst package is a self-contained collection of Typst source files and assets, structured around a mandatory `typst.toml` manifest file located at the package root. This manifest specifies essential metadata such as the package's `name`, `version`, and `entrypoint`, which points to the main `.typ` file to be evaluated upon import. Additional optional fields like `authors`, `license`, and `description` can also be included. The internal organization of the package is flexible, allowing authors to structure files and directories as they see fit, provided that the `entrypoint` path is correctly specified. All paths within the package are resolved relative to the package root, ensuring encapsulation and preventing access to files outside the package.
 #let data = read("mileva.jpg", encoding: none)
 #figure(
-  kind: image,
   placement: none,
   caption: [Complex image manipulation via the #package-link("Grayness") Wasm plugin.],
-
-  [
-    #stack(dir: ltr, spacing: 2pt, image-show(data, width: 33%), image-blur(data, sigma: 20, width: 33%), image-darken(
-      data,
-      amount: 0.4,
-      width: 33%,
-    ))],
-  //image("mileva all.jpg"),
+  grid(
+    columns: 3,
+    gutter: 2pt,
+    image-show(data),
+    image-blur(data, sigma: 20),
+    image-darken(data, amount: 0.4)
+  ),
 ) <fig:mileva>
 Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The `@preview` namespace in Typst serves as a dedicated space for community-contributed packages that are in early or experimental stages. These packages are hosted in the Typst package repository.
 
@@ -685,33 +664,26 @@ Finally, although not its intention, the online service Typst.app can also be us
 Typst Universe#footnote[http://typst.app/universe] is an online platform that offers a curated collection of templates and packages designed to automate Typst documents (@fig:universe). Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
 #figure(
   placement: none,
-  align(center)[#table(
+  caption: [Some of the most reputed packages in Typst Universe.],
+  table(
     columns: (0.9fr, 4fr),
     align: (right, left),
     stroke: 0.01cm,
     table.header([*Package*], [*Description*]),
     table.hline(),
     [Touying],
-    [A powerful package for creating presentation
-      slides.],
+    [A powerful package for creating presentation slides.],
     [Unify],
-    [Simplifies the typesetting of numbers, units,
-      and ranges, similar to LaTeX's
-      siunitx @Wright11.],
+    [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's siunitx @Wright11.],
     [Finite],
-    [Renders finite automata diagrams using
-      `CeTZ`.],
+    [Renders finite automata diagrams using `CeTZ`.],
     [Tiaoma],
-    [A barcode generator that supports various
-      barcode types by compiling Zint to
-      WebAssembly.],
+    [A barcode generator that supports various barcode types by compiling Zint to WebAssembly.],
     [Problemst],
     [Template for problem sets, homeworks, or assignments.],
     [Quill],
     [Quill is a package for quantum circuit diagrams#footnote[https://github.com/Mc-Zen/quill].],
-  )],
-  kind: table,
-  caption: "Some of the most reputed packages in Typst Universe.",
+  ),
 ) <tab:packages>
 
 
@@ -836,17 +808,21 @@ Isotopes can be easily typset with the #package-link("Typsium") package. Example
 
 For Chemistry, formulas and reactions can be easily written with `typsium`: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #package-link("Atomic") comes in handy (@fig:atom).
 
-#figure(kind: image, placement: none, caption: [Atom shells rendered with the #package-link("Atomic") package.], grid(
-  columns: (2.2fr, 1fr),
-  gutter: 1em,
-  [
-    ```typc
+#figure(
+  kind: image,
+  placement: none,
+  caption: [Atom shells rendered with the #package-link("Atomic") package.],
+  grid(
+    columns: (2.2fr, 1fr),
+    gutter: 1em,
+    ```typ
     #import "@preview/atomic:1.0.0": atom
 
-    #atom(8, 16, "O", (2, 6)]
-    ```],
-  atom(8, 16, "O", (2, 6), step: 0.34, center: 0.4, orbitals: .7, color: softblueunir),
-)) <fig:atom>
+    #atom(8, 16, "O", (2, 6)
+    ```,
+    atom(8, 16, "O", (2, 6), step: 0.34, center: 0.4, orbitals: .7, color: softblueunir),
+  ),
+) <fig:atom>
 
 
 #import "kanban.typ": kanban, kanban-column, kanban-item
@@ -894,31 +870,21 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 
 
 As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using Wasm to render them without the need for an external program.
-#import "@preview/diagraph:0.3.5": *
-#let venn = read("venn.dot")
+#import "@preview/diagraph:0.3.6": render
 #figure(
   kind: image,
-  align(center + horizon, stack(
-    dir: ltr,
-    spacing: 1fr,
-    [#table(
+  align(horizon, grid(
+    columns: 2,
+    table(
       columns: 2,
-      align: center,
-      table.vline(x: 1, start: 1),
-      table.header([$A$], [$B$]),
-      [🛼],
-      [💧],
-      [🦋],
-      [🪼],
-      [🐬],
-      [🪼],
-      [🩵],
-      [🪼],
+      table.header[$A$][$B$],
+      [🛼], [💧],
+      [🦋], [🪼],
+      [🐬], [🪼],
+      [🩵], [🪼],
       [], [🥶],
-    )],
-    scale(73%, align(center)[
-      #raw-render(raw(venn, lang: "html"))
-    ]),
+    ),
+    render(read("venn.dot"), width: 98%),
   )),
   caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #package-link("Diagraph") package.],
 ) <fig:venn>

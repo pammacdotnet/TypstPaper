@@ -244,20 +244,11 @@ Historically, the development of markup-based systems began in the 1960s with to
 
 
 #figure(
-  image("typesetting systems.svg", width: 99%),
   kind: image,
   caption: [Evolution of some Typessetting technologies.],
   placement: none,
+  include "typesetting systems.typ",
 ) <fig:mlevolution>
-
-// #import "@preview/nulite:0.1.0" as vegalite
-// #vegalite.render(
-//   width: 100%,
-//   height: 100%,
-//   zoom: 1,
-//   json("typesetting systems.json"),
-// )
-
 
 Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like Markdown#footnote("https://daringfireball.net/projects/markdown") and AsciiDoc#footnote("https://asciidoc.org") prioritize ease of use but sacrifice typesetting power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
 
@@ -293,7 +284,7 @@ Other current WebAssembly-grounded integration solutions for computational docum
 - #package-link("Jlyfish")#footnote("https://github.com/andreasKroepelin/TypstJlyfish.jl"), for integrating Julia code.
 - #package-link("Callisto")#footnote("https://github.com/knuesel/callisto"), for reading and rendering Jupyter notebooks.
 - #package-link("Diagraph")#footnote("https://github.com/Robotechnic/diagraph"), for binding simple Graphviz-based diagrams (see @fig:dot).
-- #package-link("Nulite")#footnote("https://github.com/j-mueller/typst-vegalite"), for plotting Vega-based charts (like the one shown in @fig:mlevolution).
+- #package-link("Nulite")#footnote("https://github.com/j-mueller/typst-vegalite"), for plotting Vega-based charts.
 
 
 

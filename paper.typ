@@ -420,6 +420,7 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 == Drawing capabilities
 Typst's visualize module#footnote("https://typst.app/docs/reference/visualize") offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke and radius.
 
+// Should be different to show the diversity.
 #figure(
   placement: none,
   code-grid("gradient stack.typ", leftcol: 2fr),

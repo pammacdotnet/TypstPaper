@@ -726,8 +726,6 @@ Typst Universe#footnote("http://typst.app/universe") is an online platform that 
 
 
 = Application of Typst for theoretical Physics <sec:theophys>
-#import "@preview/commute:0.3.0": *
-
 Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the `CeTZ` package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
 
 #figure(
@@ -747,41 +745,43 @@ In addition to spacetime visualizations, Typst's `CeTZ` package can be applied t
 
 Another different diagram, common in maths and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram @fig:commutative-diagram appears, and we can handily reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
 
+#import "@preview/commute:0.3.0": *
+
 #figure(
   placement: none,
+  commutative-diagram(
+    node-padding: (32pt, 30pt),
+    node((0, -1), $dots$, "dots_upper"),
+    node((0, 0), $cal(O)^(n-1)_infinity$, "n-1"),
+    node((0, 1), $cal(O)^(n)_infinity$, "n"),
+    node((0, 2), $cal(O)^(n+1)_infinity$, "n+1"),
+    node((0, 3), $cal(O)^(n+2)_infinity$, "n+2"),
+    node((0, 4), $dots$, "dots_upper_right"),
+    node((1, -1), $dots$, "dots_lower"),
+    node((1, 0), $cal(O)^(0, n-1)_infinity$, "0, n-1"),
+    node((1, 1), $cal(O)^(0, n)_infinity$, "0, n"),
+    node((1, 2), $bold(E)_(1)$, "E_1"),
+    node((1, 3), $bold(E)_(2)$, "E_2"),
+    node((1, 4), $dots$, "dots_lower_right"),
+    arr("dots_upper", "n-1", ""),
+    arr("n-1", "n", $d$),
+    arr("n", "n+1", $d$),
+    arr("n+1", "n+2", $d$),
+    arr("n+2", "dots_upper_right", ""),
+    arr("n-1", "0, n-1", $h_(0)$),
+    arr("n", "0, n", $h_(0)$),
+    arr("n+1", "E_1", $rho$),
+    arr("n-1", "0, n-1", $h_(0)$),
+    arr("n+2", "E_2", $h_(0)$),
+    arr("dots_lower", "0, n-1", ""),
+    arr("0, n-1", "0, n", $d_(H)$),
+    arr("0, n", "E_1", $delta$),
+    arr("E_1", "E_2", $delta$),
+    arr("E_2", "dots_lower_right", ""),
+  ),
+  // Translate/rephrase?
   caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex @Giachetta09.],
-  align(center)[#commutative-diagram(
-      node-padding: (32pt, 30pt),
-      node((0, -1), $dots$, "dots_upper"),
-      node((0, 0), $cal(O)^(n-1)_infinity$, "n-1"),
-      node((0, 1), $cal(O)^(n)_infinity$, "n"),
-      node((0, 2), $cal(O)^(n+1)_infinity$, "n+1"),
-      node((0, 3), $cal(O)^(n+2)_infinity$, "n+2"),
-      node((0, 4), $dots$, "dots_upper_right"),
-      node((1, -1), $dots$, "dots_lower"),
-      node((1, 0), $cal(O)^(0, n-1)_infinity$, "0, n-1"),
-      node((1, 1), $cal(O)^(0, n)_infinity$, "0, n"),
-      node((1, 2), $bold(E)_(1)$, "E_1"),
-      node((1, 3), $bold(E)_(2)$, "E_2"),
-      node((1, 4), $dots$, "dots_lower_right"),
-      arr("dots_upper", "n-1", ""),
-      arr("n-1", "n", $d$),
-      arr("n", "n+1", $d$),
-      arr("n+1", "n+2", $d$),
-      arr("n+2", "dots_upper_right", ""),
-      arr("n-1", "0, n-1", $h_(0)$),
-      arr("n", "0, n", $h_(0)$),
-      arr("n+1", "E_1", $rho$),
-      arr("n-1", "0, n-1", $h_(0)$),
-      arr("n+2", "E_2", $h_(0)$),
-      arr("dots_lower", "0, n-1", ""),
-      arr("0, n-1", "0, n", $d_(H)$),
-      arr("0, n", "E_1", $delta$),
-      arr("E_1", "E_2", $delta$),
-      arr("E_2", "dots_lower_right", ""),
-    )
-  ],
-)<fig:commutative-diagram>
+) <fig:commutative-diagram>
 
 The flexibility of the #package-link("CeTZ") package allows us to create a wide range of diagrams, while many other, not here mentioned, packages specialize in convenience and ease of use. Moreover, the near real-time output preview intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in physics and math, not just communicate them via papers, books, etc.
 

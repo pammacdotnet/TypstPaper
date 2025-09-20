@@ -1005,17 +1005,6 @@ A prominent part of CS is software and software engineering. For that, Typst has
   rust: (name: "Rust", color: blueunir, stroke: blueunir),
 ))
 
-#let listing = ```rust
-fn main() {
-    let x = 5u32;
-    let y = {
-        let x_squared = x * x; let x_cube = x_squared * x;
-    };
-    let z = { 2 * x; };
-}
-```
-
-
 #let sequence-diagram = chronos.diagram({
   import chronos: *
   _par("A", display-name: "Alice", show-bottom: false, color: softblueunir)
@@ -1047,6 +1036,16 @@ Typst scripting language can tackle a lot of problems, such as preprocessing dat
   "https://github.com/freundTech/typst-matryoshka",
   "Matryoshka",
 )
+
+#let listing = ```rust
+fn main() {
+    let x = 5u32;
+    let y = {
+        let x_squared = x * x; let x_cube = x_squared * x;
+    };
+    let z = { 2 * x; };
+}
+```
 
 #figure(
   listing,

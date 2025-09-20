@@ -273,7 +273,7 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 
 
 
-In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or WASM, tackled in @sec:wasm), the possibilities are almost endless.
+In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, tackled in @sec:wasm), the possibilities are almost endless.
 For instance, the package #package-link("Pyrunner")#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
@@ -586,7 +586,7 @@ As with LaTeX, Typst also supports the addition of functionalities via _packages
 #figure(
   kind: image,
   placement: none,
-  caption: [Complex image manipulation via the #package-link("Grayness") WASM plugin.],
+  caption: [Complex image manipulation via the #package-link("Grayness") Wasm plugin.],
 
   [
     #stack(dir: ltr, spacing: 2pt, image-show(data, width: 33%), image-blur(data, sigma: 20, width: 33%), image-darken(
@@ -599,7 +599,7 @@ As with LaTeX, Typst also supports the addition of functionalities via _packages
 Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The `@preview` namespace in Typst serves as a dedicated space for community-contributed packages that are in early or experimental stages. These packages are hosted in the Typst package repository.
 
 == Web technologies <sec:wasm>
-As introduced in @sec:computed, Typst leverages WebAssembly (WASM) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to WASM, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
+As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
 
 
 As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
@@ -607,7 +607,7 @@ As an example, the #package-link("Neoplot") package is a specialized tool design
 
 #figure(
   code-grid("neoplot example.typ", left-column: 1.7fr),
-  caption: [Parabola plot with the Neoplot WASM-based package.],
+  caption: [Parabola plot with the Neoplot Wasm-based package.],
   kind: image,
   placement: none,
 ) <fig:neoplot>
@@ -898,7 +898,7 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 ) <fig:flowchart>
 
 
-As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using WASM to render them without the need for an external program.
+As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using Wasm to render them without the need for an external program.
 #import "@preview/diagraph:0.3.5": *
 #let venn = read("venn.dot")
 #figure(
@@ -925,7 +925,7 @@ As already shown, #CeTZ serves as a basis for many vector graphics packages. If 
       #raw-render(raw(venn, lang: "html"))
     ]),
   )),
-  caption: [Diagram of a Cartesian product of two emoji sets created with WASM, Graphviz and the #package-link("Diagraph") package.],
+  caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #package-link("Diagraph") package.],
 ) <fig:venn>
 
 
@@ -998,7 +998,7 @@ A prominent part of CS is software and software engineering. For that, Typst has
   parsers/themes), that can be further enhanced with #Codly (@fig:listing),
 / built-in data loading: functions for JSON, CSV, XML, etc. (or XLSX with #ReXLlenT) for generating native tables or #Lilaq graphs,
 / sequence diagrams: provided by #Chronos (@fig:sequence),
-/ activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited WASM limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. @fig:compiler was also created with this package.
+/ activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited Wasm limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. @fig:compiler was also created with this package.
 
 #codly(zebra-fill: softblueunir, stroke: 1pt + blueunir, languages: (
   rust: (name: "Rust", color: blueunir, stroke: blueunir),
@@ -1052,12 +1052,12 @@ fn main() {
   kind: image,
 ) <fig:listing>
 
-There are other several packages that ship with WASM plugins for different language compilers and interpreters, such as:
+There are other several packages that ship with Wasm plugins for different language compilers and interpreters, such as:
 / #Pyrunner: for Python using RustPython,
 / #Jogs: for JavaScript using QuickJS, or
 / #Matryoshka: for running Typst inside Typst.
 
-The notable limitation within WASM-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these addons. The second, and more impactful limitation, is their slower execution time. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
+The notable limitation within Wasm-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these addons. The second, and more impactful limitation, is their slower execution time. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
 
 #let Prequery = package-link("Prequery")
 
@@ -1140,7 +1140,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 
 #let tiaoma = package-link("tiaoma")
 
-For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #tiaoma package, using a WASM version of Zint.
+For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #tiaoma package, using a Wasm version of Zint.
 
 = Slide composition
 Typst can be extended for slide creation through the Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer. With Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured slide elements, making it easy to control the visual style while focusing on content. Since Typst encourages a clean separation of content and formatting, Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key.

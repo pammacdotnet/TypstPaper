@@ -96,7 +96,7 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 = Typst and LaTeX <sec:latex>
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (whose foundations are analyzed in @sec:art), but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These extensions are called _packages_ in the Typst semantic field (@sec:package).
 
-@tab:LaTeXvTypst demonstraits a side-by-side example of the equivalent LaTeX and Typst code whose output is rendered in @fig:affine.
+@tab:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code whose output is rendered in @fig:affine.
 
 #let affine-typst = "affine example/typst.typ"
 #let affine-latex = "affine example/latex.tex"
@@ -131,11 +131,11 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 
 Focusing on the renderer and local installs, Typst offers significantly agile and incremental compilation times, often completing in milliseconds, which allows for document previews that are delivered almost right away (for the average human perception). This rendering operations very oftenly take place under the so called _Doherty threshold_ @Doherty82, i.e., below this point, users stay highly productive. However, above it, system delays quickly degrade performance and satisfaction.
 
-The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads external packages on-demand, keeping installations minimal and secure. All operations take place in userland (no need for special admin priviledges).
+The compiler (tackled in @sec:compiler) is a single lightweight binary that, when necessary, downloads external packages on-demand, keeping installations minimal and secure. All operations take place in userland (no need for special admin privileges).
 
 
 
-Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the proyect hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences is presented in @tab:diffs.
+Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code/project to start a new document: simply creating an empty text file with a `.typ` extension suffices. To make things even simpler, the project hosts its own online editing service (discussed in @sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences is presented in @tab:diffs.
 
 #figure(
   caption: [Main differences between LaTeX and Typst],
@@ -209,8 +209,7 @@ These systems rely on compiling source text into formatted outputs like PDFs, se
     [Lines align evenly at margins looking fine],
     [Spacing adjustments with the Knuth-Plass @Knuth81],
     [Grid Layout],
-    [Pptimal space for
-      rows/columns in grids],
+    [Optimal space for rows/columns in grids],
     [Constraint-based layout calculation @Feiner98],
     [Page Breaking],
     [Page division while respecting layout],
@@ -235,9 +234,9 @@ Historically, the development of markup-based systems began in the 1960s with to
 
 
 #figure(
-  caption: [Evolution of some Typessetting technologies.],
   placement: none,
   include "typesetting systems.typ",
+  caption: [Evolution of some Typesetting technologies.],
 ) <fig:mlevolution>
 
 Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like Markdown#footnote[https://daringfireball.net/projects/markdown] and AsciiDoc#footnote[https://asciidoc.org] prioritize ease of use but sacrifice typesetting power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
@@ -261,7 +260,7 @@ Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such
 
 
 
-In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, a even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, tackled in @sec:wasm), the possibilities are almost endless.
+In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, and even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, tackled in @sec:wasm), the possibilities are almost endless.
 For instance, the package #package-link("Pyrunner")#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
@@ -420,7 +419,7 @@ The module also allows for the inclusion of images (both raster and vector) and 
   kind: image,
 ) <fig:chess>
 
-It is worth mentionning the Typst #package-link("CeTZ") library#footnote[http://cetz-package.github.io]. CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #package-link("TikZ") for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
+It is worth mentioning the Typst #package-link("CeTZ") library#footnote[http://cetz-package.github.io]. CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #package-link("TikZ") for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
 
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #package-link("Lilaq")#footnote[https://lilaq.org] and #package-link("CeTZ-Plot")#footnote[https://github.com/cetz-package/cetz-plot]. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
@@ -639,7 +638,7 @@ The development team is actively working on improvements, including better mobil
 #let image-width = 100%
 #figure(
   //caption: [Some journal Typst-based templates already qualified to be used for editorial pourposes: _Joint Accelerator Conferences Website_#footnote[https://jacow.org], _Journal of Machine Learning Research_#footnote[https://www.jmlr.org], _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com].],
-  caption: [Some Typst-based journal templates already qualified to be used for editorial pourposes: _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com].],
+  caption: [Some Typst-based journal templates already qualified to be used for editorial purposes: _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com].],
   grid(
     columns: (1fr, 1fr),
     column-gutter: 2pt,
@@ -661,7 +660,7 @@ Certainly, as with every new disruptive technology and, as also happened with Te
 #figure(
   image("universe4.jpg"),
   placement: none,
-  caption: "A screenshot ot the Typst Universe website.",
+  caption: "A screenshot of the Typst Universe website.",
 ) <fig:universe>
 
 Finally, although not its intention, the online service Typst.app can also be used as an scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
@@ -806,7 +805,7 @@ Scientific typesetting can be cumbersome, but packages like the aforementioned #
 
 Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the Dirac bra-ket notation: $bra(u) "and" ket(u)$.
 
-Isotopes can be easily typset with the #package-link("Typsium") package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
+Isotopes can be easily typeset with the #package-link("Typsium") package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
 
 #figure(
   caption: [Signals rendered with the #package-link("Physica") package.],
@@ -1123,7 +1122,7 @@ Typst can be extended for slide creation through the Touying package, which prov
 #figure(
   image("./slide example/example.pdf"),
   kind: image,
-  caption: [Evolution of some Typessetting technologies.],
+  caption: [Evolution of some Typesetting technologies.],
   placement: none,
 ) <fig:slides>
 

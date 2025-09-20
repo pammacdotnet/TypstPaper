@@ -1,0 +1,21 @@
+add image alt text?
+check that all figures are referenced
+check that all figures are in their respective sections (place.flush)
+
+use codly code block (maybe disable line numbers in some cases)
+update the lilaq diagram with features from 0.4.0
+make a better small Rust example code
+
+https://github.com/notofonts/arabic
+https://github.com/aiaf/kawkab-mono
+
+make some figures unfloated (because of the bottom floating figure + place.flush not working bug)
+
+explicitly state with which template commit paper was edited/compiled
+
+After review:
+undo placement: none changes that are bugged (bottom figures don't respect flush)
+change lists
+make package links consistent
+update diagram to lilaq 0.5.0 (auto-width)
+don't forget to replace Pythagorean theorem example

@@ -3,11 +3,12 @@
 #let conf = toml("paper.toml")
 #let author-photos = conf.authors.map(author => read("photos/" + author.photo, encoding: none))
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
-#show: ijimai.with(conf: conf, photos: author-photos, logo: image("unir logo.svg", width: 17.5%), bib-data: read(
-  "bibliography.bib",
-  encoding: none,
-))
-#set text(lang: "en")
+#show: ijimai.with(
+  conf: conf,
+  photos: author-photos,
+  logo: image("unir logo.svg", width: 17.5%),
+  bib-data: read("bibliography.bib", encoding: none),
+)
 #set text(fallback: false, font: (
   "Libertinus Serif",
   "Noto Serif CJK SC",
@@ -36,16 +37,6 @@
     gutter: gutter,
     raw(typ, lang: "typst", block: true), text(size: 7.5pt, include typ-file),
   )
-}
-
-#let code-example(typ-file, caption: none, placement: none) = {
-  let typ = read(typ-file)
-  figure(placement: placement, kind: image, caption: none, grid(
-    columns: (2.5fr, 1.5fr),
-    rows: (auto, auto),
-    gutter: 1pt,
-    raw(typ, lang: "typst", block: true), text(size: 7.5pt)[#eval(typ, mode: "markup")],
-  ))
 }
 
 #let package-link(name) = {
@@ -110,13 +101,17 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 #let affine-typst = "affine example/typst.typ"
 #let affine-latex = "affine example/latex.tex"
 
-#figure(kind: table, caption: "Typst vs. LaTeX comparison example", grid(
-  columns: (1fr, 1.25fr),
-  align: (_, y) => if y == 0 { center + horizon } else { auto },
-  row-gutter: 4pt,
-  grid.header(..(typst, LaTeX).map(strong)),
-  code-block(affine-typst), code-block(affine-latex),
-)) <tab:LaTeXvTypst>
+#figure(
+  kind: table,
+  caption: "Typst vs. LaTeX comparison example",
+  grid(
+    columns: (1fr, 1.25fr),
+    align: (_, y) => if y == 0 { center + horizon } else { auto },
+    row-gutter: 4pt,
+    grid.header(..(typst, LaTeX).map(strong)),
+    code-block(affine-typst), code-block(affine-latex),
+  ),
+) <tab:LaTeXvTypst>
 
 #figure(
   placement: none,
@@ -985,7 +980,11 @@ For creating truth tables, there is #Truthfy package that can create a table fro
 / #Circuiteria: draws block circuit diagrams for a more abstract layer.
 / #Quill: draws quantum circuit diagrams with concise syntax.
 
-#figure(scale(90%, tree), caption: [Example of a tree diagram.], placement: none) <tree>
+#figure(
+  scale(90%, tree),
+  caption: [Example of a tree diagram.],
+  placement: none,
+) <tree>
 == Software
 #let Codly = package-link("Codly")
 #let Lilaq = package-link("Lilaq")

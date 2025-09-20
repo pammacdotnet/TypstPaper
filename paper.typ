@@ -260,6 +260,8 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such as RMarkdown @Baumer15 and Jupyter Notebooks, integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
 
+// Nested code block highlighting is not support:
+// https://github.com/typst/typst/issues/2844
 #figure(
   code-grid("diagraph example.typ", leftcol: 1.6fr),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm.],

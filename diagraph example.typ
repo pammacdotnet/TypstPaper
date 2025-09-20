@@ -1,7 +1,9 @@
-#import "@preview/diagraph:0.3.3": raw-render
-#raw-render(```
+#import "@preview/diagraph:0.3.6": raw-render
+#raw-render(```dot
 digraph G {
   rankdir=TD
-  LaTeX -> Typst
+  LaTeX -> typst
   LaTeX[color=gray, fontname="New Computer Modern", fontsize=20, fontcolor=lightblue]
-  Typst[color=DodgerBlue, fontname="Buenard", fontsize=20, fontcolor=royalblue]}```)
+  typst[color=DodgerBlue, fontname="Buenard", fontsize=20, fontcolor=royalblue]
+}
+```)

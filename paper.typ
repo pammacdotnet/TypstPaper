@@ -144,12 +144,13 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
+    inset: 4.8pt,
     table.header(..([Feature], LaTeX, typst).map(strong)),
     table.hline(stroke: 1pt), // ugly
     stroke: .01cm,
     [Syntax],
     [Command-based (`\command{arg}`)],
-    [Markdown-inspired (`= Heading`, `_italic_`) + code mode (`#func()`)],
+    [Markdown-inspired (#box[`= Heading`], `_italic_`) + code mode (`#func()`)],
     [Math Mode],
     [`$...$` or `\[...\]`, verbose (`\frac{}{}`)],
     [`$...$`, concise (auto-fractions, variants, etc.)],
@@ -158,7 +159,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [`= Heading`, `== Subheading` (no backslashes)],
     [Lists],
     [`itemize`/`enumerate` environments],
-    [`-` (bullets), `+` (numbers), `/ Term:` (descriptions)],
+    [`-` (bullets), `+` (numbers), #box(`/ Term:`) (descriptions)],
     [Commands],
     [Macros (`\newcommand`)],
     [1st-class functions (`#let f(x) = x + 1`), composable],
@@ -489,13 +490,13 @@ Hayagriva#footnote[https://github.com/typst/hayagriva] is a Rust-based bibliogra
 
 
 
-= The compiler and Command-Line interface <sec:compiler>
+= The compiler and command-line interface <sec:compiler>
 Typst's compiler operates differently from traditional compilers by using a reactive model (@fig:compiler) that tracks dependencies and selectively re-evaluates only the modified parts of a document @Haug22. This enables instant previews during editing, as the system interprets layout instructions, styling rules, and content in real time @Madje22. A consistent styling system and an intelligent layout engine work together to resolve these elements efficiently, supporting complex features like math typesetting, dynamic templates, and figures while maintaining responsiveness.
 
 == Typst abstract syntax tree and Rust
 The compilation itself follows a structured yet flexible process. First, the input text is parsed into an _abstract syntax tree_ (AST) using Typst's grammar rules, followed by static analysis to resolve imports, variables, and functions. After type checking and evaluating expressions, the AST is transformed into an _intermediate representation_ (IR) containing layout directives. The compiler then computes the final document layout using a constraint-based algorithm to determine positioning, sizing, and breaks (such as pages). Finally, it renders the output based on the resolved layout. This incremental approach ensures that updates are processed efficiently, minimizing recomputation when changes occur.
 
-Typst's choice of Rust @Klabnik23 as its underlying programming language provides several key benefits, including high performance, safety, and modern tooling. Rust's efficiency allows Typst to compile documents significantly faster than traditional LaTeX systems, with benchmarks showing near-instantaneous updates after initial compilation (e.g., 200 ms for changes in a 77-page document). The language's memory safety guarantees prevent common bugs like data races, which is critical for a typesetting system handling complex document structures. Additionally, Rust's strong type system and zero-cost abstractions enable Typst to implement features like cross-platform development, including WebAssembly for browser-based tools.
+Typst's choice of Rust @Klabnik23 as its underlying programming language provides several key benefits, including high performance, safety, and modern tooling. Rust's efficiency allows Typst to compile documents significantly faster than traditional LaTeX systems, with benchmarks showing near-instantaneous updates after initial compilation (e.g., 200~ms for changes in a 77-page document). The language's memory safety guarantees prevent common bugs like data races, which is critical for a typesetting system handling complex document structures. Additionally, Rust's strong type system and zero-cost abstractions enable Typst to implement features like cross-platform development, including WebAssembly for browser-based tools.
 
 #import "@preview/pintorita:0.1.4"
 #show raw.where(lang: "pintora"): it => pintorita.render(it.text)
@@ -653,7 +654,7 @@ The development team is actively working on improvements, including better mobil
 
 Typst has garnered significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a growing community, with its GitHub repository amassing over 37,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
-From 2020-2025, Typst evolved from a niche LaTeX alternative into a growing document-formatting tool. Early development (2020–2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like `CeTZ` for graphics expanded its reach. Projections for 2025 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., `tinymist`) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst] against LaTeX. The Typst community is also providing template for the most reputed editorials and journals (@fig:papers).
+During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a growing document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like CeTZ for graphics expanded its reach. Projections for 2025 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst] against LaTeX. The Typst community is also providing template for the most reputed editorials and journals (@fig:papers).
 Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the 80s, Typst still needs to mature and expand over the years.
 
 
@@ -684,8 +685,8 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
     [Unify],
     [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's siunitx @Wright11.],
     [Finite],
-    [Renders finite automata diagrams using `CeTZ`.],
-    [Tiaoma],
+    [Renders finite automata diagrams using CeTZ.],
+    [tiaoma],
     [A barcode generator that supports various barcode types by compiling Zint to WebAssembly.],
     [Problemst],
     [Template for problem sets, homeworks, or assignments.],
@@ -700,7 +701,7 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
 
 
 = Application of Typst for theoretical Physics <sec:theophys>
-Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the `CeTZ` package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
+Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
 
 #figure(
   placement: none,
@@ -710,7 +711,7 @@ Typst's robustness, powerful features and intuitive syntax make it an all-in-one
   ],
 )<fig:penrose-carter>
 
-In addition to spacetime visualizations, Typst's `CeTZ` package can be applied to particle physics through the creation of Feynman diagrams. In particle physics, we relate the initial and final states of a physical system via a mathematical object, called the scattering matrix or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted on @fig:feynman-diagram.
+In addition to spacetime visualizations, Typst's CeTZ package can be applied to particle physics through the creation of Feynman diagrams. In particle physics, we relate the initial and final states of a physical system via a mathematical object, called the scattering matrix or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted on @fig:feynman-diagram.
 
 #figure(
   include "feynman diagram.typ",
@@ -816,7 +817,7 @@ Isotopes can be easily typeset with the #package-link("Typsium") package. Exampl
   $,
 ) <fig:signals>
 
-For Chemistry, formulas and reactions can be easily written with `typsium`: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #package-link("Atomic") comes in handy (@fig:atom).
+For Chemistry, formulas and reactions can be easily written with Typsium: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #package-link("Atomic") comes in handy (@fig:atom).
 
 #figure(
   kind: image,

@@ -542,7 +542,7 @@ Although value semantics suggest potential performance costs due to frequent cop
 // #let d = (x: 1); modify(d); d.x // Still 1
 // ```
 
-A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes 3, while 3.0 retains its decimal in arrays for debugging clarity. Strings differ from content: they lack styling unless coerced, as in `#"Hello"`, which renders as "Hello".
+A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes #(1 + 2), while `3.0` retains its fractional part in arrays for debugging clarity. Strings differ from content: even though they can be implicitly or explicitly coerced to content, special syntax for smart quotes, references, etc. will not be picked up, e.g., `#"'Hello'"` will produce #"'Hello'" and not #eval("'Hello'", mode: "markup") (`eval`, introduced in @cs-other, can help with such issues).
 
 == Modules
 As mentioned, Typst's other form of abstraction is modules. There are three ways to _import_ a module:
@@ -1043,7 +1043,7 @@ The #package-link("Prequery") package provides the ability to specify metadata r
 
 Similarly, if a LaTeX math expression is generated, for example, by the SymPy library, it is possible to use it in Typst through the #MiTeX package, that will convert LaTeX math to Typst native math. This allows to have a single source of truth for math expressions. If the source comes from Typst, then with the #Eqalc package, it is possible to convert that math expression to a Typst function, e.g., for plotting graphs, or to a table, for automatically generated table of sampled input/output values. However, the current limitation of the package is that only one variable is allowed in the right-hand side of the equation.
 
-== Other use cases
+== Other use cases <cs-other>
 #let self-example = package-link("self-example")
 #let pdf-embed = link(
   "https://typst.app/docs/reference/pdf/embed/",

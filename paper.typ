@@ -89,7 +89,6 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 ))
 #show raw: it => {
   show emph: set text(font: "Fira Mono")
-  show strong: set text(font: "Fira Mono")
   it
 }
 

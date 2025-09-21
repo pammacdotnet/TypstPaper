@@ -67,7 +67,7 @@ The Typst ecosystem comprises a refined and simple to use/understand markup lang
 
 Besides, the project also hosts a repository of extensions (packages and templates) called Typst Universe, discussed in @sec:universe. However, given that Typst is becoming popular and its adoption is growing steadily over the years (as observed in @sec:adoption), it is now often compared against the consolidated LaTeX system. For this reason, we will start with a quick comparison of both environments (@sec:latex).
 
-For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will focus on the application of this new typesetting system in more specific science and engineering domains such as theoretical Physics, Cosmology, Chemistry, Mathematics, Algorithmics, Signal Processing, Computer Science and the composition of slides in technical realms. Finally,  some conclusions will be drawn in @sec:conclusions.
+For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will focus on the application of this new typesetting system in more specific science and engineering domains such as theoretical Physics, Cosmology, Chemistry, Mathematics, Algorithmics, Signal Processing, Computer Science and the composition of slides in technical realms. Finally, some conclusions will be drawn in @sec:conclusions.
 
 #show raw.where(block: true): block.with(
   fill: softblueunir,
@@ -94,7 +94,7 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 }
 
 = Typst and LaTeX <sec:latex>
-Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (whose foundations are analyzed in @sec:art), but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each addon. These addons are called _packages_ in the Typst semantic field (@sec:package).
+Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (whose foundations are analyzed in @sec:art), but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive semantics, similar to those found in Markdown @Voegler14, making it more accessible. Its commands are designed to work consistently, reducing the need to learn different conventions for each add-on. These add-ons are called _packages_ in the Typst semantic field (@sec:package).
 
 @tab:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code whose output is rendered in @fig:affine.
 
@@ -367,10 +367,10 @@ $
   placement: none,
   kind: image,
   lagrangian,
-  caption: [Typst code for the lagrangian of the Standard Model.],
+  caption: [Typst code for the Lagrangian of the Standard Model.],
 ) <fig:sm>
 
-Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces or newlines can be added between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's `\left` and `\right` commands. This ensures that complex expressions are rendered clearly and accurately. For instance, the Typst math code in @fig:sm allows the typesetting of the lagrangian of the Standard Model of Physics (@fig:rsm).
+Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces or newlines can be added between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's `\left` and `\right` commands. This ensures that complex expressions are rendered clearly and accurately. For instance, the Typst math code in @fig:sm allows the typesetting of the Lagrangian of the Standard Model of Physics (@fig:rsm).
 
 
 #figure(
@@ -402,7 +402,7 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 - `mitex` integrates LaTeX math syntax into Typst, allowing users to write equations using familiar LaTeX commands.
 
 == Drawing capabilities
-Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke and radius.
+Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke, and radius.
 
 // Should be different to show the diversity.
 #figure(
@@ -551,8 +551,7 @@ As mentioned, Typst's other form of abstraction is modules. There are three ways
 / `#import "mymodule.typ": *`: functionality puts `functionality` directly in scope, so that the prefix is not needed anymore.
 / `#include "mymodule.typ"`: inlines the _content_ (and only the content) from `mymodule.typ`.
 
-Modules do not give the user/developer any way to mark items as
-public or private. Thus every `let` statement in the whole module is exported (_public_).
+Modules do not give the user/developer any way to mark items as public or private. Thus, every `let` statement in the whole module is exported (_public_).
 
 // Some users#footnote[https://justinpombrio.net/2024/11/30/typst.html] have suggested some _solutions_, such as extending `set/show` to user-defined functions (e.g., `set sequence(codon-sep: "-")`) and improving `show` to tweak elements without reimplementing them entirely, like adding decorations to headings robustly.
 
@@ -593,8 +592,8 @@ The Typst compiler ensures safety by implementing strict security measures that 
 
 
 
-== Instrospection
-Typst's introspection system provides a suite of functions that enable dynamic interaction with a document's structure and content. Central to this system are functions like `counter` and `query`. The `counter` function allows for tracking and manipulating counts of elements such as pages, headings, figures, and equations. Users can access current counter values, display them in various formats, and even define custom counters for specific needs. For instance, one can create a custom counter to number specific elements uniquely throughout the document. On the other hand, the `query` function facilitates searching the document for elements that match certain criteria, such as all headings of a specific level or elements with certain labels. This is particularly useful for generating dynamic content like tables of contents or lists of figures, as it allows for real-time retrieval and display of relevant elements based on the document's current state.
+== Introspection
+Typst's introspection system provides a suite of functions that enable dynamic interaction with a document's structure and content. Central to this system are functions like `counter` and `query`. The `counter` function allows for tracking and manipulating counts of elements such as pages, headings, figures, and equations. Users can access current counter values, display them in various formats, and even define custom counters for specific needs. For instance, one can create a custom counter to number specific elements uniquely throughout the document. On the other hand, the `query` function facilitates searching the document for elements that match certain criteria, such as all headings of a specific level or elements with certain labels. This is particularly useful for generating dynamic content like tables of contents or table of figures, as it allows for real-time retrieval and display of relevant elements based on the document's current state.
 
 Complementing these are functions like `here`, `locate`, and `metadata`, which offer deeper insights into the document's structure:
 / `here`: retrieves the current location within the document, which can be used in conjunction with other functions to determine positional information. For example, combining `here` with `query` can yield the number of specific elements preceding the current point.
@@ -628,7 +627,7 @@ The shift to cloud-based tools is revolutionizing content creation, academic wor
   caption: [Screenshot of the Typst.app web application.],
 ) <fig:typstapp>
 
-Papeeria#footnote[https://papeeria.com] and Authorea#footnote[https://www.authorea.com] offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMlatex#footnote[https://plmlatex.math.cnrs.fr], developed by the _French National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc#footnote[https://cocalc.com] also supports LaTeX editing alongside tools for calculations, research, and collaboration.
+Papeeria#footnote[https://papeeria.com] and Authorea#footnote[https://www.authorea.com] offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMLatex#footnote[https://plmlatex.math.cnrs.fr], developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc#footnote[https://cocalc.com] also supports LaTeX editing alongside tools for calculations, research, and collaboration.
 
 The Typst online editor (the web app; @fig:typstapp) is a collaborative, web-based platform designed for creating and typesetting documents with Typst. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for composing academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images (e.g., _drag and drop_ can be used), equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration through the WebSocket standard @Lombardi2015, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
 
@@ -652,7 +651,7 @@ The development team is actively working on improvements, including better mobil
 Typst has garnered significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a growing community, with its GitHub repository amassing over 37,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
 During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a growing document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like CeTZ for graphics expanded its reach. Projections for 2025 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst] against LaTeX. The Typst community is also providing template for the most reputed editorials and journals (@fig:papers).
-Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the 80s, Typst still needs to mature and expand over the years.
+Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 
 
 
@@ -662,7 +661,7 @@ Certainly, as with every new disruptive technology and, as also happened with Te
   caption: "A screenshot of the Typst Universe website.",
 ) <fig:universe>
 
-Finally, although not its intention, the online service typst.app can also be used as an scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
+Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
 
 
 
@@ -680,13 +679,13 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
     [Touying],
     [A powerful package for creating presentation slides.],
     [Unify],
-    [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's siunitx @Wright11.],
+    [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's siunitx package @Wright11.],
     [Finite],
     [Renders finite automata diagrams using CeTZ.],
     [tiaoma],
     [A barcode generator that supports various barcode types by compiling Zint to WebAssembly.],
     [Problemst],
-    [Template for problem sets, homeworks, or assignments.],
+    [Template for problem sets, homework, or assignments.],
     [Quill],
     [Quill is a package for quantum circuit diagrams#footnote[https://github.com/Mc-Zen/quill].],
   ),
@@ -715,7 +714,7 @@ In addition to spacetime visualizations, Typst's CeTZ package can be applied to 
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$.],
 ) <fig:feynman-diagram>
 
-Another different diagram, common in maths and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram @fig:commutative-diagram appears, and we can handily reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
+Another different diagram, common in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram @fig:commutative-diagram appears, and we can handily reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
 
 #import "@preview/commute:0.3.0": *
 
@@ -786,7 +785,7 @@ The #package-link("Mannot")#footnote[https://github.com/ryuryu-ymj/mannot] packa
 ) <fig:mannot>
 
 
-Using Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
+Using Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures, or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
 
 The annotations are customizable in terms of style and positioning, allowing authors to fine-tune the didactic layout. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
 
@@ -802,7 +801,7 @@ Scientific typesetting can be cumbersome, but packages like the aforementioned #
 // )
 
 
-Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the Dirac bra-ket notation: $bra(u) "and" ket(u)$.
+Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the bra-ket notation: $bra(u) "and" ket(u)$.
 
 Isotopes can be easily typeset with the #package-link("Typsium") package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
 
@@ -865,7 +864,7 @@ accommodate it with many general-purpose packages and even more niche ones.
 #let Truthfy = package-link("Truthfy")
 #let CeTZ = package-link("CeTZ")
 
-For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudo code syntax. Also, the #Autofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown on @fig:flowchart.
+For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax. Also, the #Autofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown on @fig:flowchart.
 
 #figure(
   {
@@ -1030,7 +1029,7 @@ There are other several packages that ship with Wasm plugins for different langu
 / #Jogs: for JavaScript using QuickJS, or
 / #Matryoshka: for running Typst inside Typst.
 
-The notable limitation within Wasm-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these addons. The second, and more impactful limitation, is their slower execution time. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
+The notable limitation within Wasm-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these add-ons. The second, and more impactful limitation, is their slower execution time. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
 
 #let Prequery = package-link("Prequery")
 
@@ -1041,7 +1040,7 @@ The #package-link("Prequery") package provides the ability to specify metadata r
 #let eval = link("https://typst.app/docs/reference/foundations/eval/")[`eval`]
 #let idwtet = package-link("IDWTET")
 
-Similarly, if a LaTeX math expression is generated, for example, by the SymPy library, it is possible to use it in Typst through the #MiTeX package, that will convert LaTeX math to Typst native math. This allows to have a single source of truth for math expressions. If the source comes from Typst, then with the #Eqalc package, it is possible to convert that math expression to a Typst function, e.g., for plotting graphs, or to a table, for automatically generated table of sampled input/output values. However, the current limitation of the package is that only one variable is allowed in the right hand side of the equation.
+Similarly, if a LaTeX math expression is generated, for example, by the SymPy library, it is possible to use it in Typst through the #MiTeX package, that will convert LaTeX math to Typst native math. This allows to have a single source of truth for math expressions. If the source comes from Typst, then with the #Eqalc package, it is possible to convert that math expression to a Typst function, e.g., for plotting graphs, or to a table, for automatically generated table of sampled input/output values. However, the current limitation of the package is that only one variable is allowed in the right-hand side of the equation.
 
 == Other use cases
 #let self-example = package-link("self-example")
@@ -1067,7 +1066,7 @@ Reproducibility can be important, therefore saving a full source code, or an ima
 
 #figure(
   scale(65%, gantt(gantt_yaml)),
-  caption: "Example of a Gantt diagram.",
+  caption: "Example of a Gantt chart.",
 ) <fig:gantt>
 
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantyy (@fig:gantt). Separately, it is possible to replicate a modern Kanban board with Typst scripting system, where each task is a single line, which makes it easy to move tasks up and down or left and right between stages (@fig:kanban).

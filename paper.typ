@@ -618,8 +618,10 @@ Typst integrates seamlessly with existing integrated development environments (I
 == Export options
 As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web app. SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has same feature set as SVG, except it's a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development; it requires enabling a feature flag (`--features html`) in the CLI, supports basic markup elements, and is not yet available in the web app.
 
+#let Notion = link("https://www.notion.com")[Notion]
+
 = Web application <sec:typstapp>
-The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and Notion#footnote[https://www.notion.com], highlight a broader trend: the cloud is breaking down barriers to access, fostering collaboration, and integrating advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
+The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote[https://www.notion.com], highlight a broader trend: the cloud is breaking down barriers to access, fostering collaboration, and integrating advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
   image("typstapp2.jpg", width: 100%),

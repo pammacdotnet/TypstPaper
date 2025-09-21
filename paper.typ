@@ -381,7 +381,6 @@ Typst offers robust support for mathematical expressions, providing a syntax tha
     eval(lagrangian.text, scope: (mathbf: mathbf))
   }),
 ) <fig:rsm>
-#import "@preview/physica:0.9.1": *
 
 
 

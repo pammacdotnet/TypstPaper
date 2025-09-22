@@ -900,7 +900,7 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 ) <fig:flowchart>
 
 
-As already shown, #CeTZ serves as a basis for many vector graphics packages. If you the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using Wasm to render them without the need for an external program.
+As already shown, #CeTZ serves as a basis for many vector graphics packages. If the user is familiar with Graphviz and DOT diagrams @Gansner09, the #Diagraph package enables the inclusion of such diagrams directly inside any document by using Wasm to render them without the need for an external program.
 #import "@preview/diagraph:0.3.6": render
 #figure(
   kind: image,
@@ -972,7 +972,7 @@ As already shown, #CeTZ serves as a basis for many vector graphics packages. If 
 #let Circuiteria = package-link("Circuiteria")
 #let Quill = package-link("Quill")
 
-For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware, you can benefit from circuit diagram packages:
+For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware, there are several circuit diagram packages:
 / #Zap: draws electronic circuits that are aligned with IEC and IEEE/ANSI standards.
 / #Circuiteria: draws block circuit diagrams for a more abstract layer.
 / #Quill: draws quantum circuit diagrams with concise syntax.

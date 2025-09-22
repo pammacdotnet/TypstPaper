@@ -50,7 +50,6 @@ starting-page = 1
 publication-year = 2025
 title = "Typst: a modern typesetting engine for science"
 doi = "10.9781/ijimai.XXXX.02.006"
-short-author-list = "M. Haug,  L. Mädje and A. Corbi"
 special-issue-title = "A special issue about something cool"
 special-issue = false
 keywords = ["Typesetting system", "Incremental parsers", "Markup language", "Paper composition", "Reproducibility", "Performance"]

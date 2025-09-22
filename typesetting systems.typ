@@ -1,3 +1,6 @@
+#import "@preview/lilaq:0.5.0" as lq
+
+// When each piece of software was first released, and when it stopped updating.
 #let data = (
   // "RUNOFF": (1964, 1980), // https://en.wikipedia.org/wiki/TYPSET_and_RUNOFF
   "Runoff": (1964, 1980), // https://en.wikipedia.org/wiki/TYPSET_and_RUNOFF
@@ -15,15 +18,10 @@
   "Typst": (2023, 2025), // https://en.wikipedia.org/wiki/Draft:Typst
 )
 
-#import "@preview/lilaq:0.4.0" as lq
-
+#set text(9pt) // For development-only.
 #show: lq.cond-set(lq.grid.with(kind: "y"), stroke: none)
 #show: lq.cond-set(lq.grid.with(kind: "x"), stroke: 0.3pt + black)
-// #show: lq.cond-set(lq.tick.with(kind: "x"), outset: 0pt)
-// #show: lq.cond-set(lq.tick.with(kind: "y"), inset: 0pt, outset: 0pt)
-// #show lq.selector(lq.tick.with(kind: "y")): lq.set-tick(inset: 0pt, outset: 0pt)
-// #show: lq.show_(lq.tick.with(kind: "y"), it => none)
-// #show lq.selector(lq.tick.with(kind: "y")): none
+#show lq.selector(lq.tick-label): set text(0.7em, font: "Liberation Sans")
 #show: lq.set-tick(
   kind: "y",
   inset: 0pt,
@@ -32,35 +30,31 @@
   stroke: 0.3pt + black,
 )
 #show: lq.set-diagram(
-  width: 8.1cm,
-  height: 3cm,
-  ylim: (0.5, data.len() + 0.5),
+  width: 100%,
+  yaxis: (subticks: none, mirror: false, stroke: 0.3pt + black),
+  xaxis: (subticks: none, mirror: false, stroke: none),
+)
+
+#let year = (
+  min: calc.min(..data.values().flatten()),
+  max: calc.max(..data.values().flatten()),
+)
+#(year.min-10 = int(year.min / 10) * 10) // Round to 10s.
+#lq.diagram(
+  height: data.len() * 2.5mm,
+  xlim: (year.min-10, year.max),
+  ylim: (-0.5, data.len() - 0.5),
   yaxis: (
-    subticks: none,
-    mirror: false,
-    stroke: 0.3pt + black,
     ticks: data
       .keys()
-      .map(std.rotate.with(-15deg, origin: right + horizon))
+      .map(rotate.with(-15deg, origin: right + horizon))
       .enumerate(start: 1),
   ),
-  xaxis: (
-    subticks: none,
-    mirror: false,
-    stroke: none,
-    ticks: range(1960, 2021, step: 10).map(n => (n, [#n])),
-  ),
-)
-#set text(9pt)
-#show lq.selector(lq.tick-label): set text(0.7em, font: "Liberation Sans")
-
-#lq.diagram(
+  xaxis: (ticks: range(year.min-10, year.max, step: 10).map(n => (n, [#n]))),
   lq.hbar(
-    data.values().map(x => x.last()),
-    range(1, data.len() + 1),
-    base: data.values().map(x => x.first()),
+    data.values().map(x => x.last()), // Last update year.
+    range(data.len()), // Y-axis linear position.
+    base: data.values().map(x => x.first()), // Initial release year.
     width: (0.9,) * data.len(),
   ),
 )
-
-// #pad(left: 0.35cm, block(width: 8cm, image("typesetting systems.svg", width: 99%)))

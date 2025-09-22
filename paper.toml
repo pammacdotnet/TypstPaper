@@ -26,7 +26,7 @@ include = true
 corresponding = false
 email = "pau.oliver@uv.es"
 institution = "The University of Valencia (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, Spain"
-bio = "Pau López Oliver is a theoretical physicist with a M.Sc. in Advanced Physics at the University of Valencia. He completed his undergraduate studies in Physics at the University of Murcia, where he developed a strong foundation in both theoretical and computational physics. Pau's academic interests span quantum mechanics, mathematical physics, and science communication. He actively shares his passion for physics through his personal website (ploliver.github.io). Beyond his studies, Pau is committed to rigorous research with creative outreach."
+bio = "Pau is a theoretical physicist with a M.Sc. in Advanced Physics from the University of Valencia and a B.Sc. in Physics from the University of Murcia. His research currently centers on understanding particle creation in quantum field theory in curved and dynamical backgrounds. He is dedicated to advancing fundamental physics while promoting science communication."
 
 [[authors]]
 name = "David Gil"

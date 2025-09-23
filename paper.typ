@@ -555,7 +555,7 @@ A unique feature is _implicit coercion_: values like numbers or strings are auto
 
 == Modules
 As mentioned, Typst's other form of abstraction is modules. There are three ways to _import_ a module:
-/ `#import "mymodule.typ"`: makes `mymodule` _visible_. Then, it is possible to write `mymodule.functionality` to access what is defined with `#let functionality = ...` in `mymodule.typ`.
+/ `#import "mymodule.typ"`: makes `mymodule` _visible_. Then, it is possible to write `mymodule.functionality` to access what is defined with #box(`#let functionality = ...`) in `mymodule.typ`.
 / `#import "mymodule.typ": *`: functionality puts `functionality` directly in scope, so that the prefix is not needed anymore.
 / `#include "mymodule.typ"`: inlines the _content_ (and only the content) from `mymodule.typ`.
 #set raw(lang: "typc")

@@ -199,7 +199,7 @@ Modern typesetting relies heavily on computers, with most printed materials now 
 These systems rely on compiling source text into formatted outputs like PDFs, separating content from presentation to allow easy reuse and adaptation of document styles @Clark07. Typesetting systems are designed not only to produce high-quality visual documents but also to support the complex process of creating structured content. A well-designed system must consider numerous layout features such as _line_ and _page breaking_, _kerning_, _ligatures_, contextual _glyph positioning_, and the treatment of languages with varied directionalities. Additionally, avoiding formatting issues like _widows_ and _orphans_ is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
 #figure(
-  caption: "Most important typesetting algorithms",
+  caption: [Most important typesetting algorithms],
   table(
     columns: (1fr, 2fr, 2fr),
     align: (auto, auto, auto),
@@ -679,7 +679,7 @@ Certainly, as with every new disruptive technology and, as also happened with Te
 #figure(
   image("universe4.jpg"),
   placement: none,
-  caption: "A screenshot of the Typst Universe website.",
+  caption: [A screenshot of the Typst Universe website.],
 ) <fig:universe>
 
 Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
@@ -1087,7 +1087,7 @@ Reproducibility can be important, therefore saving a full source code, or an ima
 
 #figure(
   scale(65%, gantt(gantt_yaml)),
-  caption: "Example of a Gantt chart.",
+  caption: [Example of a Gantt chart.],
 ) <fig:gantt>
 
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantyy (@fig:gantt). Separately, it is possible to replicate a modern Kanban board with Typst scripting system, where each task is a single line, which makes it easy to move tasks up and down or left and right between stages (@fig:kanban).

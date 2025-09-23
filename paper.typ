@@ -655,6 +655,12 @@ The Typst online editor (the web app; @fig:typstapp) is a collaborative, web-bas
 
 The development team is actively working on improvements, including better mobile usability and additional features like offline PWA support and private templates for teams. The editor is available for free with basic features, while a _pro_#footnote[https://typst.app/pro] subscription unlocks advanced capabilities like Git integration, presentation mode, and increased storage.
 
+#let badformer = package-link("badformer")
+#let soviet-matrix = package-link("soviet-matrix")
+
+// Not sure if there is a better place to put this.
+Because of the aforementioned high compilation speeds and instant preview, it is possible to enjoy playing interactive games right from the Typst document. The team has published an actual 3D (wireframing) platformer "#badformer" during the end of 2023. Another outstanding game is a full-fledged Tetris, provided by the "#soviet-matrix" package. Since both use pure Typst to drive the interaction, logic, and visuals of the game, the source code is stored in the project directory. As such, not only it is human-readable, it is also completely editable, which gives a user infinite customization possibilities.
+
 #let image-width = 100%
 #figure(
   //caption: [Some journal Typst-based templates already qualified to be used for editorial pourposes: _Joint Accelerator Conferences Website_#footnote[https://jacow.org], _Journal of Machine Learning Research_#footnote[https://www.jmlr.org], _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com]],

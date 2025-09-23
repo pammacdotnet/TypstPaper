@@ -633,6 +633,10 @@ Typst integrates seamlessly with existing integrated development environments (I
 == Export options
 As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web app. SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has same feature set as SVG, except it's a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development; it requires enabling a feature flag (`--features html`) in the CLI, supports basic markup elements, and is not yet available in the web app.
 
+// Can be shortened, if needed.
+== Image formats
+Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats, but also the formats that are most popular. As such, PNG, JPEG, and SVG formats can be included as images in a Typst project. In academia, being able to import PDF as an image can be a great deal, and in July 2025 this ability was added. The PDF is embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature will be included in version 0.14.0, but as of end of August 2025 it is already available in the web application, which will be our next topic.
+
 #let Notion = link("https://www.notion.com")[Notion]
 
 #set raw(lang: "typc")

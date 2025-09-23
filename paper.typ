@@ -118,7 +118,6 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
     show heading: it => block(smallcaps(it.body))
     rect(stroke: 0.1mm, inset: (bottom: 1mm), context {
       eval(read(affine-typst), mode: "markup")
-      // Maybe use Matryoshka package.
       counter(heading).update(counter(heading).get())
     })
   },
@@ -144,7 +143,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 #figure(
   caption: [Main differences between LaTeX and Typst],
   feature(table(
-    columns: (1.01fr, 2fr, 2.0fr), // 2.01fr
+    columns: (1.01fr, 2fr, 2fr),
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
@@ -253,18 +252,6 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 
 Knitr @Xie18, Sweave @Leisch02, and similar computational document systems, such as RMarkdown @Baumer15 and Jupyter Notebooks, integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
-
-// Nested code block highlighting is not support:
-// https://github.com/typst/typst/issues/2844
-#figure(
-  code-grid("diagraph example.typ", left-column: 1.6fr),
-  caption: [Example of a Graphviz diagram, rendered natively with Wasm],
-  kind: image,
-  placement: none,
-) <fig:dot>
-
-
-
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, and even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, discussed in @sec:wasm), the possibilities are almost endless.
 For instance, the package #package-link("Pyrunner")#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
@@ -275,11 +262,20 @@ For instance, the package #package-link("Pyrunner")#footnote[https://typst.app/u
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-- #package-link("Neoplot")#footnote[https://github.com/KNnut/neoplot], for generating plots with Gnuplot (see @fig:neoplot).
+- #package-link("Neoplot")#footnote[https://github.com/KNnut/neoplot], for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
 - #package-link("Jlyfish")#footnote[https://github.com/andreasKroepelin/TypstJlyfish.jl], for integrating Julia code.
 - #package-link("Callisto")#footnote[https://github.com/knuesel/callisto], for reading and rendering Jupyter notebooks.
-- #package-link("Diagraph")#footnote[https://github.com/Robotechnic/diagraph], for binding simple Graphviz-based diagrams (see @fig:dot). // the figure is too far behind
+- #package-link("Diagraph")#footnote[https://github.com/Robotechnic/diagraph], for binding simple Graphviz-based diagrams (see @fig:dot).
 - #package-link("Nulite")#footnote[https://github.com/j-mueller/typst-vegalite], for plotting Vega-based charts.
+
+// Nested code block highlighting is not support:
+// https://github.com/typst/typst/issues/2844
+#figure(
+  code-grid("diagraph example.typ", left-column: 1.6fr),
+  caption: [Example of a Graphviz diagram, rendered natively with Wasm],
+  kind: image,
+  placement: none,
+) <fig:dot>
 
 
 
@@ -572,6 +568,14 @@ Modules do not give the user/developer any way to mark items as public or privat
 As with LaTeX, Typst also supports the addition of functionalities via _packages_. A Typst package is a self-contained collection of Typst source files and assets, structured around a mandatory `typst.toml` manifest file located at the package root. This manifest specifies essential metadata such as the package's `name`, `version`, and `entrypoint`, which points to the main `.typ` file to be evaluated upon import. Additional optional fields like `authors`, `license`, and `description` can also be included. The internal organization of the package is flexible, allowing authors to structure files and directories as they see fit, provided that the `entrypoint` path is correctly specified. All paths within the package are resolved relative to the package root, ensuring encapsulation and preventing access to files outside the package.
 
 #set raw(lang: "typ")
+
+Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The `@preview` namespace in Typst serves as a dedicated space for community-contributed packages. These packages are hosted in the Typst package repository.
+
+== Web technologies <sec:wasm>
+As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
+
+As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
+
 #let data = read("mileva.jpg", encoding: none)
 #figure(
   placement: none,
@@ -584,14 +588,6 @@ As with LaTeX, Typst also supports the addition of functionalities via _packages
     image-darken(data, amount: 0.4)
   ),
 ) <fig:mileva>
-Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The `@preview` namespace in Typst serves as a dedicated space for community-contributed packages. These packages are hosted in the Typst package repository.
-
-== Web technologies <sec:wasm>
-As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
-
-
-As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot). The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva). // too far back for referencing
-
 
 #figure(
   code-grid("neoplot example.typ", left-column: 1.7fr),
@@ -662,7 +658,6 @@ The development team is actively working on improvements, including better mobil
     columns: (1fr, 1fr),
     column-gutter: 2pt,
     gutter: 5pt,
-    // image("jacow.jpg", width: image-width), image("jmlr.jpg", width: image-width),
     image("ieee.jpg", width: image-width), image("mdpi.jpg", width: image-width),
   ),
 ) <fig:papers>
@@ -1077,7 +1072,7 @@ If the writer is going with a Typst implementation for solving a particular prob
 Reproducibility can be important, therefore saving a full source code, or an image, without necessarily including them visually in a document is desired. For this, Typst has a #pdf-embed function, than can embed an arbitrary sequence of bytes as files inside a PDF document, that can be later extracted if necessary.
 #let gantt_yaml = yaml("gantt.yaml")
 
-// Change, for instance, the colour of the milestones
+// Change, for instance, the color of the milestones
 #let gant_style = (
   gridlines: (
     table: (stroke: (paint: blueunir), thickness: 1pt),

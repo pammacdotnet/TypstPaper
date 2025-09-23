@@ -1,23 +1,48 @@
-add image alt text?
-check that all figures are referenced
-check that all figures are in their respective sections (place.flush)
-
-use codly code block (maybe disable line numbers in some cases)
+Simple, and urgent:
 make a better small Rust example code
-
-https://github.com/notofonts/arabic
-https://github.com/aiaf/kawkab-mono
-
+make package links consistent
+use codly code block (maybe disable line numbers in some cases)
 make some figures unfloated (because of the bottom floating figure + place.flush not working bug)
 
-explicitly state with which template commit paper was edited/compiled
+Not simple, but kind of urgent:
+use VSCodium (625G)
 
+Easy, but not urgent:
 maybe add space before footnotes
+check that all figures are referenced
+check that all figures are in their respective sections (place.flush)
+use matofletcher, remove autofletcher.typ
 
-capital letter for: tiaoma, siunitx, troff/TROFF, Runoff/RUNOFF, problemst, self-example
+Add links to all fonts.
+https://github.com/notofonts/arabic
+https://github.com/aiaf/kawkab-mono
+...
 
-After review:
-undo placement: none changes that are bugged (bottom figures don't respect flush)
+Not simple, not urgent:
 change lists
-make package links consistent
-don't forget to replace Pythagorean theorem example
+
+Need to discuss/get answer, not urgent:
+capital letter for: tiaoma, siunitx, troff/TROFF, Runoff/RUNOFF, problemst, self-example
+add image alt text?
+replace Pythagorean theorem example
+
+From paper.typ:
+Add note about Noto Color Emoji being bad and glyphs not being centered, or use another one. (75G)
+Ugly table.hline overlapping table boundaries (152G)
+
+Current minimal Universe distribution is around 442 MiB.
+While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html). (187G)
+
+Do table cells must be justified? The big spaces between words don't look good. (209G)
+"and a significantly improved user experience" sounds bad/backwards with the current phrasing. (248G)
+remove "see"? (265G)
+inconsistent example/description narrative. (283G)
+This table doesn't show the transitions between modes, like in a matrix. (287G)
+First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability. (305G)
+I expected a cetz-plot example here (443G)
+Why not include HTML? (532G)
+Mention Neovim etc. (617G)
+Translate/rephrase? (769G)
+Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe. (779G)
+If quad is added in the preview, it must be added in the code. (810G)
+Change, for instance, the color of the milestones (1075G)

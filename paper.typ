@@ -874,13 +874,13 @@ accommodate it with many general-purpose packages and even more niche ones.
 
 == Algorithms & hardware
 #let Algorithmic = package-link("Algorithmic")
-#let Autofletcher = package-link("Autofletcher")
+#let Matofletcher = package-link("Matofletcher")
 #let Fletcher = package-link("Fletcher")
 #let Diagraph = package-link("Diagraph")
 #let Truthfy = package-link("Truthfy")
 #let CeTZ = package-link("CeTZ")
 
-For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax. Also, the #Autofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown on @fig:flowchart.
+For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax. Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown on @fig:flowchart.
 
 #figure(
   {

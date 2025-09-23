@@ -1,8 +1,7 @@
 #import "@preview/ijimai:0.0.5": blueunir
-// Change to https://codeberg.org/Andrew15-5/matofletcher once it's published.
-#import "autofletcher.typ"
+#import "@preview/matofletcher:0.1.1": *
 
-#autofletcher.diagram(
+#diagram(
   spacing: (2mm, 7mm),
   node-stroke: 1pt,
   edge-stroke: 1pt + blueunir,
@@ -10,7 +9,6 @@
   edge-corner-radius: 0pt,
   mark-scale: 70%,
   {
-    import autofletcher: *
     import fletcher.shapes: *
     let height = 7mm
     let node-style = (width: height * 2, height: height)

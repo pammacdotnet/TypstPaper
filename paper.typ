@@ -210,7 +210,7 @@ These systems rely on compiling source text into formatted outputs like PDFs, se
     [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
     [Knuth-Plass line breaking algorithm @Hassan15.],
     [Justification],
-    [Lines align evenly at margins looking fine],
+    [Lines align evenly at margins],
     [Spacing adjustments with the Knuth-Plass @Knuth81],
     [Grid Layout],
     [Optimal space for rows/columns in grids],
@@ -321,9 +321,10 @@ All this content is written in Unicode. Typst has embraced this computing standa
 == Styling
 Typst makes styling documents flexible, and consistent with a modern and declarative approach. In certain ways, it operates very similarly to CSS, but built for typesetting. With more detail, it uses a consistent and hierarchical styling model where styles can be defined globally, applied to specific elements, or inherited through logical relationships. Typst leverages a declarative syntax combined with programmatic features, allowing users to define reusable styles, functions, and templates. For example, document-wide settings like fonts, margins, and colors can be set at the beginning, while local overrides can be applied to headings, tables, or other elements using rules and selectors. This ensures a clean separation of content and presentation while maintaining flexibility. Additionally, Typst's styling system supports dynamic adjustments, such as conditionally changing layouts or automating typographic refinements, thanks to its built-in scripting capabilities.
 
-One of Typst's key strengths is its composability: styles can be defined as functions or _mixins_, enabling modular and reusable design systems. For instance, a custom heading style can encapsulate font choices, spacing, and numbering logic, then be reused across the document with variations. The system also handles inheritance and cascading predictably, avoiding the complexity seen in some web CSS models. By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
-
 #set raw(lang: "typc")
+
+Typst uses a two-pronged styling system to separate styling from content. First, set rules let you declare global or locally scoped defaults for elements (like text, page, par, heading), specifying parameters such as font, size, margins, justification, line spacing, numbering, and layout. Once set, these defaults apply automatically wherever that element appears. Second, show rules enable custom rendering logic for specific elements or selectors: using simple #box(`show heading: set text(..)`) (#box[show-set] rule) to tweak appearance or full code-based transformations (#box(`it => {...}`)) to rebuild how content is displayed (e.g., small caps, run-in headings, added logotypes). Together, set and show rules empower users to define reusable, scoped, and precise styling --- including theme-level templates via “everything” show rules --- without scattering formatting directives through the content itself. /* not sure how to merge this */ By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
+
 #let show-set = `show` + raw(lang: none, "-") + `set`
 #figure(
   placement: none,
@@ -332,7 +333,7 @@ One of Typst's key strengths is its composability: styles can be defined as func
   grid(
     columns: (1fr, 3fr),
     gutter: 1pt,
-    [Global `set` rule], [Style mixin],
+    [Global `set` rule], [Show and show-set rules for heading],
     [#v(.1cm)], [],
     ```typ
     #set text(9pt)
@@ -667,6 +668,7 @@ The development team is actively working on improvements, including better mobil
 Typst has garnered significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a growing community, with its GitHub repository amassing over 45,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
 During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a growing document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like CeTZ for graphics expanded its reach. Projections for 2025 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst] against LaTeX. The Typst community is also providing template for the most reputed editorials and journals (@fig:papers).
+
 Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 
 

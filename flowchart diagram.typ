@@ -36,9 +36,9 @@
       patch-nodes(place-nodes(pos, 1, placer((dx, dy))))
     }
     let r = (0, 0)
-    node(r, shape: pill)[start]
+    //node(r, shape: pill)[start]
     let ((read-pos,), (read,)) = place-new-nodes(r, 1)
-    edge()
+    //edge()
     read(shape: parallelogram)[`read a, b, c`]
     edge()
     let ((q-pos,), (question,)) = place-new-nodes(read-pos, 1)
@@ -69,7 +69,7 @@
     zig-zag-edge(yes-pos2, print-pos)
     print(shape: parallelogram)[`print max`]
     let (_, (end,)) = place-new-nodes(print-pos, 1)
-    edge()
-    end(shape: pill)[end]
+    //edge()
+    //end(shape: pill)[end]
   },
 )

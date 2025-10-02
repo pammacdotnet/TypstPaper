@@ -236,7 +236,7 @@ Additionally, avoiding formatting issues like _widows_ (the last line of a parag
   [Shaping and grapheme line breaking @Elkhayati2022],
 )) <tab:typesetting>
 
-Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. In parallel, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
+Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
 
 #figure(
@@ -664,7 +664,7 @@ As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PN
 
 // Can be shortened, if needed.
 == Image formats
-Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as-is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web application, which will be our next topic.
+Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web application, which will be our next topic.
 
 #let Notion = link("https://www.notion.com")[Notion]
 
@@ -675,7 +675,7 @@ The shift to cloud-based tools is revolutionizing content creation, academic wor
 #figure(
   image("typstapp2.jpg", width: 100%),
   placement: none,
-  caption: [Screenshot of the Typst.app web application (online editor)],
+  caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>
 
 Papeeria#footnote[https://papeeria.com] and Authorea#footnote[https://www.authorea.com] offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMLatex#footnote[https://plmlatex.math.cnrs.fr], developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc#footnote[https://cocalc.com] also supports LaTeX editing alongside tools for calculations, research, and collaboration.
@@ -708,7 +708,7 @@ During the period 2020--2025, Typst evolved from a niche LaTeX alternative into 
 //   caption: [A screenshot of the Typst Universe website],
 // ) <fig:universe>
 
-Finally, although not its intention, the online service Typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] already play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
+Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] already play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
 
 #let image-width = 100%
 #figure(
@@ -773,7 +773,7 @@ In addition to spacetime visualizations, Typst's CeTZ package can be applied in 
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$],
 ) <fig:feynman-diagram>
 
-Another common diagram type in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative layout shown in @fig:commutative-diagram appears, and we can reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
+Another common diagram type in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram shown in @fig:commutative-diagram appears, and we can reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
 
 #import "@preview/commute:0.3.0": *
 
@@ -931,7 +931,7 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
     set par(justify: false)
     scale(95%, include "flowchart diagram.typ")
   },
-  caption: [Example of a flowchart created with Matofletcher.],
+  caption: [Example of a flowchart created with Matofletcher],
 ) <fig:flowchart>
 
 
@@ -1029,7 +1029,7 @@ A prominent part of Computer Science is software and software engineering. For t
 / Built-in listings: with automatic syntax highlighting (or custom
   parsers/themes), that can be further enhanced with #Codly (@fig:listing).
 / Built-in data loading: functions for JSON, CSV, XML, etc. (or XLSX with #ReXLlenT) for generating native tables or #Lilaq graphs.
-/ Sequence diagrams: provided by extensions like #package-link("CeTZ-Tree") (@fig:tree) or #Chronos (@fig:sequence).
+/ Sequence diagrams: provided by #Chronos (@fig:sequence).
 / Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited Wasm limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
 
 #codly(zebra-fill: softblueunir, stroke: 1pt + blueunir, languages: (
@@ -1055,11 +1055,11 @@ A prominent part of Computer Science is software and software engineering. For t
 
 #figure(
   scale(90%, text(font: "Liberation Sans", sequence-diagram)),
-  caption: [Example of a sequence diagram created with Chronos.],
+  caption: [Example of a sequence diagram created with Chronos],
 ) <fig:sequence>
 
 
-Typst scripting language can tackle a lot of problems, such as preprocessing and visualizing data, implementing algorithms (sort, search, calendar-related, BNF-based recursive parser, Nassi–Shneiderman designs, etc.), generating raster images based on raw pixel data (supporting different pixel encodings), modifying SVG images with simple or regex-based substring replacement.
+Typst scripting language can tackle a lot of problems, such as preprocessing and visualizing data, implementing algorithms (sort, search, calendar-related, BNF-based recursive decent parser, Nassi–Shneiderman designs, etc.), generating raster images based on raw pixel data (supporting different pixel encodings), modifying SVG images with simple or regex-based substring replacement.
 
 #let Pyrunner = package-link("Pyrunner")
 #let Jogs = package-link("Jogs")
@@ -1106,7 +1106,7 @@ Another notable limitation within Wasm-based packages is that network and input/
 
 #let Prequery = package-link("Prequery")
 
-The #package-link("Prequery") package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of report-like docs.
+The #package-link("Prequery") package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of report-like documents.
 
 #let MiTeX = package-link("MiTeX")
 #let Eqalc = package-link("Eqalc")
@@ -1135,7 +1135,7 @@ Similarly, a LaTeX-based math expression can be directly used as-is through the 
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
 
-The #eval function allows the writing of code once while showing both the result and its associated source. Packages like #self-example and #idwtet provide useful abstractions. Reproducibility often requires saving full source code or images without displaying them. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
+The #eval function allows the writing of code once while showing both the result and its associated source. Packages like #self-example and #idwtet provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
 
 #let gantt_yaml = yaml("gantt.yaml")

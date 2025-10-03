@@ -43,7 +43,13 @@
 }
 
 #let package-link(name) = {
-  link("https://typst.app/universe/package/" + lower(name), name)
+  box(link("https://typst.app/universe/package/" + lower(name), name))
+}
+#let github-link(user-repo, name) = {
+  box(link("https://github.com/" + user-repo, name))
+}
+#let ctan-link(package-name) = {
+  box(link("https://ctan.org/pkg/" + lower(package-name), package-name))
 }
 
 #set math.equation(numbering: none)
@@ -136,6 +142,14 @@ The compiler (tackled in @sec:compiler) is a single lightweight binary (less tha
 
 Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code to start a new document: just by creating an empty text file with a `typ` extension suffices. To simplify further, the Typst project hosts its own online editing service (@sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences between the two ecosystems is presented in @tab:diffs.
 
+#let TikZ = link("https://tikz.dev/")[TikZ]
+#let PSTricks = link("https://tug.org/PSTricks/main.cgi/")[PSTricks]
+#let CeTZ = package-link("CeTZ")
+#let Lilaq = package-link("Lilaq")
+#let Fletcher = package-link("Fletcher")
+#let Listings = ctan-link("Listings")
+#let Minted = ctan-link("Minted")
+
 #let raw-size(size, body) = {
   set text(size)
   show raw: set text(size)
@@ -185,13 +199,13 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [Cached downloads],
     [Errors], [Cryptic], [User-friendly, detailed],
     [Graphics],
-    [TikZ, PSTricks, etc.],
-    [CeTZ, Lilaq, Fletcher, etc.],
+    [#TikZ, #PSTricks, etc.],
+    [#CeTZ, #Lilaq, #Fletcher, etc.],
     [Team work],
     [Overleaf (third-party)],
     [Own app (@sec:typstapp)],
     [Code blocks],
-    [Very package-dependent (Listings, Minted, etc.)],
+    [Very package-dependent (#Listings, #Minted, etc.)],
     [Own native support for code blocks (`#raw(code)`)],
     [Citations], [Managed externally], [Built-in (also Hayagriva)],
     [Deploy], [Can be initially heavy (\~5 GiB) for most distros], [Starts with a single binary (\~40 MiB)],
@@ -256,6 +270,13 @@ Historically, the development of markup-oriented systems began in the 1960s with
 Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like Markdown#footnote[https://daringfireball.net/projects/markdown] or AsciiDoc#footnote[https://asciidoc.org] prioritize ease of use but sacrifice power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
 
 On the other hand, advanced software like LuaTeX @Pegourie13 or ConTeXt#footnote[http://wiki.contextgarden.net] attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved around usability, accessibility, and automation. // "and a significantly improved user experience" sounds bad/backwards with the current phrasing.
+#let Pyrunner = package-link("Pyrunner")
+#let Diagraph = package-link("Diagraph")
+#let Neoplot = package-link("Neoplot")
+#let Jlyfish = package-link("Jlyfish")
+#let Callisto = package-link("Callisto")
+#let Nulite = package-link("Nulite")
+#let Jogs = package-link("Jogs")
 
 == Computed documents and dynamic content <sec:computed>
 Dynamic content generation is a crucial feature of modern markup languages and typesetting systems, enabling documents to update automatically based on external data or user input. By integrating programming logic, such as loops, conditionals, and variables, these systems can produce data-driven outputs, from dynamically generated reports in LaTeX to interactive web pages in Markdown with embedded scripts. This capability reduces manual repetition, minimizes errors, and ensures consistency when dealing with large or evolving datasets. Furthermore, dynamic generation supports real-time updates in interactive documents, such as dashboards or educational materials, enhancing usability and engagement. By blending structured markup with computational power, these systems bridge the gap between static documents and flexible, automated publishing workflows, making them indispensable for technical, scientific, and web-based documentation.
@@ -263,26 +284,22 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 Knitr @Xie18, Sweave @Leisch02, and similar computational document applications, such as RMarkdown @Baumer15 and Jupyter Notebooks, integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, and even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, discussed in @sec:wasm), the possibilities are almost endless.
-For instance, the package #package-link("Pyrunner")#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
+For instance, the package #Pyrunner#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
   placement: none,
   code-grid("pyrunner example.typ", gutter: 0.5em, left-column: none),
-  caption: [Python code and its output produced by Pyrunner],
+  caption: [Python code and its output produced by #Pyrunner],
   kind: image,
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-/ #package-link(
-    "Neoplot",
-  )#footnote[https://github.com/KNnut/neoplot]: for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
-/ #package-link("Jlyfish")#footnote[https://github.com/andreasKroepelin/TypstJlyfish.jl]: for integrating Julia code.
-/ #package-link("Callisto")#footnote[https://github.com/knuesel/callisto]: for reading and rendering Jupyter notebooks.
-/ #package-link(
-    "Diagraph",
-  )#footnote[https://github.com/Robotechnic/diagraph]: for binding simple Graphviz-based diagrams (see @fig:dot).
-/ #package-link("Nulite")#footnote[https://github.com/j-mueller/typst-vegalite]: for plotting Vega-based charts.
-/ #package-link("Jogs")#footnote[https://github.com/Enter-tainer/jogs]: a native JavaScript runtime.
+/ #Neoplot#footnote[https://github.com/KNnut/neoplot]: for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
+/ #Jlyfish#footnote[https://github.com/andreasKroepelin/TypstJlyfish.jl]: for integrating Julia code.
+/ #Callisto#footnote[https://github.com/knuesel/callisto]: for reading and rendering Jupyter notebooks.
+/ #Diagraph#footnote[https://github.com/Robotechnic/diagraph]: for binding simple Graphviz-based diagrams (see @fig:dot).
+/ #Nulite#footnote[https://github.com/j-mueller/typst-vegalite]: for plotting Vega-based charts.
+/ #Jogs#footnote[https://github.com/Enter-tainer/jogs]: a native JavaScript runtime.
 
 // This table doesn't show the transitions between modes, like in a matrix.
 
@@ -414,32 +431,28 @@ $
 ) <fig:rsm>
 
 
+#let Quick-Maths = package-link("Quick-Maths")
+#let Great-Theorems = package-link("Great-Theorems")
+#let Game-Theoryst = package-link("Game-Theoryst")
+#let Physica = package-link("Physica")
+#let Equate = package-link("Equate")
+#let MiTeX = package-link("MiTeX")
 
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
   code-grid("physica example.typ", left-column: 1.5fr),
-  caption: [Example of advanced math with the #package-link("Physica") package#footnote[https://typst.app/universe/package/physica]],
+  caption: [Example of advanced math with the #Physica package#footnote[https://typst.app/universe/package/physica]],
   kind: image,
   placement: none,
 ) <fig:physica>
 
 Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related packages to enhance mathematical typesetting:
-/ #package-link(
-    "Quick-Maths",
-  ): package  allows users to define custom shorthands for complex expressions, streamlining the writing process.
-/ #package-link(
-    "Great-Theorems",
-  ): provides structured environments for theorems, lemmas, and proofs with customizable styling and numbering.
-/ #package-link("Game-Theoryst"): facilitates the typesetting of payoff matrices.
-/ #package-link(
-    "Physica",
-  ): package offers tools for scientific and engineering mathematics, including matrix operations and vector calculus (@fig:physica).
-/ #package-link(
-    "Equate",
-  ): enhances the formatting and numbering of mathematical equations, improving readability and reference.
-/ #package-link(
-    "Mitex",
-  ): integrates LaTeX math syntax into Typst, allowing users to write equations using familiar LaTeX commands.
+/ #Quick-Maths: package  allows users to define custom shorthands for complex expressions, streamlining the writing process.
+/ #Great-Theorems: provides structured environments for theorems, lemmas, and proofs with customizable styling and numbering.
+/ #Game-Theoryst: facilitates the typesetting of payoff matrices.
+/ #Physica: package offers tools for scientific and engineering mathematics, including matrix operations and vector calculus (@fig:physica).
+/ #Equate: enhances the formatting and numbering of mathematical equations, improving readability and reference.
+/ #MiTeX: integrates LaTeX math syntax into Typst, allowing users to write equations using familiar LaTeX commands.
 
 == Drawing capabilities
 Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke, and radius.
@@ -461,9 +474,11 @@ The module also allows for the inclusion of images (both raster and vector) and 
   kind: image,
 ) <fig:chess>
 
-It is worth mentioning the Typst's #package-link("CeTZ") library#footnote[http://cetz-package.github.io]. CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #package-link("TikZ") for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
+#let CeTZ-Plot = package-link("CeTZ-Plot")
 
-Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #package-link("Lilaq")#footnote[https://lilaq.org] and #package-link("CeTZ-Plot")#footnote[https://github.com/cetz-package/cetz-plot]. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
+It is worth mentioning the Typst's #CeTZ library#footnote[http://cetz-package.github.io]. #CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #TikZ for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, #CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
+
+Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq#footnote[https://lilaq.org] and #CeTZ-Plot#footnote[https://github.com/cetz-package/cetz-plot]. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
   code-grid("lilaq example/example.typ", left-column: 1.1fr),
@@ -471,12 +486,12 @@ Regarding data visualization, Typst also offers powerful capabilities through it
   kind: image,
 ) <fig:lilaq>
 
-On the other hand, CeTZ-Plot extends the CeTZ drawing library, offering functionalities for creating plots and charts within the CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids.
+On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids.
 
 // I expected a cetz-plot example here
 #figure(
   code-grid("cetz example.typ", left-column: 1.55fr),
-  caption: [Example of a Venn diagram composed through CeTZ],
+  caption: [Example of a Venn diagram composed through #CeTZ],
   kind: image,
   placement: none,
 ) <fig:cetz>
@@ -587,7 +602,9 @@ Although value semantics suggest potential performance costs due to frequent cop
 // #let d = (x: 1); modify(d); d.x // Still 1
 // ```
 
-A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes #(1 + 2), while `3.0` retains its fractional part in arrays for debugging clarity. Strings differ from content: even though they can be implicitly or explicitly coerced to content, special syntax for smart quotes, references, etc. will not be picked up, e.g., `#"'Hello'"` will produce #"'Hello'" and not #eval("'Hello'", mode: "markup") (`eval`, introduced in @cs-other, can help with such issues).
+#let eval-func = link("https://typst.app/docs/reference/foundations/eval/")[`eval`]
+
+A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes #(1 + 2), while `3.0` retains its fractional part in arrays for debugging clarity. Strings differ from content: even though they can be implicitly or explicitly coerced to content, special syntax for smart quotes, references, etc. will not be picked up, e.g., `#"'Hello'"` will produce #"'Hello'" and not #eval("'Hello'", mode: "markup") (#eval-func, introduced in @cs-other, can help with such issues).
 
 == Modules
 As mentioned, Typst's other form of abstraction is modules. There are three ways to _import_ a module:
@@ -611,21 +628,23 @@ Packages are typically stored in a directory hierarchy following the pattern `{n
 == Web technologies <sec:wasm>
 As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
 
-As an example, the #package-link("Neoplot") package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot).
+As an example, the #Neoplot package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot).
 
 #figure(
   code-grid("neoplot example.typ", left-column: 1.7fr),
-  caption: [Parabola plot with the Neoplot Wasm-based package],
+  caption: [Parabola plot with the #Neoplot Wasm-based package],
   kind: image,
   placement: none,
 ) <fig:neoplot>
 
-The #package-link("Grayness")#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
+#let Grayness = package-link("Grayness")
+
+The #Grayness#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
 
 #let data = read("mileva.jpg", encoding: none)
 #figure(
   placement: none,
-  caption: [Complex image manipulation via the #package-link("Grayness") Wasm plugin],
+  caption: [Complex image manipulation via the #Grayness Wasm plugin],
   grid(
     columns: 3,
     gutter: 2pt,
@@ -691,9 +710,9 @@ The Typst online editor (@fig:typstapp) is a collaborative, web-based platform d
 
 The development team is actively working on improvements, including better mobile usability and additional features like offline PWA support and private templates for teams. The editor is available for free with basic features, while a _Pro_ subscription#footnote[https://typst.app/pricing] unlocks advanced aspects like Git integration, presentation mode, and increased storage.
 
-#let soviet-matrix = box(package-link("Soviet-Matrix"))
+#let Soviet-Matrix = package-link("Soviet-Matrix")
 
-Because of Typst's high compilation speeds and instant preview, the web app can even support interactive games, such as a fully functional Tetris. It is published as the  #soviet-matrix package.
+Because of Typst's high compilation speeds and instant preview, the web app can even support interactive games, such as a fully functional Tetris. It is published as the  #Soviet-Matrix package.
 
 
 
@@ -701,7 +720,7 @@ Because of Typst's high compilation speeds and instant preview, the web app can 
 
 Typst has attracted significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a flourishing community, with its GitHub repository amassing over 45,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
-During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist, commented in @sec:ide) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
+During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like #CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist, commented in @sec:ide) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
 
 // Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 
@@ -728,6 +747,14 @@ Finally, although not its intention, the online service typst.app can also be us
   ),
 ) <fig:papers>
 
+#let Touying = package-link("Touying")
+#let Unify = package-link("Unify")
+#let Finite = package-link("Finite")
+#let Tiaoma = package-link("Tiaoma")
+#let Problemst = package-link("Problemst")
+#let Quill = package-link("Quill")
+#let Siunitx = ctan-link("Siunitx")
+
 = Typst Universe <sec:universe>
 Typst Universe#footnote[http://typst.app/universe] is an online platform that offers a curated collection of templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
 #figure(
@@ -739,18 +766,18 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
     stroke: 0.01cm,
     table.header([*Package*], [*Description*]),
     table.hline(),
-    [Touying],
+    Touying,
     [A powerful package for creating presentation slides.],
-    [Unify],
-    [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's siunitx package @Wright11.],
-    [Finite],
-    [Renders finite automata diagrams using CeTZ.],
-    [Tiaoma],
+    Unify,
+    [Simplifies the typesetting of numbers, units, and ranges, similar to LaTeX's #Siunitx package @Wright11.],
+    Finite,
+    [Renders finite automata diagrams using #CeTZ.],
+    Tiaoma,
     [A barcode generator that supports various barcode types by compiling Zint to WebAssembly.],
-    [Problemst],
+    Problemst,
     [Template for problem sets, homework, or assignments.],
-    [Quill],
-    [Quill is a package for quantum circuit diagrams#footnote[https://github.com/Mc-Zen/quill].],
+    Quill,
+    [#Quill is a package for quantum circuit diagrams#footnote[https://github.com/Mc-Zen/quill].],
   ),
 ) <tab:packages>
 
@@ -760,7 +787,7 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
 
 
 = Application of Typst for theoretical Physics <sec:theophys>
-Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
+Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the #CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
 
 #figure(
   include "penrose-carter diagram.typ",
@@ -769,7 +796,7 @@ Typst's robustness, powerful features and intuitive syntax make it an all-in-one
   ],
 )<fig:penrose-carter>
 
-In addition to spacetime visualizations, Typst's CeTZ package can be applied in particle physics through the creation of Feynman diagrams. Physicists relate the initial and final states of a physical system via the scattering matrix, or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted in @fig:feynman-diagram.
+In addition to spacetime visualizations, Typst's #CeTZ package can be applied in particle physics through the creation of Feynman diagrams. Physicists relate the initial and final states of a physical system via the scattering matrix, or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted in @fig:feynman-diagram.
 
 #figure(
   placement: none,
@@ -777,7 +804,9 @@ In addition to spacetime visualizations, Typst's CeTZ package can be applied in 
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$],
 ) <fig:feynman-diagram>
 
-Another common diagram type in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram shown in @fig:commutative-diagram appears, and we can reproduce it using the #package-link("Commute") package, a library designed to draw such diagrams.
+#let Commute = package-link("Commute")
+
+Another common diagram type in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram shown in @fig:commutative-diagram appears, and we can reproduce it using the #Commute package, a library designed to draw such diagrams.
 
 #import "@preview/commute:0.3.0": *
 
@@ -817,7 +846,7 @@ Another common diagram type in math and present in some branches of theoretical 
   caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex @Giachetta09],
 ) <fig:commutative-diagram>
 
-The flexibility of the #package-link("CeTZ") package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in Physics and Math, not just communicate them via papers, books, etc.
+The flexibility of the #CeTZ package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in Physics and Math, not just communicate them via papers, books, etc.
 
 
 #import "@preview/physica:0.9.5": *
@@ -827,14 +856,16 @@ The flexibility of the #package-link("CeTZ") package enables the creation of a w
 #import "@preview/atomic:1.0.0": atom
 #import "@preview/typsium:0.2.0": ce
 
+#let Mannot = package-link("Mannot")
+
 = More on mathematics and scientific notation <sec:moremath>
 == Annotated Mathematics
 
-The #package-link("Mannot")#footnote[https://github.com/ryuryu-ymj/mannot] package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
+The #Mannot#footnote[https://github.com/ryuryu-ymj/mannot] package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
 
 #figure(
   placement: none,
-  caption: [#package-link("Mannot")-annotated math expression],
+  caption: [#Mannot;-annotated math expression],
   v(3em) + $
     mark(V_g, tag: #<vg>, color: blueunir) eq.triple
     markrect(hat(k), tag: #<k>, color: #blue) crossproduct
@@ -847,12 +878,12 @@ The #package-link("Mannot")#footnote[https://github.com/ryuryu-ymj/mannot] packa
 ) <fig:mannot>
 
 
-Using Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures, or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
+Using #Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures, or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
 
 The annotations are customizable in terms of style and positioning, allowing authors to fine-tune the didactic layout. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
 
 == Physics and Chemistry
-Scientific typesetting can be cumbersome, but packages like the aforementioned #package-link("Physica") make it much more straightforward. Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from vector calculus to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
+Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica make it much more straightforward. #Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from vector calculus to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
 // If quad is added in the preview, it must be added in the code.
 
 // #grid(
@@ -865,23 +896,26 @@ Scientific typesetting can be cumbersome, but packages like the aforementioned #
 
 Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the bra-ket notation: $bra(u) "and" ket(u)$.
 
-Isotopes can be easily typeset with the #package-link("Typsium") package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
+#let Typsium = package-link("Typsium")
+#let Atomic = package-link("Atomic")
+
+Isotopes can be easily typeset with the #Typsium package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
 
 #figure(
   placement: none,
-  caption: [Signals rendered with the #package-link("Physica") package],
+  caption: [Signals rendered with the #Physica package],
   $
     "clk:" & signals("|1....|0....|1....|0....|1....|0....|1....|0..", step: #0.5em, color: blueunir) \
     "bus:" & signals(" #.... X=... ..... ..... X=... ..... ..... X#.", step: #0.5em, color: blueunir)
   $,
 ) <fig:signals>
 
-For Chemistry, formulas and reactions can be easily written with Typsium: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #package-link("Atomic") comes in handy (@fig:atom).
+For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #Atomic comes in handy (@fig:atom).
 
 #figure(
   kind: image,
   placement: none,
-  caption: [Atom shells rendered with the #package-link("Atomic") package],
+  caption: [Atom shells rendered with the #Atomic package],
   grid(
     columns: (2.2fr, 1fr),
     gutter: 1em,
@@ -921,10 +955,7 @@ theory, as well as computer hardware and software. The Typst ecosystem can alrea
 == Algorithms & hardware
 #let Algorithmic = package-link("Algorithmic")
 #let Matofletcher = package-link("Matofletcher")
-#let Fletcher = package-link("Fletcher")
-#let Diagraph = package-link("Diagraph")
 #let Truthfy = package-link("Truthfy")
-#let CeTZ = package-link("CeTZ")
 
 For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax. Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown in @fig:flowchart.
 
@@ -935,7 +966,7 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
     show: raw-size.with(0.9em)
     scale(95%, include "flowchart diagram.typ")
   },
-  caption: [Example of a flowchart created with Matofletcher],
+  caption: [Example of a flowchart created with #Matofletcher],
 ) <fig:flowchart>
 
 
@@ -1011,13 +1042,12 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
     ),
     render(read("venn.dot"), width: 98%),
   )),
-  caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #package-link("Diagraph") package],
+  caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #Diagraph package],
 ) <fig:cart-prod>
 
 
 #let Zap = package-link("Zap")
 #let Circuiteria = package-link("Circuiteria")
-#let Quill = package-link("Quill")
 
 For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware, there are several circuit diagram packages:
 / #Zap: draws electronic circuits that are aligned with IEC and IEEE/ANSI standards.
@@ -1026,7 +1056,6 @@ For creating truth tables, there is #Truthfy package that can create a table fro
 
 == Software
 #let Codly = package-link("Codly")
-#let Lilaq = package-link("Lilaq")
 #let ReXLlenT = package-link("ReXLlenT")
 #let Chronos = package-link("Chronos")
 #let Pintorita = package-link("Pintorita")
@@ -1067,12 +1096,7 @@ A prominent part of Computer Science is software and software engineering. For t
 
 Typst scripting language can tackle a lot of problems, such as preprocessing and visualizing data, implementing algorithms (sort, search, calendar-related, BNF-based recursive decent parser, Nassi–Shneiderman designs, etc.), generating raster images based on raw pixel data (supporting different pixel encodings), modifying SVG images with simple or regex-based substring replacement.
 
-#let Pyrunner = package-link("Pyrunner")
-#let Jogs = package-link("Jogs")
-#let Matryoshka = link(
-  "https://github.com/freundTech/typst-matryoshka",
-  "Matryoshka",
-)
+#let Matryoshka = github-link("freundTech/typst-matryoshka")[Matryoshka]
 
 #let listing = ```rust
 fn area_of_circle(radius: f64) -> f64 {
@@ -1097,7 +1121,7 @@ console.log(`Area is ${area}`);
 #figure(
   placement: none,
   listing + v(-0.5em) + listing2,
-  caption: [Styled sample codes in Rust and JavaScript (with Codly)],
+  caption: [Styled sample codes in Rust and JavaScript (with #Codly)],
   kind: image,
 ) <fig:listing>
 
@@ -1110,12 +1134,10 @@ Another notable limitation within Wasm-based packages is that network and input/
 
 #let Prequery = package-link("Prequery")
 
-The #package-link("Prequery") package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of report-like documents.
+The #Prequery package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of report-like documents.
 
-#let MiTeX = package-link("MiTeX")
 #let Eqalc = package-link("Eqalc")
-#let eval = link("https://typst.app/docs/reference/foundations/eval/")[`eval`]
-#let idwtet = package-link("IDWTET")
+#let IDWTET = package-link("IDWTET")
 
 Similarly, a LaTeX-based math expression can be directly used as-is through the #MiTeX package. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
 
@@ -1131,7 +1153,7 @@ Similarly, a LaTeX-based math expression can be directly used as-is through the 
 
 
 == Other use cases <cs-other>
-#let self-example = package-link("Self-Example")
+#let Self-Example = package-link("Self-Example")
 #let pdf-embed = link(
   "https://typst.app/docs/reference/pdf/embed/",
   `pdf.embed`,
@@ -1139,7 +1161,7 @@ Similarly, a LaTeX-based math expression can be directly used as-is through the 
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
 
-The #eval function allows writing the code only once while showing both the result and its associated source. Packages like #self-example and #idwtet provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
+The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
 
 #let gantt_yaml = yaml("gantt.yaml")
@@ -1154,7 +1176,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 #figure(
   placement: none,
   scale(65%, gantt(gantt_yaml)),
-  caption: [Example of a Gantt chart designed with the Gantty package],
+  caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 
 #figure(
@@ -1198,13 +1220,10 @@ From a management perspective, creating Gantt charts is possible with packages l
 
 
 
-#let tiaoma = package-link("Tiaoma")
-#let Touying = package-link("Touying")
-
-For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #tiaoma package, using a Wasm version of Zint.
+For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #Tiaoma package, using a Wasm version of Zint.
 
 = Slide composition <sec:slides>
-Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer @Hofert10. With Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control the visual style while focusing on content. Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key (@fig:slides).
+Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control the visual style while focusing on content. #Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key (@fig:slides).
 
 #figure(
   image("./slide example/example.pdf", width: 98%),

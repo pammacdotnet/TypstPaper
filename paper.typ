@@ -934,7 +934,13 @@ For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("
 #show: codly-init
 #show raw: set text(font: "Fira Code")
 #show raw.where(block: true): set par(justify: false, leading: 0.5em)
-#codly(number-align: right, stroke: stroke(black), languages: codly-languages)
+#codly(
+  zebra-fill: softblueunir,
+  number-align: right,
+  stroke: stroke(blueunir),
+  languages: codly-languages,
+)
+
 
 
 
@@ -1059,10 +1065,6 @@ A prominent part of Computer Science is software and software engineering. For t
 / Sequence diagrams: provided by #Chronos (@fig:sequence).
 / Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited Wasm limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
 
-#codly(zebra-fill: softblueunir, stroke: 1pt + blueunir, languages: (
-  rust: (name: "Rust", color: blueunir, stroke: blueunir),
-))
-
 #let sequence-diagram = chronos.diagram(width: 70%, {
   import chronos: *
   _par("A", display-name: "Alice", show-bottom: false, color: softblueunir)
@@ -1102,7 +1104,7 @@ fn main() {
 ```
 
 #let listing2 = ```javascript
-function areaOfCircle(r) {
+function areaOfCircle(radius) {
   return Math.PI * radius * radius;
 }
 

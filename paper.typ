@@ -724,14 +724,6 @@ During the period 2020--2025, Typst evolved from a niche LaTeX alternative into 
 
 // Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 
-
-
-// #figure(
-//   image("universe4.jpg"),
-//   placement: none,
-//   caption: [A screenshot of the Typst Universe website],
-// ) <fig:universe>
-
 Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] already play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
 
 #let image-width = 100%

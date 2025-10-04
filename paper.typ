@@ -1038,7 +1038,7 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
       [🩵], [🪼],
       [], [🥶],
     ),
-    render(read("venn.dot"), width: 98%),
+    render(read("cartesian product.dot"), width: 98%),
   )),
   caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #Diagraph package],
 ) <fig:cart-prod>

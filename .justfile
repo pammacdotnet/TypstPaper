@@ -1,6 +1,8 @@
 PRE_COMMIT_SCRIPT := "\
 #!/bin/sh
-just check-missing-references\
+set -eu
+just check-missing-references
+just check-package-links
 "
 
 alias c := compile
@@ -24,9 +26,14 @@ watch: slide
 check-missing-references:
   pdftotext paper.pdf && sh ./scripts/check_missing_references.sh paper.txt
 
+# Fails if any package link is unused or defined multiple times.
+check-package-links:
+  sh ./scripts/check_unused_package_links.sh paper.typ
+  sh ./scripts/check_duplicate_package_link_definitions.sh paper.typ
+
 # Initialize the pre-commit Git hook, overriding (potentially) existing one.
 pre-commit:
-  echo '{{PRE_COMMIT_SCRIPT}}' > .git/hooks/pre-commit
+  printf '%s' '{{PRE_COMMIT_SCRIPT}}' > .git/hooks/pre-commit
   chmod +x .git/hooks/pre-commit
 
 # Due to web app limiting files to 20 MiB, (unpublished) Matryoshka package

@@ -975,49 +975,8 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 
 #CeTZ package has a _built-in_ "tree" library that can be used, for example, to illustrate merge sort algorithm (@fig:tree).
 
-#let item(..numbers) = {
-  set text(font: "Liberation Sans")
-  set table(
-    fill: softblueunir,
-    stroke: 0.5pt,
-    inset: 0.6em,
-  )
-  table(columns: numbers.pos().len(), ..numbers.pos().map(str))
-}
-
-#let tree = cetz.canvas({
-  import cetz.draw: *
-  import cetz.tree
-  let edge-color = rgb("#0300bc")
-  set-style(line: (
-    stroke: blueunir,
-    mark: (end: (symbol: "stealth", scale: 0.5, fill: edge-color)),
-  ))
-  tree.tree(name: "t", spread: 1.5, grow: 1.1, (
-    item(77, 15, 5, 32, 1, 12),
-    (
-      item(77, 15, 5),
-      (item(77), item(77)),
-      (
-        item(15, 5),
-        item(15),
-        item(5),
-      ),
-    ),
-    (
-      item(32, 1, 12),
-      (
-        item(32, 1),
-        item(32),
-        item(1),
-      ),
-      (item(12), item(12)),
-    ),
-  ))
-})
-
 #figure(
-  scale(85%, tree),
+  scale(85%, include "tree example.typ"),
   caption: [Example of a tree diagram created with #CeTZ's _tree_ library],
   placement: none,
 ) <fig:tree>

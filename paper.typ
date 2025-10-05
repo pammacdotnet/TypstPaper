@@ -16,6 +16,17 @@
   "Noto Color Emoji",
 ))
 
+// Thicker table (v)line becomes longer and exceeds the table bounds/borders
+// https://github.com/typst/typst/issues/4416#issuecomment-3369145808
+#show table: it => {
+  if it.stroke == none { return it }
+  let thickness = it.stroke.thickness
+  if thickness == auto { thickness = 1pt }
+  set block(clip: true, outset: thickness / 2)
+  show table.cell: set block(clip: false)
+  it
+}
+
 // Both looks good/correct only with bold font.
 // Buenard font for some reason makes text jump high, hence the `baseline` fix.
 // See https://github.com/typst/typst/issues/6769.
@@ -50,6 +61,19 @@
 #let github-link(user-repo, name) = box(link(github-url(user-repo), name))
 #let ctan-link(package-name) = {
   box(link("https://ctan.org/pkg/" + lower(package-name), package-name))
+}
+
+/// Useful for removing huge spacing in table cells.
+#let unjustify(body) = {
+  set par(justify: false)
+  set text(hyphenate: true)
+  body
+}
+
+/// Useful when unjustified table cell spans more lines than justified one.
+#let justify(body) = {
+  set par(justify: true)
+  body
 }
 
 #set math.equation(numbering: none)
@@ -166,16 +190,15 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 #figure(
   placement: none,
   caption: [Main differences between LaTeX and Typst],
-  feature(table(
+  unjustify(feature(table(
     columns: (1.01fr, 2fr, 2fr),
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
     inset: 4.8pt,
+    stroke: 0.1mm,
     table.header(..([Feature], LaTeX, typst).map(strong)),
     table.hline(stroke: 1pt),
-    // ugly
-    stroke: .01cm,
     [Syntax],
     [Command-based (`\command{arg}`)],
     [Markdown-inspired (#box[`= Heading`], `_italic_`) + code mode (`#func()`)],
@@ -190,17 +213,17 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [`-` (bullets), `+` (numbers), #box(`/ Term:`) (descriptions)],
     [Commands],
     [Macros (`\newcommand`)],
-    [1st-class functions (`#let f(x) = x + 1`), composable],
+    justify[1st-class functions (`#let f(x) = x + 1`), composable],
     [Compiler],
     [Slow and multi-pass],
-    [Fast (ms) and incremental],
+    justify[Fast (ms) and incremental],
     [Packages],
     [Large TeX distributions],
     [Cached downloads],
     [Errors], [Cryptic], [User-friendly, detailed],
     [Graphics],
     [#TikZ, #PSTricks, etc.],
-    [#CeTZ, #Lilaq, #Fletcher, etc.],
+    justify[#CeTZ, #Lilaq, #Fletcher, etc.],
     [Team work],
     [Overleaf (third-party)],
     [Own app (@sec:typstapp)],
@@ -211,7 +234,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [Deploy], [Can be initially heavy (\~5 GiB) for most distros], [Starts with a single binary (\~40 MiB)],
     // Current minimal Universe distribution is around 442 MiB.
     // While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html).
-  )),
+  ))),
 ) <tab:diffs>
 
 = State of the art <sec:art>
@@ -224,14 +247,13 @@ These setups rely on compiling source text into formatted output like PDF, separ
 
 Additionally, avoiding formatting issues like _widows_ (the last line of a paragraph stranded at the top of a page) and _orphans_ (the first line of a paragraph left alone at the bottom of a page) is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
-#figure(placement: none, caption: [Most important typesetting algorithms], table(
+#figure(placement: none, caption: [Most important typesetting algorithms], unjustify(table(
   columns: (1fr, 2fr, 2fr),
-  align: (auto, auto, auto),
-  stroke: .01cm,
+  align: horizon,
+  stroke: 0.1mm,
   table.header(..([Challenge], [Description], [Algorithm/Approach]).map(strong)),
   table.hline(stroke: 1pt),
-  "Paragraph breaking",
-  // Do table cells must be justified? The big spaces between words don't look good.
+  [Paragraph breaking],
   [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
   [Knuth-Plass line breaking algorithm @Hassan15.],
   [Justification],
@@ -254,9 +276,9 @@ Additionally, avoiding formatting issues like _widows_ (the last line of a parag
   [Constraint-based layout cache/region reuse @Fisher91],
   [Styling], [Consistent styles], [Programmable layouts],
   [Unicode],
-  [Modern scripts, ligatures, and grapheme clusters],
+  justify[Modern scripts, ligatures, and grapheme clusters],
   [Shaping and grapheme line breaking @Elkhayati2022],
-)) <tab:typesetting>
+))) <tab:typesetting>
 
 Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
@@ -344,7 +366,7 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
     columns: (0.55fr, 1.5fr, 1.7fr),
     inset: 5pt,
     align: left,
-    stroke: .01cm,
+    stroke: 0.1mm,
     table.header([*Mode*], [*Syntax*], [*Example*]),
 
     [Code], [Prefix code with \#], raw("Number: #(1 + 2)", lang: "typ"),
@@ -793,7 +815,7 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
   table(
     columns: (0.9fr, 4fr),
     align: (right, left),
-    stroke: 0.01cm,
+    stroke: 0.1mm,
     table.header([*Package*], [*Description*]),
     table.hline(),
     Touying,

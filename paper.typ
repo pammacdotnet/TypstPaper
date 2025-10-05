@@ -486,15 +486,14 @@ Regarding data visualization, Typst also offers powerful capabilities through it
   kind: image,
 ) <fig:lilaq>
 
-On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz). It supports various chart types, including pie charts, bar charts, and pyramids.
+On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz-plot). It supports various chart types, including pie charts, bar charts, and pyramids.
 
-// I expected a cetz-plot example here
 #figure(
-  code-grid("cetz example.typ", left-column: 1.55fr),
-  caption: [Example of a Venn diagram composed through #CeTZ],
+  code-grid("cetz-plot example.typ", left-column: 1.55fr),
+  caption: [Example of a cycle diagram created with #CeTZ-Plot],
   kind: image,
   placement: none,
-) <fig:cetz>
+) <fig:cetz-plot>
 
 
 

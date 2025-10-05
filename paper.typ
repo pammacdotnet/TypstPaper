@@ -844,7 +844,6 @@ The flexibility of the #CeTZ package enables the creation of a wide range of dia
 #import "@preview/unify:0.7.1": add-prefix, add-unit, num, numrange, qty, qtyrange, unit
 #import "@preview/mannot:0.3.0": *
 // Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.
-#import "@preview/atomic:1.0.0": atom
 #import "@preview/typsium:0.2.0": ce
 
 #let Mannot = package-link("Mannot")
@@ -907,16 +906,7 @@ For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("
   kind: image,
   placement: none,
   caption: [Atom shells rendered with the #Atomic package],
-  grid(
-    columns: (2.2fr, 1fr),
-    gutter: 1em,
-    ```typ
-    #import "@preview/atomic:1.0.0": atom
-
-    #atom(8, 16, "O", (2, 6)
-    ```,
-    atom(8, 16, "O", (2, 6), step: 0.34, center: 0.4, orbitals: .7, color: softblueunir),
-  ),
+  code-grid("atom example.typ", left-column: 2fr),
 ) <fig:atom>
 
 

@@ -42,12 +42,12 @@
   )
 }
 
-#let package-link(name) = {
-  box(link("https://typst.app/universe/package/" + lower(name), name))
+#let universe-url(package) = {
+  "https://typst.app/universe/package/" + lower(package)
 }
-#let github-link(user-repo, name) = {
-  box(link("https://github.com/" + user-repo, name))
-}
+#let package-link(name) = box(link(universe-url(name), name))
+#let github-url(user-repo) = "https://github.com/" + user-repo
+#let github-link(user-repo, name) = box(link(github-url(user-repo), name))
 #let ctan-link(package-name) = {
   box(link("https://ctan.org/pkg/" + lower(package-name), package-name))
 }
@@ -267,9 +267,16 @@ Historically, the development of markup-oriented systems began in the 1960s with
   caption: [Evolution of some Typesetting technologies],
 ) <fig:mlevolution>
 
-Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like Markdown#footnote[https://daringfireball.net/projects/markdown] or AsciiDoc#footnote[https://asciidoc.org] prioritize ease of use but sacrifice power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
+#let markdown-url = "https://daringfireball.net/projects/markdown"
+#let Markdown = link(markdown-url)[Markdown]
+#let asciidoc-url = "https://asciidoc.org"
+#let AsciiDoc = link(asciidoc-url)[AsciiDoc]
+#let context-url = "http://wiki.contextgarden.net"
+#let ConTeXt = link(context-url)[ConTeXt]
 
-On the other hand, advanced software like LuaTeX @Pegourie13 or ConTeXt#footnote[http://wiki.contextgarden.net] attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved around usability, accessibility, and automation. // "and a significantly improved user experience" sounds bad/backwards with the current phrasing.
+Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like #Markdown#footnote(link(markdown-url)) or #AsciiDoc#footnote(link(asciidoc-url)) prioritize ease of use but sacrifice power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
+
+On the other hand, advanced software like LuaTeX @Pegourie13 or #ConTeXt#footnote(link(context-url)) attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved around usability, accessibility, and automation. // "and a significantly improved user experience" sounds bad/backwards with the current phrasing.
 #let Pyrunner = package-link("Pyrunner")
 #let Diagraph = package-link("Diagraph")
 #let Neoplot = package-link("Neoplot")
@@ -281,10 +288,22 @@ On the other hand, advanced software like LuaTeX @Pegourie13 or ConTeXt#footnote
 == Computed documents and dynamic content <sec:computed>
 Dynamic content generation is a crucial feature of modern markup languages and typesetting systems, enabling documents to update automatically based on external data or user input. By integrating programming logic, such as loops, conditionals, and variables, these systems can produce data-driven outputs, from dynamically generated reports in LaTeX to interactive web pages in Markdown with embedded scripts. This capability reduces manual repetition, minimizes errors, and ensures consistency when dealing with large or evolving datasets. Furthermore, dynamic generation supports real-time updates in interactive documents, such as dashboards or educational materials, enhancing usability and engagement. By blending structured markup with computational power, these systems bridge the gap between static documents and flexible, automated publishing workflows, making them indispensable for technical, scientific, and web-based documentation.
 
-Knitr @Xie18, Sweave @Leisch02, and similar computational document applications, such as RMarkdown @Baumer15 and Jupyter Notebooks, integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
+#let RMarkdown = link("https://rmarkdown.rstudio.com")[RMarkdown]
+#let jupyter-notebook-url = "https://jupyter.org"
+#let Jupyter-Notebook = link(jupyter-notebook-url)[Jupyter Notebook]
+
+Knitr @Xie18, Sweave @Leisch02, and similar computational document applications, such as #RMarkdown @Baumer15 and #Jupyter-Notebook#footnote(link(jupyter-notebook-url)), integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
+
+#let pyrunner-url = universe-url("pyrunner")
+#let neoplot-url = universe-url("neoplot")
+#let jlyfish-url = universe-url("jlyfish")
+#let callisto-url = universe-url("callisto")
+#let diagraph-url = universe-url("diagraph")
+#let nulite-url = universe-url("nulite")
+#let jogs-url = universe-url("jogs")
 
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, and even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, discussed in @sec:wasm), the possibilities are almost endless.
-For instance, the package #Pyrunner#footnote[https://typst.app/universe/package/pyrunner] allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
+For instance, the package #Pyrunner#footnote(link(pyrunner-url)) allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
   placement: none,
@@ -294,12 +313,12 @@ For instance, the package #Pyrunner#footnote[https://typst.app/universe/package/
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-/ #Neoplot#footnote[https://github.com/KNnut/neoplot]: for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
-/ #Jlyfish#footnote[https://github.com/andreasKroepelin/TypstJlyfish.jl]: for integrating Julia code.
-/ #Callisto#footnote[https://github.com/knuesel/callisto]: for reading and rendering Jupyter notebooks.
-/ #Diagraph#footnote[https://github.com/Robotechnic/diagraph]: for binding simple Graphviz-based diagrams (see @fig:dot).
-/ #Nulite#footnote[https://github.com/j-mueller/typst-vegalite]: for plotting Vega-based charts.
-/ #Jogs#footnote[https://github.com/Enter-tainer/jogs]: a native JavaScript runtime.
+/ #Neoplot#footnote(link(neoplot-url)): for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
+/ #Jlyfish#footnote(link(jlyfish-url)): for integrating Julia code.
+/ #Callisto#footnote(link(callisto-url)): for reading and rendering Jupyter notebooks.
+/ #Diagraph#footnote(link(diagraph-url)): for binding simple Graphviz-based diagrams (see @fig:dot).
+/ #Nulite#footnote(link(nulite-url)): for plotting Vega-based charts.
+/ #Jogs#footnote(link(jogs-url)): a native JavaScript runtime.
 
 // This table doesn't show the transitions between modes, like in a matrix.
 
@@ -441,7 +460,7 @@ $
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
   code-grid("physica example.typ", left-column: 1.5fr),
-  caption: [Example of advanced math with the #Physica package#footnote[https://typst.app/universe/package/physica]],
+  caption: [Example of advanced math with the #Physica package],
   kind: image,
   placement: none,
 ) <fig:physica>
@@ -476,9 +495,9 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 #let CeTZ-Plot = package-link("CeTZ-Plot")
 
-It is worth mentioning the Typst's #CeTZ library#footnote[http://cetz-package.github.io]. #CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #TikZ for creating vector graphics @Kottwitz23. While TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, #CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
+It is worth mentioning the Typst's #CeTZ library. #CeTZ is a graphics package designed for the Typst typesetting system, aiming to provide capabilities similar to those of LaTeX's #TikZ for creating vector graphics @Kottwitz23. While #TikZ is a mature and powerful tool within the LaTeX ecosystem, known for its extensive features, #CeTZ is tailored to integrate seamlessly with Typst's syntax and design philosophy.
 
-Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq#footnote[https://lilaq.org] and #CeTZ-Plot#footnote[https://github.com/cetz-package/cetz-plot]. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
+Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq and #CeTZ-Plot. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
   code-grid("lilaq example/example.typ", left-column: 1.1fr),
@@ -541,7 +560,10 @@ Typst offers integrated support for bibliographic references, streamlining the c
 
 Currently, both BibLaTeX `.bib` files @Datta17 and Hayagriva `.yaml` files are supported as sources for bibliographic data (@fig:haya). The system utilizes the Citation Style Language (CSL) to format citations and bibliographies @Fenner14, providing a wide range of built-in styles such as APA, MLA, IEEE, and Chicago. Users can also add custom CSL files to accommodate specific formatting requirements.
 
-Hayagriva#footnote[https://github.com/typst/hayagriva] is a Rust-based bibliography management library developed side-by-side with Typst to work smoothly with it. Hayagriva introduces a YAML-backed format for bibliographic entries and incorporates a CSL processor to format both in-text citations and reference lists. This alternative to BibTeX supports all styles provided in the official CSL repository, offering users access to over 2,600 citation styles.
+#let hayagriva-url = "https://github.com/typst/hayagriva"
+#let Hayagriva = link(hayagriva-url)[Hayagriva]
+
+#Hayagriva#footnote(link(hayagriva-url)) is a Rust-based bibliography management library developed side-by-side with Typst to work smoothly with it. Hayagriva introduces a YAML-backed format for bibliographic entries and incorporates a CSL processor to format both in-text citations and reference lists. This alternative to BibTeX supports all styles provided in the official CSL repository, offering users access to over 2,600 citation styles.
 
 
 
@@ -613,12 +635,13 @@ As mentioned, Typst's other form of abstraction is modules. There are three ways
 #set raw(lang: "typc")
 
 Modules do not give the user/developer any way to mark items as _public_ or _private_. Thus, every `let` statement in the whole module is exported (public).
+// Say that private/public can be achieved by re-exporting modules with main (lib.typ) file.
 
 // Some users#footnote[https://justinpombrio.net/2024/11/30/typst.html] have suggested some _solutions_, such as extending `set/show` to user-defined functions (e.g., `set sequence(codon-sep: "-")`) and improving `show` to tweak elements without reimplementing them entirely, like adding decorations to headings robustly.
 
 
 == Packages <sec:package>
-As with LaTeX and as commented above, Typst also supports the addition of functionalities via _packages_. A Typst package is a self-contained collection of Typst source files and assets, structured around a mandatory `typst.toml` manifest file located at the package root (written in the _Tom's Obvious Minimal Language_#footnote("https://toml.io")). This manifest specifies essential metadata such as the package's `name`, `version`, and `entrypoint`, which points to the main `.typ` file to be evaluated upon import. Additional optional fields like `authors`, `license`, and `description` can also be included. The internal organization of the package is flexible, allowing authors to structure files and directories as they see fit, provided that the `entrypoint` path is correctly specified. All paths within the package are resolved relative to the package root, ensuring encapsulation and preventing access to files outside the package.
+As with LaTeX and as commented above, Typst also supports the addition of functionalities via _packages_. A Typst package is a self-contained collection of Typst source files and assets, structured around a mandatory `typst.toml` manifest file located at the package root (written in the _Tom's Obvious Minimal Language_#footnote[https://toml.io]). This manifest specifies essential metadata such as the package's `name`, `version`, and `entrypoint`, which points to the main `.typ` file to be evaluated upon import. Additional optional fields like `authors`, `license`, and `description` can also be included. The internal organization of the package is flexible, allowing authors to structure files and directories as they see fit, provided that the `entrypoint` path is correctly specified. All paths within the package are resolved relative to the package root, ensuring encapsulation and preventing access to files outside the package.
 
 #set raw(lang: "typ")
 
@@ -638,7 +661,7 @@ As an example, the #Neoplot package is a specialized tool designed to integrate 
 
 #let Grayness = package-link("Grayness")
 
-The #Grayness#footnote[https://github.com/nineff/grayness] package allows the application of complex image manipulation algorithms (@fig:mileva).
+The #Grayness package allows the application of complex image manipulation algorithms (@fig:mileva).
 
 #let data = read("mileva.jpg", encoding: none)
 #figure(
@@ -669,8 +692,11 @@ The Typst compiler ensures safety by implementing strict security measures that 
   / `metadata`: function enables embedding arbitrary values without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
 ]
 
+#let tinymist-url = github-url("Myriad-Dreamin/tinymist")
+#let Tinymist = link(tinymist-url)[Tinymist]
+
 == Integrated development environments <sec:ide>
-Typst integrates seamlessly with existing integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like Tinymist#footnote[https://github.com/Myriad-Dreamin/tinymist], provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting. // Mention Neovim etc.
+Typst integrates seamlessly with existing integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting. // Mention Neovim etc.
 
 #figure(
   // Update image:
@@ -691,11 +717,12 @@ As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PN
 == Image formats
 Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
 
-#let Notion = link("https://www.notion.com")[Notion]
+#let notion-url = "https://www.notion.com"
+#let Notion = link(notion-url)[Notion]
 
 #set raw(lang: "typc")
 = Web application <sec:typstapp>
-The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote[https://www.notion.com], reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
+The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote(link(notion-url)), reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
   image("typstapp2.jpg", width: 100%),
@@ -703,7 +730,14 @@ The shift to cloud-based tools is revolutionizing content creation, academic wor
   caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>
 
-Papeeria#footnote[https://papeeria.com] and Authorea#footnote[https://www.authorea.com] offer similar collaborative LaTeX editing capabilities but have smaller user bases. PLMLatex#footnote[https://plmlatex.math.cnrs.fr], developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration.
+#let papeeria-url = "https://papeeria.com"
+#let Papeeria = link(papeeria-url)[Papeeria]
+#let authorea-url = "https://www.authorea.com"
+#let Authorea = link(authorea-url)[Authorea]
+#let plmlatex-url = "https://plmlatex.math.cnrs.fr"
+#let PLMLatex = link(plmlatex-url)[PLMLatex]
+
+#Papeeria#footnote(link(papeeria-url)) and #Authorea#footnote(link(authorea-url)) offer similar collaborative LaTeX editing capabilities but have smaller user bases. #PLMLatex#footnote(link(plmlatex-url)), developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration.
 
 The Typst online editor (@fig:typstapp) is a collaborative, web-based platform designed for creating and typesetting documents with Typst. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for composing academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images (_drag and drop_ gestures can even be used), equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration through the WebSocket standard @Lombardi2015, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
 
@@ -723,7 +757,12 @@ During the period 2020--2025, Typst evolved from a niche LaTeX alternative into 
 
 // Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 
-Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like arXiv#footnote[https://arxiv.org] and HAL#footnote[https://hal.science] already play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
+#let arxiv-url = "https://arxiv.org"
+#let arXiv = link(arxiv-url)[arXiv]
+#let hal-url = "https://hal.science"
+#let HAL = link(hal-url)[HAL]
+
+Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like #arXiv#footnote(link(arxiv-url)) and #HAL#footnote(link(hal-url)) already play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work publicly before it undergoes formal peer review, enabling immediate access to new ideas and results.
 
 #let image-width = 100%
 #figure(
@@ -768,7 +807,7 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
     Problemst,
     [Template for problem sets, homework, or assignments.],
     Quill,
-    [#Quill is a package for quantum circuit diagrams#footnote[https://github.com/Mc-Zen/quill].],
+    [#Quill is a package for quantum circuit diagrams.],
   ),
 ) <tab:packages>
 
@@ -851,7 +890,7 @@ The flexibility of the #CeTZ package enables the creation of a wide range of dia
 = More on mathematics and scientific notation <sec:moremath>
 == Annotated Mathematics
 
-The #Mannot#footnote[https://github.com/ryuryu-ymj/mannot] package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
+The #Mannot package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
 
 #figure(
   placement: none,

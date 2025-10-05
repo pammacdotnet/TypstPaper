@@ -2,9 +2,7 @@
 
 // When each piece of software was first released, and when it stopped updating.
 #let data = (
-  // "RUNOFF": (1964, 1980), // https://en.wikipedia.org/wiki/TYPSET_and_RUNOFF
   "Runoff": (1964, 1980), // https://en.wikipedia.org/wiki/TYPSET_and_RUNOFF
-  // "troff": (1973, 1989), // https://www.troff.org/history.html
   "Troff": (1973, 1989), // https://www.troff.org/history.html
   "TeX": (1978, 2025), // https://en.wikipedia.org/wiki/TeX
   "LaTeX": (1984, 2025), // https://en.wikipedia.org/wiki/LaTeX

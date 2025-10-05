@@ -894,7 +894,6 @@ Another common diagram type in math and present in some branches of theoretical 
     arr("E_1", "E_2", $delta$),
     arr("E_2", "dots_lower_right", ""),
   ),
-  // Translate/rephrase?
   caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex @Giachetta09],
 ) <fig:commutative-diagram>
 

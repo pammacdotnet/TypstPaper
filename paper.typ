@@ -16,6 +16,13 @@
   "Noto Color Emoji",
 ))
 
+// Numbering equations in this paper doesn't make much sense, because a lot of
+// them are inside a figure and might not have enough space for additional
+// numbering. The rest might be in equation-based example but not actually an
+// equation. Lastly, since all of them are part of some example, they are never
+// directly referenced.
+#set math.equation(numbering: none)
+
 // Thicker table (v)line becomes longer and exceeds the table bounds/borders
 // https://github.com/typst/typst/issues/4416#issuecomment-3369145808
 #show table: it => {
@@ -76,8 +83,7 @@
   body
 }
 
-#set math.equation(numbering: none)
-#let mathbf(input) = { $upright(bold(#input))$ }
+#let mathbf(input) = $upright(bold(input))$
 
 = Introduction
 #first-paragraph[Typst][is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and exceptionally easy to use. For instance, with Typst, it is possible to:]

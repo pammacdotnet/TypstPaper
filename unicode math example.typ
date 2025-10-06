@@ -6,4 +6,5 @@ ${(x, 💩), (x, 🔥), (y, 💩)} \
   gutter: 2pt,
   stroke: 0.1pt,
   [炬], [كتاب], [🍺], [🤡], [🍷], [🤡],
-  [#emoji.checkmark], [👻], [∆], math.arrow, emoji.alien, sym.angstrom)
+  [#emoji.checkmark], [👻], [∆], math.arrow, emoji.alien, sym.angstrom,
+)

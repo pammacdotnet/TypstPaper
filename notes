@@ -1,5 +1,4 @@
 = Now:
-use Codly code block (maybe disable line numbers in some cases)
 make some figures unfloated (because of the bottom floating figure + place.flush not working bug)
 use VSCodium (625G)
 check that all figures are in their respective sections (place.flush)

@@ -1,5 +1,9 @@
 #import "@preview/ijimai:0.0.5": *
+
 #import "@preview/metalogo:1.2.0"
+#import "@preview/codly:1.3.0": codly-init, codly, local as codly-local
+#import "@preview/codly-languages:0.1.8": codly-languages
+
 #let conf = toml("paper.toml")
 #let author-photos = conf.authors.map(author => read("photos/" + author.photo, encoding: none))
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
@@ -16,12 +20,59 @@
   "Noto Color Emoji",
 ))
 
+#show: codly-init
+// Add note about Noto Color Emoji being bad and glyphs not being centered,
+// or use another one.
+#show raw: set text(size: 6.5pt, font: (
+  "Fira Code",
+  "Noto Sans Mono CJK SC",
+  "Kawkab Mono",
+  "Noto Color Emoji",
+))
+#show raw: it => {
+  show emph: set text(font: "Fira Mono")
+  it
+}
+#show raw.where(block: true): set par(justify: false, leading: 0.5em)
+// Respect page margins when border stroke is not zero
+// https://github.com/Dherse/codly/issues/107
+#show raw.where(block: true): pad.with(1pt / 2)
+#codly(
+  zebra-fill: softblueunir,
+  number-align: right + horizon,
+  number-format: none,
+  stroke: stroke(blueunir),
+  languages: codly-languages,
+  lang-inset: 0.23em,
+  lang-radius: 0.15em,
+  lang-outset: (x: 0.29em, y: 0.025em),
+  inset: 2pt,
+)
+#let no-lang = codly-local.with(lang-format: none)
+#let line-num = codly-local.with(number-format: n => [#n])
+#let name-lang = codly-local.with(lang-format: (name, icon, color) => {
+  let b = measure(name)
+  box(
+    radius: 0.15em,
+    fill: color.lighten(80%),
+    inset: 0.23em,
+    stroke: color + 0.5pt,
+    outset: 0pt,
+    height: b.height + 0.33em + 0.33em,
+    name,
+  )
+})
+
 // Numbering equations in this paper doesn't make much sense, because a lot of
 // them are inside a figure and might not have enough space for additional
 // numbering. The rest might be in equation-based example but not actually an
 // equation. Lastly, since all of them are part of some example, they are never
 // directly referenced.
 #set math.equation(numbering: none)
+#show math.equation: set text(font: (
+  "New Computer Modern Math",
+  "Noto Color Emoji",
+))
 
 // Thicker table (v)line becomes longer and exceeds the table bounds/borders
 // https://github.com/typst/typst/issues/4416#issuecomment-3369145808
@@ -48,7 +99,7 @@
   raw(read(file), lang: file.split(".").last(), block: true)
 }
 
-#let code-grid(typ-file, gutter: 1pt, left-column: 1fr) = {
+#let code-grid(typ-file, gutter: 0.5em, left-column: 1fr) = {
   let typ = read(typ-file)
   let columns = if left-column == none { () } else { (left-column, 1.0fr) }
   let align = if left-column == none { left } else { horizon }
@@ -56,7 +107,7 @@
     columns: columns,
     align: align,
     gutter: gutter,
-    raw(typ, lang: "typst", block: true), text(size: 7.5pt, include typ-file),
+    raw(typ, lang: "typ", block: true), text(size: 7.5pt, include typ-file),
   )
 }
 
@@ -83,6 +134,13 @@
   body
 }
 
+/// Change (decrease) font size not only for markup text, but also for raw one.
+#let raw-size(size, body) = {
+  set text(size)
+  show raw: set text(size)
+  body
+}
+
 #let mathbf(input) = $upright(bold(input))$
 
 = Introduction
@@ -105,51 +163,27 @@ Additionally, the project hosts a repository of extensions (packages and templat
 
 For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will focus on the application of this new typesetting system in more specific science and engineering domains such as theoretical Physics, Cosmology, Chemistry, Mathematics, Algorithmics, Signal Processing, Computer Science and the composition of slides in technical realms (@sec:slides). Finally, some conclusions are presented in @sec:conclusions.
 
-#show raw.where(block: true): block.with(
-  fill: softblueunir,
-  inset: 4pt,
-  radius: 2pt,
-)
-
-// Add note about Noto Color Emoji being bad and glyphs not being centered,
-// or use another one.
-#show raw: set text(size: 6.5pt, font: (
-  "Fira Code",
-  "Noto Sans Mono CJK SC",
-  "Kawkab Mono",
-  "Noto Color Emoji",
-))
-#show math.equation: set text(font: (
-  "New Computer Modern Math",
-  "Noto Color Emoji",
-))
-#show raw: it => {
-  show emph: set text(font: "Fira Mono")
-  it
-}
-
 = Typst and LaTeX <sec:latex>
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (whose foundations are analyzed in @sec:art), but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive patterns, similar to those found in Markdown @Voegler14, making it more accessible. Its commands and language rules are designed to work consistently, reducing the need to learn different conventions for each new add-on (called _packages_ in the Typst _semantic field_, and reviewed later in @sec:package).
 
-@tab:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code.
+@fig:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code.
 
 #let affine-typst = "affine example/typst.typ"
-#let affine-latex = "affine example/latex.tex"
+#let affine-latex = "affine example/latex.latex"
 
 #figure(
   placement: none,
-  kind: table,
+  kind: image,
   caption: [Typst vs. LaTeX comparison example],
   grid(
-    columns: (1fr, 1.25fr),
-    align: (_, y) => if y == 0 { center + horizon } else { auto },
-    row-gutter: 4pt,
-    grid.header(..(typst, LaTeX).map(strong)),
-    code-block(affine-typst), code-block(affine-latex),
+    columns: (1fr, 1.323fr),
+    gutter: 0.28em,
+    raw-size(1.087em, code-block(affine-typst)),
+    raw-size(1.08em, code-block(affine-latex)),
   ),
-) <tab:LaTeXvTypst>
+) <fig:LaTeXvTypst>
 
-The output of the Typst part of @tab:LaTeXvTypst is rendered in @fig:affine (although the LaTeX one would be very similar).
+The output of the Typst part in @fig:LaTeXvTypst is rendered in @fig:affine (although the LaTeX one would be very similar).
 #figure(
   placement: none,
   {
@@ -162,7 +196,7 @@ The output of the Typst part of @tab:LaTeXvTypst is rendered in @fig:affine (alt
       counter(heading).update(counter(heading).get())
     })
   },
-  caption: [Output generated by the Typst code from @tab:LaTeXvTypst],
+  caption: [Output generated by the Typst code from @fig:LaTeXvTypst],
 ) <fig:affine>
 
 Focusing on the renderer and local installs, Typst offers very fast (milliseconds) and incremental compilations, which allows for document previews that are delivered almost right away (for the average human perception). These rendering operations often occur under the so-called Doherty threshold, i.e., below this point, users stay highly productive. However, above it (around 400 milliseconds, as evinced by @Doherty82), system delays quickly degrade performance and satisfaction.
@@ -180,11 +214,6 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 #let Listings = ctan-link("Listings")
 #let Minted = ctan-link("Minted")
 
-#let raw-size(size, body) = {
-  set text(size)
-  show raw: set text(size)
-  body
-}
 #let feature(table) = {
   show std.table.cell: it => {
     set raw(lang: "tex") if it.x == 1
@@ -353,7 +382,7 @@ Other current WebAssembly-grounded integration solutions for computational docum
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
-  code-grid("diagraph example.typ", left-column: 1.6fr),
+  no-lang(code-grid("diagraph example.typ", left-column: 1.6fr)),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm],
   kind: image,
   placement: none,
@@ -386,7 +415,7 @@ All this content is written in Unicode @Bettels93. Typst has embraced this compu
 // First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability.
 
 #figure(
-  raw-size(0.97em, code-grid("unicode math example.typ", left-column: 1.7fr)),
+  raw-size(0.96em, code-grid("unicode math example.typ", left-column: 1.73fr)),
   caption: [Illustration of Unicode use in Typst for text and math.],
   kind: image,
   placement: none,
@@ -414,20 +443,19 @@ Normally, `show` and `set` statements are used combinedly to tweak the appearanc
   placement: none,
   caption: [Example of a global `set` rule and #show-set & `show` rules (on the #Heading elements) necessary to render the content of @fig:affine],
   kind: image,
-  grid(
-    columns: (1fr, 3fr),
-    gutter: 1pt,
+  raw-size(0.982em, grid(
+    columns: (1.05fr, 3fr),
+    gutter: 0.5em,
     [Global `set` rule], [Show and show-set rules for heading styling],
-    [#v(.1cm)], [],
-    ```typ
+    no-lang(```typ
     #set text(9pt)
-    ```,
+    ```),
     ```typ
     #show heading: set align(center)
     #show heading: set text(9pt)
     #show heading: it => block(smallcaps(it.body))
     ```,
-  ),
+  )),
 ) <fig:setshow>
 
 
@@ -464,7 +492,7 @@ $
 #figure(
   placement: none,
   kind: image,
-  lagrangian,
+  raw-size(0.95em, lagrangian),
   caption: [Typst code for the Lagrangian of the Standard Model],
 ) <fig:sm>
 
@@ -487,7 +515,10 @@ $
 
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
-  code-grid("physica example.typ", left-column: 1.5fr),
+  no-lang(raw-size(0.96em, code-grid(
+    "physica example.typ",
+    left-column: 1.55fr,
+  ))),
   caption: [Example of advanced math with the #Physica package],
   kind: image,
   placement: none,
@@ -516,7 +547,7 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 #figure(
   placement: none,
-  align(center)[#code-grid("chess example.typ", left-column: 1.6fr)],
+  no-lang(raw-size(0.91em, code-grid("chess example.typ", left-column: 1.8fr))),
   caption: [Chessboard tiled pattern (with the board-n-pieces package)],
   kind: image,
 ) <fig:chess>
@@ -528,7 +559,7 @@ It is worth mentioning the Typst's #CeTZ library. #CeTZ is a graphics package de
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq and #CeTZ-Plot. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
-  code-grid("lilaq example/example.typ", left-column: 1.1fr),
+  no-lang(code-grid("lilaq example/example.typ", left-column: 1.2fr)),
   caption: [Example of a plot made with the Lilaq plotting package],
   kind: image,
 ) <fig:lilaq>
@@ -536,7 +567,10 @@ Regarding data visualization, Typst also offers powerful capabilities through it
 On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz-plot). It supports various chart types, including pie charts, bar charts, and pyramids.
 
 #figure(
-  code-grid("cetz-plot example.typ", left-column: 1.55fr),
+  no-lang(raw-size(0.96em, code-grid(
+    "cetz-plot example.typ",
+    left-column: 1.5fr,
+  ))),
   caption: [Example of a cycle diagram created with #CeTZ-Plot],
   kind: image,
   placement: none,
@@ -552,7 +586,7 @@ Typst offers integrated support for bibliographic references, streamlining the c
   caption: [Sample of a BibTeX entry and its Hayagriva equivalent for @Corbi23],
   kind: image,
   placement: none,
-  grid(
+  name-lang(grid(
     columns: (4.5fr, 5.5fr),
     rows: (auto, auto),
     gutter: 5pt,
@@ -566,7 +600,7 @@ Typst offers integrated support for bibliographic references, streamlining the c
       year      = {2023},
     }
     ```,
-    ```yaml
+    raw-size(0.93em, ```yaml
     Corbi23:
       type: article
       title: "Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder"
@@ -580,8 +614,8 @@ Typst offers integrated support for bibliographic references, streamlining the c
         type: periodical
         title: IEEE Transactions on Learning Technologies
         volume: 17
-    ```,
-  ),
+    ```),
+  )),
 ) <fig:haya>
 
 
@@ -681,7 +715,11 @@ As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its
 As an example, the #Neoplot package is a specialized tool designed to integrate Gnuplot (a powerful open-source plotting engine @Janert16) into Typst documents (@fig:neoplot).
 
 #figure(
-  code-grid("neoplot example.typ", left-column: 1.7fr),
+  no-lang(raw-size(0.97em, code-grid(
+    "neoplot example.typ",
+    left-column: 1.6fr,
+    gutter: 0pt,
+  ))),
   caption: [Parabola plot with the #Neoplot Wasm-based package],
   kind: image,
   placement: none,
@@ -972,13 +1010,11 @@ For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("
   kind: image,
   placement: none,
   caption: [Atom shells rendered with the #Atomic package],
-  code-grid("atom example.typ", left-column: 2fr),
+  raw-size(0.997em, code-grid("atom example.typ", left-column: 2.95fr)),
 ) <fig:atom>
 
 
 #import "kanban.typ": kanban, kanban-column, kanban-item
-#import "@preview/codly:1.3.0": *
-#import "@preview/codly-languages:0.1.8": codly-languages
 #import "@preview/chronos:0.2.1"
 #import "@preview/suiji:0.4.0": gen-rng-f, random-f
 #import "gantty.typ": gantt
@@ -986,15 +1022,6 @@ For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("
 
 
 #set scale(reflow: true)
-#show: codly-init
-#show raw: set text(font: "Fira Code")
-#show raw.where(block: true): set par(justify: false, leading: 0.5em)
-#codly(
-  zebra-fill: softblueunir,
-  number-align: right,
-  stroke: stroke(blueunir),
-  languages: codly-languages,
-)
 
 
 
@@ -1079,25 +1106,24 @@ A prominent part of Computer Science is software and software engineering. For t
 / Sequence diagrams: provided by #Chronos (@fig:sequence).
 / Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited Wasm limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
 
-#let sequence-diagram = chronos.diagram(width: 70%, {
-  import chronos: *
-  _par("A", display-name: "Alice", show-bottom: false, color: softblueunir)
-  _par("B", display-name: "Bob", show-bottom: false, color: softblueunir)
-  _par("C", display-name: "Charlie", show-bottom: false, color: softblueunir)
-  _par("D", display-name: "Derek", show-bottom: false, color: softblueunir)
-  let style = (lifeline-style: (fill: blueunir))
-  _seq("A", "B", comment: "hello", enable-dst: true)
-  _seq("B", "B", comment: "self call", enable-dst: true)
-  _seq("C", "B", comment: "hello from thread 2", enable-dst: true, ..style)
-  _seq("B", "D", comment: "create", create-dst: true)
-  _seq("B", "C", comment: "done in thread 2", disable-src: true, dashed: true)
-  _seq("B", "B", comment: "rc", disable-src: true, dashed: true)
-  _seq("B", "D", comment: "delete", destroy-dst: true)
-  _seq("B", "A", comment: "success", disable-src: true, dashed: true)
-})
-
 #figure(
-  text(font: "Liberation Sans", sequence-diagram),
+  placement: none,
+  text(font: "liberation sans", chronos.diagram(width: 65%, {
+    import chronos: *
+    _par("a", display-name: "alice", show-bottom: false, color: softblueunir)
+    _par("b", display-name: "bob", show-bottom: false, color: softblueunir)
+    _par("c", display-name: "charlie", show-bottom: false, color: softblueunir)
+    _par("d", display-name: "derek", show-bottom: false, color: softblueunir)
+    let style = (lifeline-style: (fill: blueunir))
+    _seq("a", "b", comment: "hello", enable-dst: true)
+    _seq("b", "b", comment: "self call", enable-dst: true)
+    _seq("c", "b", comment: "hello from thread 2", enable-dst: true, ..style)
+    _seq("b", "d", comment: "create", create-dst: true)
+    _seq("b", "c", comment: "done in thread 2", disable-src: true, dashed: true)
+    _seq("b", "b", comment: "rc", disable-src: true, dashed: true)
+    _seq("b", "d", comment: "delete", destroy-dst: true)
+    _seq("b", "a", comment: "success", disable-src: true, dashed: true)
+  })),
   caption: [Example of a sequence diagram created with #Chronos],
 ) <fig:sequence>
 
@@ -1128,7 +1154,7 @@ console.log(`Area is ${area}`);
 
 #figure(
   placement: none,
-  listing + v(-0.5em) + listing2,
+  line-num(listing + v(-1em) + listing2),
   caption: [Styled sample codes in Rust and JavaScript (with #Codly)],
   kind: image,
 ) <fig:listing>
@@ -1149,10 +1175,8 @@ The #Prequery package provides the ability to specify metadata regarding extra i
 
 Similarly, a LaTeX-based math expression can be directly used as-is through the #MiTeX package. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
 
-#codly-disable()
-
 #figure(
-  code-grid("eqalc example.typ", left-column: 1.9fr),
+  no-lang(code-grid("eqalc example.typ", left-column: 1.5fr)),
   caption: [A math function $f(t)$ being translated/evaluated to/by Typst.],
   kind: image,
   placement: none,
@@ -1183,7 +1207,7 @@ The #eval-func function allows writing the code only once while showing both the
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the Kantan package (@fig:kanban).
 #figure(
   placement: none,
-  scale(65%, gantt(gantt_yaml)),
+  scale(66%, pad(left: 1em, right: 0.5em, gantt(gantt_yaml))),
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 
@@ -1193,6 +1217,7 @@ From a management perspective, creating Gantt charts is possible with packages l
     set par(justify: false)
     // @typstyle off
     kanban(
+      width: 97%,
       font-size: 0.59em,
       font: "Liberation Sans",
       kanban-column("Backlog", color: red,

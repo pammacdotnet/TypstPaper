@@ -6,4 +6,6 @@ $
   arrow.r quad arrow.l.long.squiggly
 $
 The Ehrenfest theorem is:
-$ d/(d t) expval(A) = 1/(i hbar) expval([A, H]) + expval(delta A/(delta t)) $
+$
+  d/(d t) expval(A) = 1/(i hbar) expval([A, H]) + expval(delta A/(delta t))
+$

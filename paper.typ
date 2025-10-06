@@ -370,10 +370,10 @@ For instance, the package #Pyrunner#footnote(link(pyrunner-url)) allows the exec
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-/ #Neoplot#footnote(link(neoplot-url)): for generating plots with Gnuplot (see @fig:neoplot). // remove "see"?
+/ #Neoplot#footnote(link(neoplot-url)): for generating plots with Gnuplot (@fig:neoplot).
 / #Jlyfish#footnote(link(jlyfish-url)): for integrating Julia code.
 / #Callisto#footnote(link(callisto-url)): for reading and rendering Jupyter notebooks.
-/ #Diagraph#footnote(link(diagraph-url)): for binding simple Graphviz-based diagrams (see @fig:dot).
+/ #Diagraph#footnote(link(diagraph-url)): for binding simple Graphviz-based diagrams (@fig:dot).
 / #Nulite#footnote(link(nulite-url)): for plotting Vega-based charts.
 / #Jogs#footnote(link(jogs-url)): a native JavaScript runtime.
 

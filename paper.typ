@@ -648,9 +648,10 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
   placement: top,
   kind: image,
   scope: "parent",
-  caption: [Typst compiling process, comprising four main phases: _parsing_, _evaluation_, _layout_, and _rendering_. HTML export is in an experimental stage],
   ```pintora
   mindmap
+  @param diagramPadding 10
+  @param levelDistance 55
   @param layoutDirection LR
   + Source file
   ++ Parser
@@ -663,9 +664,10 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
   +++++++++ PNG
   +++++++++ SVG
   +++++++++ PDF
+  +++++++++ HTML
   ```,
+  caption: [Typst compiling process, comprising four main phases: _parsing_, _evaluation_, _layout_, and _rendering_. HTML export is in an experimental stage],
 ) <fig:compiler>
-// Why not include HTML?
 
 
 == Abstraction and mutation

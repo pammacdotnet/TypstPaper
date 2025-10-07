@@ -566,7 +566,10 @@ It is worth mentioning the Typst's #CeTZ library. #CeTZ is a graphics package de
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq and #CeTZ-Plot. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
 #figure(
-  no-lang(code-grid("lilaq example/example.typ", left-column: 1.2fr)),
+  no-lang(raw-size(0.94em, code-grid(
+    "lilaq example/example.typ",
+    left-column: 1.95fr,
+  ))),
   caption: [Example of a plot made with the Lilaq plotting package],
   kind: image,
 ) <fig:lilaq>

@@ -1036,7 +1036,7 @@ For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("
 ) <fig:atom>
 
 
-#import "kanban.typ": kanban, kanban-column, kanban-item
+#import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
 #import "@preview/chronos:0.2.1"
 #import "@preview/suiji:0.4.0": gen-rng-f, random-f
 #import "gantty.typ": gantt
@@ -1211,6 +1211,7 @@ Similarly, a LaTeX-based math expression can be directly used as-is through the 
 #let pdf-embed = api-link("pdf/embed")[`pdf.embed`]
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
+#let Kantan = package-link("Kantan")
 
 The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
@@ -1223,7 +1224,7 @@ The #eval-func function allows writing the code only once while showing both the
   ),
 )
 #{ gantt_yaml.style = gant_style }
-From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the Kantan package (@fig:kanban).
+From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
 #figure(
   placement: none,
   scale(66%, pad(left: 1em, right: 0.5em, gantt(gantt_yaml))),
@@ -1266,7 +1267,7 @@ From a management perspective, creating Gantt charts is possible with packages l
     )
   },
   kind: image,
-  caption: [Example of a Kanban board made with the Kanban package],
+  caption: [Example of a kanban board made with the #Kantan package],
   placement: none,
 ) <fig:kanban>
 

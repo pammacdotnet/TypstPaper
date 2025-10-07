@@ -766,21 +766,31 @@ The Typst compiler ensures safety by implementing strict security measures that 
 
 #let tinymist-url = github-url("Myriad-Dreamin/tinymist")
 #let Tinymist = link(tinymist-url)[Tinymist]
+#let vscodium-url = "https://vscodium.com"
+#let VSCodium = link(vscodium-url)[VSCodium]
+#let Zed = link("https://zed.dev")[Zed]
+#let Neovim = link("https://neovim.io")[Neovim]
+#let Helix = link("https://helix-editor.com")[Helix]
+#let Emacs = link("https://www.gnu.org/software/emacs")[Emacs]
 
 == Integrated development environments <sec:ide>
-Typst integrates seamlessly with existing integrated development environments, such as Visual Studio Code (@fig:vscode). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within VS Code. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting. // Mention Neovim etc.
+Typst integrates seamlessly with existing integrated development environments, such as #VSCodium#footnote(link(vscodium-url)) (@fig:vscodium). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within #VSCodium. Similar feature set is available in #Zed, #Neovim, #Helix, and #Emacs. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
 
 #figure(
-  // Update image:
-  // - use VSCodium (if UI is any different)
-  // - hide copilot
-  // - Use English (or create a i18n-like example, though one already exists)
-  // - include code that is on the screenshot
-  image("vscode.jpg"),
+  frame-round({
+    image("VSCodium.png")
+    let place-link(dx, dy, width, height, url) = {
+      let link = link(url, box(width: width, height: height))
+      place(top + left, dx: dx, dy: dy, link)
+    }
+    place-link(2cm, 2.6cm, 4cm, 0.5em, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
+    place-link(1.65cm, 6.88cm, 2.63cm, 0.45em, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
+    place-link(1.65cm, 7.05cm, 3.11cm, 0.45em, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
+  }),
   kind: image,
-  caption: [Typst can also be used in modern code editors and development environments, such as Visual Studio Code, Emacs or even Vim],
+  caption: [Creation of a document in VSCodium with Tinymist extension],
   placement: none,
-) <fig:vscode>
+) <fig:vscodium>
 
 #set raw(lang: none)
 == Export options

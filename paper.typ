@@ -111,6 +111,10 @@
   )
 }
 
+// Used with figures that have white background and don't have clear dimentions.
+#let frame = rect.with(stroke: 0.05em)
+#let frame-round = block.with(stroke: 0.05em, clip: true, radius: 0.3em)
+
 #let universe-url(package) = {
   "https://typst.app/universe/package/" + lower(package)
 }
@@ -191,7 +195,7 @@ The output of the Typst part in @fig:LaTeXvTypst is rendered in @fig:affine (alt
     show heading: set align(center)
     show heading: set text(9pt, weight: "bold")
     show heading: it => block(smallcaps(it.body))
-    rect(stroke: 0.1mm, inset: (bottom: 1mm), context {
+    frame(context {
       eval(read(affine-typst), mode: "markup")
       counter(heading).update(counter(heading).get())
     })
@@ -499,7 +503,7 @@ $
 #figure(
   placement: none,
   caption: [Rendering of the code in @fig:sm],
-  rect(stroke: 0.05mm, {
+  frame({
     set par(leading: 0pt)
     eval(lagrangian.text, scope: (mathbf: mathbf))
   }),
@@ -793,7 +797,7 @@ Having a big variety of image formats that can be included in a document is unde
 The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote(link(notion-url)), reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
-  image("typstapp2.jpg", width: 100%),
+  frame-round(image("typstapp2.jpg")),
   placement: none,
   caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>

@@ -119,6 +119,9 @@
   "https://typst.app/universe/package/" + lower(package)
 }
 #let package-link(name) = box(link(universe-url(name), name))
+#let api-link(path, name) = {
+  box(link("https://typst.app/docs/reference/" + path, name))
+}
 #let github-url(user-repo) = "https://github.com/" + user-repo
 #let github-link(user-repo, name) = box(link(github-url(user-repo), name))
 #let ctan-link(package-name) = {
@@ -210,8 +213,8 @@ The compiler (tackled in @sec:compiler) is a single lightweight binary (less tha
 
 Regarding the operating procedure, unlike LaTeX, Typst does not require boilerplate code to start a new document: just by creating an empty text file with a `typ` extension suffices. To simplify further, the Typst project hosts its own online editing service (@sec:typstapp). Currently, in the LaTeX world, this can only be achieved through external cloud solutions, such as Overleaf @Ewelina20. A very short summary on the main differences between the two ecosystems is presented in @tab:diffs.
 
-#let TikZ = link("https://tikz.dev/")[TikZ]
-#let PSTricks = link("https://tug.org/PSTricks/main.cgi/")[PSTricks]
+#let TikZ = link("https://tikz.dev")[TikZ]
+#let PSTricks = link("https://tug.org/PSTricks/main.cgi")[PSTricks]
 #let CeTZ = package-link("CeTZ")
 #let Lilaq = package-link("Lilaq")
 #let Fletcher = package-link("Fletcher")
@@ -691,7 +694,7 @@ Although value semantics suggest potential performance costs due to frequent cop
 // #let d = (x: 1); modify(d); d.x // Still 1
 // ```
 
-#let eval-func = link("https://typst.app/docs/reference/foundations/eval/")[`eval`]
+#let eval-func = api-link("foundations/eval")[`eval`]
 
 A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes #(1 + 2), while `3.0` retains its fractional part in arrays for debugging clarity. Strings differ from content: even though they can be implicitly or explicitly coerced to content, special syntax for smart quotes, references, etc. will not be picked up, e.g., `#"'Hello'"` will produce #"'Hello'" and not #eval("'Hello'", mode: "markup") (#eval-func, introduced in @cs-other, can help with such issues).
 
@@ -1202,10 +1205,7 @@ Similarly, a LaTeX-based math expression can be directly used as-is through the 
 
 == Other use cases <cs-other>
 #let Self-Example = package-link("Self-Example")
-#let pdf-embed = link(
-  "https://typst.app/docs/reference/pdf/embed/",
-  `pdf.embed`,
-)
+#let pdf-embed = api-link("pdf/embed")[`pdf.embed`]
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
 

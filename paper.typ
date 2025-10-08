@@ -786,7 +786,7 @@ Typst integrates seamlessly with existing integrated development environments, s
 
 #figure(
   frame-round({
-    image("VSCodium.png")
+    image("VSCodium.jpg")
     let place-link(dx, dy, width, height, url) = {
       let link = link(url, box(width: width, height: height))
       place(top + left, dx: dx, dy: dy, link)
@@ -815,7 +815,7 @@ Having a big variety of image formats that can be included in a document is unde
 The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote(link(notion-url)), reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
-  frame-round(image("typstapp2.jpg")),
+  frame-round(image("web app.jpg")),
   placement: none,
   caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>

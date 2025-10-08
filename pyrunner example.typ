@@ -7,5 +7,5 @@ def sum_all(*numbers):
     return sum(numbers)
 ```)
 #let text = "My email address is john.doe@example.com and my friend's email address is jane.doe@example.net."
-#py.call(compiled, "find_emails", text)
+Result: #py.call(compiled, "find_emails", text)
 #py.call(compiled, "sum_all", 1, 2, 3)

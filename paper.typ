@@ -119,8 +119,8 @@
   "https://typst.app/universe/package/" + lower(package)
 }
 #let package-link(name) = box(link(universe-url(name), name))
-#let api-link(path, name) = {
-  box(link("https://typst.app/docs/reference/" + path, name))
+#let api-link(path, ..name) = {
+  box(link("https://typst.app/docs/reference/" + path, ..name))
 }
 #let github-url(user-repo) = "https://github.com/" + user-repo
 #let github-link(user-repo, name) = box(link(github-url(user-repo), name))
@@ -322,7 +322,7 @@ Additionally, avoiding formatting issues like _widows_ (the last line of a parag
   [Shaping and grapheme line breaking @Elkhayati2022],
 ))) <tab:typesetting>
 
-Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
+Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff, and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
 
 #figure(
@@ -389,7 +389,7 @@ Other current WebAssembly-grounded integration solutions for computational docum
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
-  no-lang(code-grid("diagraph example.typ", left-column: 1.6fr)),
+  no-lang(raw-size(0.91em, code-grid("diagraph example.typ", left-column: 1.7fr))),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm],
   kind: image,
   placement: none,
@@ -440,7 +440,7 @@ Typst makes styling documents flexible, and consistent with a modern and declara
 
 #set raw(lang: "typc")
 
-Typst uses a two-pronged styling system to separate styling from content. First, `set` rules allow the declaration of global or local scoped defaults for elements (like text, page, par, heading), specifying parameters such as font, size, margins, justification, line spacing, numbering, and layout. Once set, these defaults apply automatically wherever that element appears. Second, `show` rules enable custom rendering logic for specific elements or selectors.
+Typst uses a two-pronged styling system to separate styling from content. First, `set` rules allow the declaration of global or local scoped defaults for elements (like text, page, par, heading, etc.), specifying parameters such as font, size, margins, justification, line spacing, numbering, and layout. Once set, these defaults apply automatically wherever that element appears. Second, `show` rules enable custom rendering logic for specific elements#footnote(api-link("foundations/function/#element-functions")) by providing a selector#footnote(api-link("foundations/selector")).
 
 Normally, `show` and `set` statements are used combinedly to tweak the appearance of an element with code-based transformations (e.g., small caps, run-in headings, added logotypes, etc.). They can also be used for theming an entire document (templates) via an _everything_ `show`-`set` directive. By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
 
@@ -583,7 +583,6 @@ On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functi
   ))),
   caption: [Example of a cycle diagram created with #CeTZ-Plot],
   kind: image,
-  placement: none,
 ) <fig:cetz-plot>
 
 
@@ -1015,7 +1014,7 @@ Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. F
 #let Typsium = package-link("Typsium")
 #let Atomic = package-link("Atomic")
 
-Isotopes can be easily typeset with the #Typsium package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There's even a way to visualize digital signals with convenient built-in functions (@fig:signals).
+Isotopes can be easily typeset with the #Typsium package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There is even a way to visualize digital signals with convenient built-in functions (@fig:signals).
 
 #figure(
   placement: none,
@@ -1077,12 +1076,12 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
 
 
 
-#CeTZ package has a _built-in_ "tree" library that can be used, for example, to illustrate merge sort algorithm (@fig:tree).
+#CeTZ package has a _built-in_ _tree_ library that can be used, for example, to illustrate merge sort algorithm (@fig:tree).
 
 #figure(
   scale(85%, include "tree example.typ"),
-  caption: [Example of a tree diagram created with #CeTZ's _tree_ library],
-  placement: none,
+  caption: [Example of a tree diagram created with #CeTZ's tree library],
+  placement: top, // Can't place it to the top with `auto`.
 ) <fig:tree>
 
 The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly inside any document by using Wasm to render them without the need for an external software like  Graphviz (@fig:cart-prod).
@@ -1110,8 +1109,8 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
 #let Zap = package-link("Zap")
 #let Circuiteria = package-link("Circuiteria")
 
-For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware, there are several circuit diagram packages:
-/ #Zap: draws electronic circuits that are aligned with IEC and IEEE/ANSI standards.
+For creating truth tables, there is #Truthfy package that can create a table from a logical expression. For hardware description and electronic processes related to it, there are several circuit diagram packages:
+/ #Zap: draws electronic circuits that are aligned with IEC and IEEE/ANSI standards (using netlist-like semantics).
 / #Circuiteria: draws block circuit diagrams for a more abstract layer.
 / #Quill: draws quantum circuit diagrams with concise syntax.
 
@@ -1126,11 +1125,11 @@ A prominent part of Computer Science is software and software engineering. For t
   parsers/themes), that can be further enhanced with #Codly (@fig:listing).
 / Built-in data loading: functions for JSON, CSV, XML, etc. (or XLSX with #ReXLlenT) for generating native tables or #Lilaq graphs.
 / Sequence diagrams: provided by #Chronos (@fig:sequence).
-/ Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled as a Typst #Pintorita package, however due to inherited Wasm limitations these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
+/ Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled in the #Pintorita package. However due to inherited Wasm limitations, these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
 
 #figure(
   placement: none,
-  text(font: "liberation sans", chronos.diagram(width: 65%, {
+  text(font: "liberation sans", chronos.diagram(width: 59.8%, {
     import chronos: *
     _par("a", display-name: "alice", show-bottom: false, color: softblueunir)
     _par("b", display-name: "bob", show-bottom: false, color: softblueunir)
@@ -1149,8 +1148,9 @@ A prominent part of Computer Science is software and software engineering. For t
   caption: [Example of a sequence diagram created with #Chronos],
 ) <fig:sequence>
 
+#let svgalpha-url = universe-url("svgalpha")
 
-Typst scripting language can tackle a lot of problems, such as preprocessing and visualizing data, implementing algorithms (sort, search, calendar-related, BNF-based recursive decent parser, Nassi–Shneiderman designs, etc.), generating raster images based on raw pixel data (supporting different pixel encodings), modifying SVG images with simple or regex-based substring replacement.
+Typst scripting language can tackle a lot of problems, such as preprocessing and visualizing data, implementing algorithms (sort, search, calendar-related, BNF-based recursive decent parser, Nassi–Shneiderman designs, etc.), generating raster images based on raw pixel data (supporting different pixel encodings), or even modifying SVG images with simple or regex-based substring replacement#footnote(link(svgalpha-url)).
 
 #let Matryoshka = github-link("freundTech/typst-matryoshka")[Matryoshka]
 
@@ -1195,10 +1195,13 @@ The #Prequery package provides the ability to specify metadata regarding extra i
 #let Eqalc = package-link("Eqalc")
 #let IDWTET = package-link("IDWTET")
 
-Similarly, a LaTeX-based math expression can be directly used as-is through the #MiTeX package. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
+Similarly, as stated in @sec:markup, a LaTeX-based math expression can be directly used as-is through the #MiTeX package. This can turn out helpful for migrating foreign `.tex` resources. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
 
 #figure(
-  no-lang(code-grid("eqalc example.typ", left-column: 1.5fr)),
+  no-lang(raw-size(0.94em, code-grid(
+    "eqalc example.typ",
+    left-column: 1.83fr,
+  ))),
   caption: [A math function $f(t)$ being translated/evaluated to/by Typst.],
   kind: image,
   placement: none,
@@ -1273,7 +1276,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 
 
 
-For sharing and distributing small amount of information, a QR code and other barcodes have proven helpful. They can be generated and customized via the #Tiaoma package, using a Wasm version of Zint.
+As listed in @tab:packages, QR and bar codes can be issued and customized via the #Tiaoma package, using a Wasm version of Zint.
 
 = Slide composition <sec:slides>
 Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control the visual style while focusing on content. #Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key (@fig:slides).
@@ -1291,8 +1294,10 @@ Typst is a markup language for typesetting documents, combining ease of use, spe
 = CRediT Authorship Contribution Statement
 #format-credit-section()
 
+#let associated-files-link = link.with("https://pdfa.org/resource/pdf-2-0-application-note-002-associated-files")
+
 = Data Statement
-The research does not involve the use of external data. All figures and tables have been generated dinamically in Typst and associated packages.
+The research does not involve the use of external data. All figures and tables have been generated dinamically in Typst and associated packages. The source code for this paper can be found at https://github.com/pammacdotnet/TypstPaper or inside this PDF document in the form of #associated-files-link[attached files.]
 
 = Declaration of Conflicts of Interest
 We have no conflict of interest to declare.

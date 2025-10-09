@@ -7,10 +7,7 @@
   let scr(it) = text(features: ("ss01",), box($cal(it)$))
 
   // define colors and line thickness
-  //let teal = rgb("008080")
   let teal = blueunir
-  //let brown = rgb("A52A2A")
-  let brown = blue // Not brown.
   let lt = 0.6pt
 
   // define the function for the kruskal coordinate wordlines and auxilliary variables
@@ -95,14 +92,14 @@
 
   for i in range(1, Nlines) {
     let c = 2 * i / (Nlines + 1)
-    line(stroke: (paint: brown, thickness: 0.4pt), ..(
+    line(stroke: (paint: blue, thickness: 0.4pt), ..(
       for x in range(0, nx + 1) {
         let x = xmin + x / nx * (xmax - xmin)
         let cs = calc.sin(c)
         ((x - xoffset, -kruskal(x * calc.pi / 4, cs) + yoffset),)
       }
     ))
-    line(stroke: (paint: brown, thickness: 0.4pt), ..(
+    line(stroke: (paint: blue, thickness: 0.4pt), ..(
       for x in range(0, nx + 1) {
         let x = xmin + x / nx * (xmax - xmin)
         let cs = calc.sin(c)
@@ -114,25 +111,25 @@
   for i in range(0, Nlines) {
     let c = 2 * i / (Nlines + 1)
     let cs = calc.sin(c)
-    line(stroke: (paint: brown, thickness: 0.4pt), ..(
+    line(stroke: (paint: blue, thickness: 0.4pt), ..(
       for x in range(0, nx + 1) {
         let x = xmin + x / nx * (xmax - xmin) / 2
         ((1 - xoffset - kruskal(x * calc.pi / 4, cs), x - 1 + yoffset),)
       }
     ))
-    line(stroke: (paint: brown, thickness: 0.4pt), ..(
+    line(stroke: (paint: blue, thickness: 0.4pt), ..(
       for x in range(0, nx + 1) {
         let x = xmin + x / nx * (xmax - xmin) / 2
         ((1 - xoffset + kruskal(x * calc.pi / 4, cs), x - 1 + yoffset),)
       }
     ))
-    line(stroke: (paint: brown, thickness: 0.4pt), ..(
+    line(stroke: (paint: blue, thickness: 0.4pt), ..(
       for x in range(0, nx + 1) {
         let x = (xmin + xmax) / 2 + x / nx * (xmax - xmin) / 2
         ((1 - xoffset + kruskal(x * calc.pi / 4, cs), x - 1 - yoffset),)
       }
     ))
-    line(stroke: (paint: brown, thickness: .4pt), ..(
+    line(stroke: (paint: blue, thickness: .4pt), ..(
       for x in range(0, nx + 1) {
         let x = (xmin + xmax) / 2 + x / nx * (xmax - xmin) / 2
         ((1 - xoffset - kruskal(x * calc.pi / 4, cs), x - 1 - yoffset),)

@@ -1,7 +1,7 @@
 #import "@preview/ijimai:0.0.5": *
 
 #import "@preview/metalogo:1.2.0"
-#import "@preview/codly:1.3.0": codly-init, codly, local as codly-local
+#import "@preview/codly:1.3.0": codly, codly-init, local as codly-local
 #import "@preview/codly-languages:0.1.8": codly-languages
 
 #let conf = toml("paper.toml")
@@ -163,6 +163,7 @@
 - Work with familiar programming constructs (no complex macros).
 - Collaborate seamlessly with team members.
 - Modify document formatting at any time.
+- Obtain a deterministic output, i.e., the user gets the same result every time a document is compiled from the same source.
 
 The Typst realm comprises a refined and easy-to-understand markup language for defining the content, structure and style of a document, a reasonably fast (and community-driven) document renderer, and a companion web application that enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler, and @sec:typstapp, respectively.
 
@@ -173,7 +174,7 @@ For the sake of completeness, @sec:theophys, @sec:moremath, and @sec:cs will foc
 = Typst and LaTeX <sec:latex>
 Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (whose foundations are analyzed in @sec:art), but they differ in several key aspects. Regarding the language and its syntax, Typst employs intuitive patterns, similar to those found in Markdown @Voegler14, making it more accessible. Its commands and language rules are designed to work consistently, reducing the need to learn different conventions for each new add-on (called _packages_ in the Typst _semantic field_, and reviewed later in @sec:package).
 
-@fig:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code.
+@fig:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code. As it can be seen, even for a small document describing simple, introductory Algebra-related concepts, any LaTeX distribution would need a more cumbersome syntax and auxiliary markup.
 
 #let affine-typst = "affine example/typst.typ"
 #let affine-latex = "affine example/latex.latex"
@@ -185,8 +186,7 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
   grid(
     columns: (1fr, 1.323fr),
     gutter: 0.28em,
-    raw-size(1.087em, code-block(affine-typst)),
-    raw-size(1.08em, code-block(affine-latex)),
+    raw-size(1.087em, code-block(affine-typst)), raw-size(1.08em, code-block(affine-latex)),
   ),
 ) <fig:LaTeXvTypst>
 
@@ -654,7 +654,7 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
 
 
 #figure(
-  placement: top,
+  placement: bottom,
   kind: image,
   scope: "parent",
   ```pintora
@@ -754,7 +754,10 @@ The #Grayness package allows the application of complex image manipulation algor
 
 
 == Security <sec:sec>
-The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. Additionally, Typst prohibits features like _shell escapes_ and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the _TeX-sphere_ @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
+The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. In other words, it runs in a sandboxed environment that prevents arbitrary code execution and limits access to the underlying system.
+
+
+Additionally, Typst prohibits features like _shell escapes_ and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the _TeX-sphere_ @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
 
 
 
@@ -981,15 +984,19 @@ The #Mannot package stands out as a didactic enhancement for mathematical docume
 #figure(
   placement: none,
   caption: [#Mannot;-annotated math expression],
-  v(3em) + $
-    mark(V_g, tag: #<vg>, color: blueunir) eq.triple
-    markrect(hat(k), tag: #<k>, color: #blue) crossproduct
-    markhl(\(1/(rho f), tag: #<rhof>, color: blueunir) markul(grad P, tag: #<gradientp>, color: #black)
-    #annot(<vg>, pos: left, dx: -2.0em)[Geostrophic wind])
-    #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
-    #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
-    #annot(<gradientp>, pos: top + right, dy: -1.0em)[Pressure gradient]#v(2em)
-  $,
+  v(3.3em)
+    + scale(
+      110%,
+      $
+        mark(V_g, tag: #<vg>, color: blueunir) eq.triple
+        markrect(hat(k), tag: #<k>, color: #blue, outset: #.1em) med crossproduct
+        (med markhl(1/(rho f), tag: #<rhof>, color: blueunir) med med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #.1em)
+          #annot(<vg>, pos: left, dx: -2.0em)[#align(center + horizon)[Geostrophic \ wind ]] thick)
+        #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
+        #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
+        #annot(<gradientp>, pos: top + right, dy: -1.5em)[Pressure gradient]#v(2.4em)
+      $,
+    ),
 ) <fig:mannot>
 
 
@@ -998,7 +1005,7 @@ Using #Mannot, authors can insert visual callouts alongside concise textual expl
 The annotations are customizable in terms of style and positioning, allowing authors to fine-tune the didactic layout. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
 
 == Physics and Chemistry
-Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica make it much more straightforward. #Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from vector calculus to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
+Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica (@fig:physica) make it  straightforward. #Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from linear spaces/algebra to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
 // If quad is added in the preview, it must be added in the code.
 
 // #grid(
@@ -1009,12 +1016,8 @@ Scientific typesetting can be cumbersome, but packages like the aforementioned #
 // )
 
 
-Tensors are just as simple for abstract index notation: $tensor(h, +mu, +nu)$. For quantum mechanics, there is the bra-ket notation: $bra(u) "and" ket(u)$.
-
-#let Typsium = package-link("Typsium")
-#let Atomic = package-link("Atomic")
-
-Isotopes can be easily typeset with the #Typsium package. Example: $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$. There is even a way to visualize digital signals with convenient built-in functions (@fig:signals).
+Using tensor and quantum notations is also an effortless task with #Physica. For instance: `$tensor(h, +mu, +nu)$` will be presented as $tensor(h, +mu, +nu)$, and `$bra(u)$` will be shown as $bra(u)$.
+There is even a way to visualize digital signals with convenient built-in procedures (@fig:signals).
 
 #figure(
   placement: none,
@@ -1025,7 +1028,16 @@ Isotopes can be easily typeset with the #Typsium package. Example: $isotope("Bi"
   $,
 ) <fig:signals>
 
-For Chemistry, formulas and reactions can be easily written with #Typsium: #ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"). And if drawing atoms is needed, the package #Atomic comes in handy (@fig:atom).
+#let Typsium = package-link("Typsium")
+#let Atomic = package-link("Atomic")
+
+Nuclear and chemical reactions can be typeset with #Typsium:
+#list(
+  indent: 0.5cm,
+  $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$,
+  ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"),
+)
+Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 
 #figure(
   kind: image,
@@ -1058,9 +1070,12 @@ theory, as well as computer hardware and software. The Typst ecosystem can alrea
 #let Matofletcher = package-link("Matofletcher")
 #let Truthfy = package-link("Truthfy")
 
-For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax. Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown in @fig:flowchart.
+For example, to visualize algorithms, the #Algorithmic package can be used for creating pseudocode syntax.
+
+Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns out very useful for creating flowcharts, as shown in @fig:flowchart.
 
 #figure(
+  placement: none,
   {
     set text(font: "Liberation Sans")
     set par(justify: false, leading: 0.3em)
@@ -1070,18 +1085,12 @@ For example, to visualize algorithms, the #Algorithmic package can be used for c
   caption: [Example of a flowchart created with #Matofletcher],
 ) <fig:flowchart>
 
-
-
-
-
-
-
-#CeTZ package has a _built-in_ _tree_ library that can be used, for example, to illustrate merge sort algorithm (@fig:tree).
+#CeTZ package has a built-in _tree_ library that can be used, for example, to illustrate the merge-sort algorithm (@fig:tree).
 
 #figure(
+  placement: none,
   scale(85%, include "tree example.typ"),
   caption: [Example of a tree diagram created with #CeTZ's tree library],
-  placement: top, // Can't place it to the top with `auto`.
 ) <fig:tree>
 
 The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly inside any document by using Wasm to render them without the need for an external software like  Graphviz (@fig:cart-prod).
@@ -1284,7 +1293,7 @@ Typst can be extended for slide creation through the #Touying package, which pro
 #figure(
   image("./slide example/example.pdf", width: 98%),
   kind: image,
-  caption: [A slide (with complex content) created with the #Touying package],
+  caption: [A slide with complex content (code, gradients, advanced styling, etc.) created with the #Touying package and the Metropolis theme],
   placement: none,
 ) <fig:slides>
 

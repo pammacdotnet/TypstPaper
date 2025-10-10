@@ -14,7 +14,7 @@ include = true
 photo = "alberto.jpg"
 corresponding = true
 email = "alberto.corbi@unir.net"
-institution = "The International University of La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, Spain"
+institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, Spain"
 credit = ["software", "conceptualization", "writing-original-draft", "project-administration", "supervision"]
 bio = "Alberto Corbi is a tenured professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
 
@@ -29,7 +29,7 @@ corresponding = false
 email = "pau.oliver@uv.es"
 institution = "The University of Valencia (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, Spain"
 credit = ["software", "writing-review-editing"]
-bio = "Pau is a theoretical physicist with a M.Sc. in Advanced Physics from the University of Valencia and a B.Sc. in Physics from the University of Murcia. His research centers on understanding particle creation in quantum field theory in curved and dynamical backgrounds. He is dedicated to advancing fundamental physics while promoting science communication. He currently teaches in the Physics degree program at the International University of La Rioja (UNIR)."
+bio = "Pau is a theoretical physicist with a M.Sc. in Advanced Physics from the University of Valencia and a B.Sc. in Physics from the University of Murcia. His research centers on understanding particle creation in quantum field theory in curved and dynamical backgrounds. He is dedicated to advancing fundamental physics while promoting science communication. He currently teaches in the Physics degree program at the Universidad Internacional de La Rioja (UNIR)."
 
 [[authors]]
 name = "David Gil"
@@ -39,7 +39,7 @@ corresponding = false
 email = "dgilo@aemet.es"
 institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Madrid, España"
 credit = ["software", "methodology", "formal-analysis"]
-bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialist. He is currently pursuing a Bachelor's degree in Physics with the goal of becoming a meteorologist and working with Numerical Weather Prediction systems. His work involves programming (preferring functional programming languages), high-performance computing, and developing web applications that deliver weather forecast products to forecasters. He is also engaged in projects related to containerization technologies and workflow automation, aiming to bridge computer science and meteorology."
+bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialist. He is currently pursuing a Bachelor's degree in Physics at the Universidad Internacional de La Rioja (UNIR) with the goal of becoming a meteorologist and working with Numerical Weather Prediction systems. His work involves programming (preferring functional programming languages), high-performance computing, and developing web applications that deliver weather forecast products to forecasters. He is also engaged in projects related to containerization technologies and workflow automation, aiming to bridge computer science and meteorology."
 
 [paper]
 abstract = "Typst is a modern, markup-based typesetting system designed for creating professional documents with a focus on simplicity and performance. Combining a clean syntax with powerful scripting capabilities, it allows users to write structured content while automating layout and styling. Unlike LaTeX, with its steep learning curve and verbose syntax, Typst offers a more intuitive approach. It compiles documents incrementally, enabling faster rendering compared to traditional engines. Typst also integrates built-in version control and collaborative features, addressing gaps in other typesetting systems' workflows. Compared to alternatives, Typst is lighter and more approachable, though LaTeX remains dominant in academia due to its extensive package ecosystem. Alternatives like Markdown (with Pandoc) are simpler but lack Typst's fine-grained control over layout. Microsoft Word and other WYSIWYG tools are easy to use but lack reproducibility and automation. Typst strikes a balance, blending Markdown's readability with TeX's precision, and adds modern features such as real-time collaboration. Its growing library of templates and packages positions it as a compelling alternative for technical writing, academic papers, and beyond."

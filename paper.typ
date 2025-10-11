@@ -63,7 +63,7 @@
   )
 })
 
-// Numbering equations in this paper doesn't make much sense, because a lot of
+// Numbering equations in this paper does not make much sense, because a lot of
 // them are inside a figure and might not have enough space for additional
 // numbering. The rest might be in equation-based example but not actually an
 // equation. Lastly, since all of them are part of some example, they are never
@@ -111,7 +111,8 @@
   )
 }
 
-// Used with figures that have white background and don't have clear dimentions.
+// Used with figures that have white background and do not have clear
+// visual dimentions.
 #let frame = rect.with(stroke: 0.05em)
 #let frame-round = block.with(stroke: 0.05em, clip: true, radius: 0.3em)
 
@@ -802,7 +803,7 @@ Typst integrates seamlessly with existing integrated development environments, s
 
 #set raw(lang: none)
 == Export options
-As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web application (the web app). SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has the same feature set as SVG, except it's a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development. It requires enabling a feature flag (`--features html`) in the command line interface, supports basic markup elements, and is not yet available in the web app.
+As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web application (the web app). SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has the same feature set as SVG, except it is a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development. It requires enabling a feature flag (`--features html`) in the command line interface, supports basic markup elements, and is not yet available in the web app.
 
 == Image formats
 Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
@@ -1204,7 +1205,7 @@ The #Prequery package provides the ability to specify metadata regarding extra i
 #let Eqalc = package-link("Eqalc")
 #let IDWTET = package-link("IDWTET")
 
-Similarly, as stated in @sec:markup, a LaTeX-based math expression can be directly used as-is through the #MiTeX package. This can turn out helpful for migrating foreign `.tex` resources. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
+Similarly, as stated in @sec:markup, a LaTeX-based math expression can be directly used as is through the #MiTeX package. This can turn out helpful for migrating foreign `.tex` resources. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
 
 #figure(
   no-lang(raw-size(0.94em, code-grid(
@@ -1306,7 +1307,7 @@ Typst is a markup language for typesetting documents, combining ease of use, spe
 #let associated-files-link = link.with("https://pdfa.org/resource/pdf-2-0-application-note-002-associated-files")
 
 = Data Statement
-The research does not involve the use of external data. All figures and tables have been generated dinamically in Typst and associated packages. The source code for this paper can be found at https://github.com/pammacdotnet/TypstPaper or inside this PDF document in the form of #associated-files-link[attached files.]
+The research does not involve the use of external data. All figures and tables have been generated dynamically in Typst and associated packages. The source code for this paper can be found at https://github.com/pammacdotnet/TypstPaper or inside this PDF document in the form of #associated-files-link[attached files.]
 
 = Declaration of Conflicts of Interest
 We have no conflict of interest to declare.

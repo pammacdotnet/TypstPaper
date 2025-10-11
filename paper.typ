@@ -1051,6 +1051,10 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 #import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
 #import "@preview/chronos:0.2.1"
 #import "@preview/suiji:0.4.0": gen-rng-f, random-f
+// Latest release does not support sidebar text alignment.
+//
+// New version release
+// https://gitlab.com/john_t/typst-gantty/-/issues/12
 #import "gantty.typ": gantt
 #import "@preview/cetz:0.3.4"
 
@@ -1229,18 +1233,17 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
 The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
 
-#let gantt_yaml = yaml("gantt.yaml")
-// Change, for instance, the color of the milestones
-#let gant_style = (
-  gridlines: (
-    table: (stroke: (paint: blueunir), thickness: 1pt),
-  ),
-)
-#{ gantt_yaml.style = gant_style }
+#let gantt-yaml = yaml("gantt.yaml")
+#(gantt-yaml.style = (
+  gridlines: (table: (stroke: blueunir)),
+  milestones: (normal: (stroke: (paint: green))),
+))
+
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
+
 #figure(
   placement: none,
-  scale(66%, pad(left: 1em, right: 0.5em, gantt(gantt_yaml))),
+  scale(66%, pad(left: 1em, right: 0.5em, gantt(gantt-yaml))),
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 

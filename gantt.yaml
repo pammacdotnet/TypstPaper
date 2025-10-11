@@ -15,12 +15,13 @@ taskgroups:
       - name: Read Statements
         start: 2024-11-27
         end: 2024-12-04
-        # done: 2024-11-29
+        done: 2024-12-01
   - name: Drafting
     tasks:
       - name: α draft
         start: 2024-12-12
         end: 2024-12-31
+        done: 2024-12-29
       - name: β draft
         start: 2024-12-31
         end: 2025-01-31
@@ -38,9 +39,12 @@ taskgroups:
       - name: Record initial ideas
         start: 2024-11-27
         end: 2024-12-04
-        # done: 2024-12-08
+        done: 2024-12-08
 milestones:
-  - name: 1st Draft
+  - name: 1st Draft Hand In
     date: 2025-02-14
-  - name: Final 
+  - name: Final Hand In
     date: 2025-03-24
+  - name: Today
+    date: 2025-01-12
+    today: true

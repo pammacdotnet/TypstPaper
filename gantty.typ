@@ -419,8 +419,7 @@
       }
       length
     },
-    // date => align(center + horizon, strong(date.display("[month repr:short]"))),
-    date => align(center + horizon, strong(months.at(date.month() - 1))),
+    date => align(center + horizon, strong(date.display("[month repr:short]"))),
     gantt.style.gridlines.months,
     "month",
   )(gantt, anchor-obj)
@@ -428,21 +427,6 @@
 
 #let draw-month-year-header(gantt, anchor-obj) = {
   let (start, end, end-m1) = get-range(gantt)
-  let months = (
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  )
-
   create-header(
     date => date.day() == 1,
     (gantt, date, first) => {
@@ -471,7 +455,9 @@
       }
       (calc.min(end-m1, end-date) - date).days()
     },
-    date => pad(2pt, text(0.8em, align(center + horizon, str(date.day())))),
+    // See the reason why it's not center-aligned:
+    // https://gitlab.com/john_t/typst-gantty/-/merge_requests/10
+    date => pad(2pt, text(0.8em, align(left + horizon, str(date.day())))),
     gantt.style.gridlines.weeks,
     "week",
   )(gantt, anchor-obj)
@@ -615,6 +601,10 @@
 
       let style = if today {
         gantt.style.milestones.today
+      } else if milestone.name in gantt.style.milestones {
+        gantt.style.milestones.at(milestone.name)
+      } else if lower(milestone.name) in gantt.style.milestones {
+        gantt.style.milestones.at(lower(milestone.name))
       } else {
         gantt.style.milestones.normal
       }

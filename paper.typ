@@ -1139,7 +1139,7 @@ A prominent part of Computer Science is software and software engineering. For t
 
 #figure(
   placement: none,
-  text(font: "liberation sans", chronos.diagram(width: 59.8%, {
+  text(font: "Liberation Sans", chronos.diagram(width: 59.8%, {
     import chronos: *
     _par("a", display-name: "alice", show-bottom: false, color: softblueunir)
     _par("b", display-name: "bob", show-bottom: false, color: softblueunir)

@@ -3,6 +3,7 @@ make some figures unfloated (because of the bottom floating figure + place.flush
 check that all figures are in their respective sections (place.flush)
 Make sure that all code is correctly highlighted
 microtypography and other stuff from 0.14.0-rc1
+mention the interactive figure
 
 From paper.typ:
 Current minimal Universe distribution is around 442 MiB.
@@ -29,10 +30,13 @@ Make sure that all code is correctly highlighted
 
 
 = After submission for publication:
+Remove leading whitespaces
+Add missing EOF newlines
 Add links to all fonts.
 https://github.com/notofonts/arabic
 https://github.com/aiaf/kawkab-mono
 ...
 
 From paper.typ:
-Add note about Noto Color Emoji being bad and glyphs not being centered, or use another one. (75G)
+Add note about Noto Color Emoji being bad and glyphs not being centered, or use another one. (25G)
+Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe. (953G)

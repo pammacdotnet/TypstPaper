@@ -391,8 +391,6 @@ Other current WebAssembly-grounded integration solutions for computational docum
 / #Nulite#footnote(link(nulite-url)): for plotting Vega-based charts.
 / #Jogs#footnote(link(jogs-url)): a native JavaScript runtime.
 
-// This table doesn't show the transitions between modes, like in a matrix.
-
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
@@ -409,6 +407,7 @@ Typst employs straightforward markup syntax for standard formatting operations. 
 
 Typst employs three distinct syntactical modes: markup, math, and code. By default, a `.typ` document operates in _markup mode_, which handles standard text formatting. _Math mode_ enables the composition of mathematical expressions, while _code mode_ provides access to Typst's scripting capabilities for dynamic content generation. Transitions between these modes are governed by specific markers (@tab:modes).
 
+// This table does not show the transitions between modes, like in a matrix.
 #figure(
   placement: none,
   table(

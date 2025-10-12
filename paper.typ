@@ -93,6 +93,7 @@
 
 // https://github.com/typst/typst/blob/563c8d3659e80eff6ffbea5a5a4c75115cf733da/crates/typst-library/src/text/raw.rs#L964
 #let typst-blue = rgb("#4b69c6")
+#let typst-purple = rgb("#8b41b1")
 
 /// Automatically detect language via the file extension.
 #let code-block(file) = {
@@ -1003,41 +1004,36 @@ The #Mannot package stands out as a didactic enhancement for mathematical docume
 
 Using #Mannot, authors can insert visual callouts alongside concise textual explanations that are aligned with terms or sub-expressions within a formula. This approach transforms dense mathematical notation into explanatory material that is well-suited for textbooks, lectures, or tutorials. This can be taken even further when the same concept or equation is marked in the same color throughout the text. That way, the reader can connect the different parts and concepts much faster.
 
-The annotations are customizable in terms of style and positioning, allowing authors to fine-tune the didactic layout. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
+The didactic layout can be fine-tuned with fully customizable annotations. The result is a document that not only presents mathematical content but also actively facilitates learning and comprehension.
 
 == Physics and Chemistry
-Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica (@fig:physica) make it  straightforward. #Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from linear spaces/algebra to tensor and quantum-mechanical expressions. For vector calculus, `grad`, `curl` and `div` or `laplacian` can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
-// If quad is added in the preview, it must be added in the code.
+#let (Grad, Curl, Div, Laplacian) = {
+  (`grad`, `curl`, `div`, `laplacian`).map(text.with(typst-purple))
+}
 
-// #grid(
-//   columns: (3.5fr, 1fr),
-//   gutter: 1em,
-//   [Regarding matrix and tensor operations, Hessian matrices can be written as easily as a single line: `$hmat(f; x, y)$`, which renders the matrix on the right.],
-//   $hmat(f; x, y)$,
-// )
+Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica (@fig:physica) make it  straightforward. #Physica provides concise, compact and semantically meaningful commands for advanced mathematical notation, ranging from linear spaces/algebra to tensor and quantum-mechanical expressions. For vector calculus, #Grad, #Curl and #Div or #Laplacian can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
 
+Using tensor and quantum notations is also an effortless task with #Physica. For instance: `$tensor(h, +mu, +nu)$` will be presented as $tensor(h, +mu, +nu)$, and `$bra(u)$` will be shown as $bra(u)$. There is even a way to visualize digital signals with convenient built-in procedures (@fig:signals).
 
-Using tensor and quantum notations is also an effortless task with #Physica. For instance: `$tensor(h, +mu, +nu)$` will be presented as $tensor(h, +mu, +nu)$, and `$bra(u)$` will be shown as $bra(u)$.
-There is even a way to visualize digital signals with convenient built-in procedures (@fig:signals).
-
+#let signals = signals.with(step: 0.5em, color: blueunir)
 #figure(
   placement: none,
   caption: [Signals rendered with the #Physica package],
   $
-    "clk:" & signals("|1....|0....|1....|0....|1....|0....|1....|0..", step: #0.5em, color: blueunir) \
-    "bus:" & signals(" #.... X=... ..... ..... X=... ..... ..... X#.", step: #0.5em, color: blueunir)
+    "clk:" & signals("|1....|0....|1....|0....|1....|0....|1....|0..") \
+    "bus:" & signals(" #.... X=... ..... ..... X=... ..... ..... X#.")
   $,
 ) <fig:signals>
 
 #let Typsium = package-link("Typsium")
 #let Atomic = package-link("Atomic")
 
-Nuclear and chemical reactions can be typeset with #Typsium:
-#list(
-  indent: 0.5cm,
-  $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$,
-  ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O"),
-)
+#[#set list(indent: 0.5cm)
+  Nuclear and chemical reactions can be typeset with #Physica and #Typsium, respectively:
+  - $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$ (#Physica)
+  - $ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O")$ (#Typsium)
+]
+
 Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 
 #figure(

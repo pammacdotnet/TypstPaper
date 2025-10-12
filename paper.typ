@@ -788,7 +788,7 @@ Additionally, Typst prohibits features like _shell escapes_ and network requests
 #let Emacs = link("https://www.gnu.org/software/emacs")[Emacs]
 
 == Integrated development environments <sec:ide>
-Typst integrates seamlessly with existing integrated development environments, such as #VSCodium#footnote(link(vscodium-url)) (@fig:vscodium). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within #VSCodium. Similar feature set is available in #Zed, #Neovim, #Helix, and #Emacs. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
+Typst integrates seamlessly with existing integrated development environments, such as #VSCodium#footnote(link(vscodium-url)) (@fig:vscodium). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. #Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within #VSCodium. Similar feature set is available in #Zed, #Neovim, #Helix, and #Emacs. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
 
 #figure(
   frame-round({
@@ -802,7 +802,7 @@ Typst integrates seamlessly with existing integrated development environments, s
     place-link(1.65cm, 7.05cm, 3.11cm, 0.45em, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
   }),
   kind: image,
-  caption: [Creation of a document in VSCodium with Tinymist extension],
+  caption: [Creation of a document in #VSCodium with #Tinymist extension],
   placement: none,
 ) <fig:vscodium>
 
@@ -849,7 +849,7 @@ Because of Typst's high compilation speeds and instant preview, the web app can 
 
 Typst has attracted significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a flourishing community, with its GitHub repository amassing over 45,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
-During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like #CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., Tinymist, commented in @sec:ide) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
+During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like #CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., #Tinymist, commented in @sec:ide) aim to solidify its position#footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
 
 // Certainly, as with every new disruptive technology and, as also happened with TeX @Knuth89 during the '80s, Typst still needs to mature and expand over the years.
 

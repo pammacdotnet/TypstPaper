@@ -455,7 +455,7 @@
       }
       (calc.min(end-m1, end-date) - date).days()
     },
-    // See the reason why it's not center-aligned:
+    // See the reason why it is not center-aligned:
     // https://gitlab.com/john_t/typst-gantty/-/merge_requests/10
     date => pad(2pt, text(0.8em, align(left + horizon, str(date.day())))),
     gantt.style.gridlines.weeks,

@@ -48,3 +48,26 @@ slide:
 
 slide-watch:
   typst watch --ignore-system-fonts --font-path fonts "slide example/example.typ"
+
+# Produce code to embed all the source code in the paper to make it reproducible.
+# Requires fd, wl-clipboard packages.
+pdf-attach:
+  #!/bin/sh
+  set -eu
+  files=$(fd -e typ -e latex -e csv -e dot -e yaml -e toml -e jpg -e png)
+  sorted=$(
+    echo "$files" | grep / | sort -f
+    echo "$files" | grep -v / | sort -f
+  )
+  lines=$(echo "$sorted" | sed 's/.*/  "&",/')
+  cat << EOF | wl-copy -n
+  #let files = (
+  $lines
+  )
+  #files.map(pdf.attach).join()
+  EOF
+
+# Check for "'" contractions.
+# Requires rg package.
+check-contractions:
+  rg -o "\\w+'[st]"

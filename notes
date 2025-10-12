@@ -2,13 +2,14 @@
 make some figures unfloated (because of the bottom floating figure + place.flush not working bug)
 check that all figures are in their respective sections (place.flush)
 Make sure that all code is correctly highlighted
+microtypography and other stuff from 0.14.0-rc1
 
 From paper.typ:
 Current minimal Universe distribution is around 442 MiB.
 While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html). (187G)
 "and a significantly improved user experience" sounds bad/backwards with the current phrasing. (248G)
 inconsistent example/description narrative. (283G)
-This table doesn't show the transitions between modes, like in a matrix. (287G)
+This table does not show the transitions between modes, like in a matrix. (287G)
 First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability. (305G)
 Mention Neovim etc. (617G)
 Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe. (779G)

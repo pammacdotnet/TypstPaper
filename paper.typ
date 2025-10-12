@@ -11,7 +11,7 @@
   conf: conf,
   photos: author-photos,
   logo: image("unir logo.svg", width: 17.5%),
-  bib-data: read("bibliography.bib", encoding: none),
+  bib-data: read("bibliography.yaml", encoding: none),
 )
 #set text(fallback: false, font: (
   "Libertinus Serif",

@@ -1,0 +1,555 @@
+Madje22:
+  type: thesis
+  title: A Programmable Markup Language for Typesetting
+  author: Mädje, Laurenz
+  date: 2022
+  organization: "2022"
+
+Haug22:
+  type: thesis
+  title: Fast typesetting with incremental compilation
+  author: Haug, Martin E
+  date: 2022
+  organization: Master's thesis, Technische Universit{ä}t Berlin, Faculty IV—Electrical~{\\ldots }
+
+Haas17:
+  type: article
+  title: Bringing the web up to speed with WebAssembly
+  author:
+    - Haas, Andreas
+    - Rossberg, Andreas
+    - Schuff, Derek L
+    - Titzer, Ben L
+    - Holman, Michael
+    - Gohman, Dan
+    - Wagner, Luke
+    - Zakai, Alon
+    - Bastien, JF
+  date: 2017
+  page-range: 185-200
+  parent:
+    type: proceedings
+    title: Proceedings of the 38th ACM SIGPLAN conference on programming language design and implementation
+
+Janert16:
+  type: book
+  title: "Gnuplot in action: understanding data with graphs"
+  author: Janert, Philipp K
+  date: 2016
+  publisher: Simon, Schuster
+
+Knuth86:
+  type: book
+  title: "The Computers & Typesetting, Vol. A: The Texbook"
+  author: Knuth, Donald Ervin
+  date: 1986
+  publisher: Addison-Wesley Longman Publishing Co., Inc.
+
+Lamport94:
+  type: misc
+  title: Document Preparation System
+  author:
+    - Lamport, Leslie
+    - LaTeX, A
+  date: 1994
+  publisher: Addison-Wesley Reading, MA
+
+Voegler14:
+  type: article
+  title: Markdown–A simple syntax for transcription of accessible study materials
+  author:
+    - Voegler, Jens
+    - Bornschein, Jens
+    - Weber, Gerhard
+  date: 2014
+  page-range: 545-548
+  parent:
+    type: proceedings
+    title: "Computers Helping People with Special Needs: 14th International Conference, ICCHP 2014, Paris, France, July 9-11, 2014, Proceedings, Part I 14"
+    organization: Springer
+
+Ewelina20:
+  type: article
+  title: LaTeX in Cloud—Unknown Tool in Technical Documents' Creation
+  author:
+    - Ewelina, Brzozowska
+    - Emilia, Paniczko
+    - Marcin, Werachowski
+  date: 2020
+  page-range: 75-89
+  parent:
+    type: proceedings
+    title: Smart Innovations in Engineering and Technology
+    organization: Springer
+
+Klabnik23:
+  type: book
+  title: The Rust programming language
+  author:
+    - Klabnik, Steve
+    - Nichols, Carol
+  date: 2023
+  publisher: No Starch Press
+
+Crichton24:
+  type: article
+  title: "A core calculus for documents: Or, lambda: The ultimate document"
+  author:
+    - Crichton, Will
+    - Krishnamurthi, Shriram
+  date: 2024
+  page-range: 667-694
+  parent:
+    type: periodical
+    title: Proceedings of the ACM on Programming Languages
+    publisher: ACM New York, NY, USA
+    issue: POPL
+    volume: 8
+
+Barron87:
+  type: book
+  title: Text processing and typesetting with UNIX
+  author:
+    - Barron, David
+    - Rees, Mike
+  date: 1987
+  publisher: Addison-Wesley Longman Publishing Co., Inc.
+
+Derose97:
+  type: book
+  title: "The SGML FAQ book: understanding the foundation of HTML and XML"
+  author: DeRose, Steven J
+  date: 1997
+  publisher: Springer Science & Business Media
+  volume: 7
+
+Cole00:
+  type: article
+  title: Using XML, XSLT, and CSS in a Digital Library
+  author:
+    - Cole, Timothy W
+    - Mischo, William H
+    - Ferrer, Robert
+    - Habing, Thomas G
+  date: 2000
+  page-range: 430-439
+  parent:
+    type: proceedings
+    title: Proceedings of The Annual Meeting-American Society for Information Science
+    organization: Information Today
+    volume: 37
+
+Pegourie13:
+  type: article
+  title: A guide to LuaLaTeX
+  author: Pégourié-Gonnard, Manuel
+  date: 2013
+  page-range: "2013"
+  parent:
+    type: periodical
+    title: DANTE eV, Heidelberg, Germany, accessed May
+    volume: 5
+
+Mittelbach24:
+  type: misc
+  title: LaTeX’s hook management
+  author: Mittelbach, Frank
+  date: 2024
+
+Xie18:
+  type: anthos
+  title: "knitr: a comprehensive tool for reproducible research in R"
+  author: Xie, Yihui
+  date: 2018
+  page-range: 3-31
+  parent:
+    type: anthology
+    title: Implementing reproducible research
+    publisher: Chapman, Hall/CRC
+
+Leisch02:
+  type: article
+  title: "Sweave: Dynamic generation of statistical reports using literate data analysis"
+  author: Leisch, Friedrich
+  date: 2002
+  parent:
+    type: proceedings
+    title: "COMPSTAT: Proceedings in computational statistics"
+    organization: Springer
+
+Lacombe21:
+  type: article
+  title: Can You Accept LaTeX Files from Strangers? Ten Years Later
+  author:
+    - Lacombe, Guilhem
+    - Masalygina, Kseniia
+    - Tahiri, Anass
+    - Adam, Carole
+    - Lauradoux, Cédric
+  date: 2021
+  parent:
+    type: periodical
+    title: arXiv preprint arXiv:2102.00856
+
+Doherty82:
+  type: article
+  title: Design and response time in man-computer conversational transactions
+  author:
+    - Doherty, WJ
+    - Thadani, AJ
+  date: 1982
+  page-range: 3-21
+  parent:
+    type: periodical
+    title: IBM Systems Journal
+    issue: 1
+    volume: 21
+
+Chagnon02:
+  type: article
+  title: "The Publishing Business: Desktop Publishing Software"
+  author: Chagnon, Bevi
+  date: 2002
+  parent:
+    type: periodical
+    title: Journal of Electronic Publishing
+    publisher: Michigan Publishing, University of Michigan Library
+    issue: 1
+    volume: 8
+
+Clark07:
+  type: article
+  title: Content management and the separation of presentation and content
+  author: Clark, Dave
+  date: 2007
+  page-range: 35-60
+  parent:
+    type: periodical
+    title: Technical communication quarterly
+    publisher: Taylor & Francis
+    issue: 1
+    volume: 17
+
+Hassan15:
+  type: article
+  title: "Knuth-Plass revisited: Flexible line-breaking for automatic document layout"
+  author:
+    - Hassan, Tamir
+    - Hunter, Andrew
+  date: 2015
+  page-range: 17-20
+  parent:
+    type: proceedings
+    title: Proceedings of the 2015 ACM Symposium on Document Engineering
+
+Corbi23:
+  type: article
+  title: "Cloud-Operated Open Literate Educational Resources: The Case of the MyBinder"
+  author:
+    - Corbi, Alberto
+    - Burgos, Daniel
+    - Pérez, Antonio Mar\ia
+  date: 2023
+  page-range: 893-902
+  parent:
+    type: periodical
+    title: IEEE Transactions on Learning Technologies
+    publisher: IEEE
+    volume: 17
+
+Kim24:
+  type: article
+  title: Analysis of Security Vulnerabilities and Personal Resource Exposure Risks in Overleaf
+  author:
+    - Kim, Suzi
+    - Lee, Jiyeon
+  date: 2024
+  page-range: 109-115
+  parent:
+    type: periodical
+    title: Journal of The Korea Society of Computer and Information
+    publisher: Korean Society of Computer Information
+    issue: 7
+    volume: 29
+
+Lombardi2015:
+  type: book
+  title: "WebSocket: lightweight client-server communications"
+  author: Lombardi, Andrew
+  date: 2015
+  publisher: '" O''Reilly Media, Inc."'
+
+Knuth81:
+  type: article
+  title: Breaking paragraphs into lines
+  author:
+    - Knuth, Donald E
+    - Plass, Michael F
+  date: 1981
+  page-range: 1119-1184
+  parent:
+    type: periodical
+    title: "Software: Practice and Experience"
+    publisher: Wiley Online Library
+    issue: 11
+    volume: 11
+
+Plass81:
+  type: book
+  title: Optimal pagination techniques for automatic typesetting systems
+  author: Plass, Michael Frederick
+  date: 1981
+  publisher: Stanford University
+
+Toledo01:
+  type: article
+  title: Typesetting Hebrew with LaTeX
+  author: Toledo, Sivan
+  date: 2001
+  page-range: 39-56
+  parent:
+    type: periodical
+    title: Eutupon
+    volume: 6
+
+Elkhayati2022:
+  type: article
+  title: Segmentation of handwritten Arabic graphemes using a directed convolutional neural network and mathematical morphology operations
+  author:
+    - Elkhayati, Mohsine
+    - Elkettani, Youssfi
+    - Mourchid, Mohammed
+  date: 2022
+  page-range: "108288"
+  parent:
+    type: periodical
+    title: Pattern Recognition
+    publisher: Elsevier
+    volume: 122
+
+Rougier18:
+  type: anthos
+  title: "Digital typography: 25 years of text rendering in computer graphics"
+  author:
+    - Rougier, Nicolas P
+    - Esfahbod, Behdad
+  date: 2018
+  page-range: 1-29
+  parent:
+    type: anthology
+    title: ACM SIGGRAPH 2018 Courses
+
+Feiner98:
+  type: article
+  title: A grid-based approach to automating display layout
+  author: Feiner, Steven
+  date: 1998
+  page-range: 249-254
+  parent:
+    type: periodical
+    title: Book Readings in Intelligent User Interfaces, Morgan Kaufmann Publishers Inc
+
+Fisher91:
+  type: article
+  title: Incremental algorithms for interactive text formatting
+  author: Fisher, AJ
+  date: 1991
+  page-range: 3-16
+  parent:
+    type: periodical
+    title: Journal of Systems and Software
+    publisher: Elsevier
+    issue: 1
+    volume: 16
+
+Datta17:
+  type: article
+  title: Bibliography with the BIBTeX Program
+  author:
+    - Datta, Dilip
+    - Datta, Dilip
+  date: 2017
+  page-range: 141-151
+  parent:
+    type: periodical
+    title: "LaTeX in 24 Hours: A Practical Guide for Scientific Writing"
+    publisher: Springer
+
+Fenner14:
+  type: article
+  title: Reference management
+  author:
+    - Fenner, Martin
+    - Scheliga, Kaja
+    - Bartling, Sönke
+  date: 2014
+  page-range: 125-137
+  parent:
+    type: periodical
+    title: "Opening science: The evolving guide on how the Internet is changing research, collaboration and scholarly publishing"
+    publisher: Springer International Publishing
+
+Knuth89:
+  type: article
+  title: The errors of TeX
+  author: Knuth, Donald E
+  date: 1989
+  page-range: 607-685
+  parent:
+    type: periodical
+    title: "Software: Practice and Experience"
+    publisher: Wiley Online Library
+    issue: 7
+    volume: 19
+
+Baumer15:
+  type: article
+  title: R Markdown
+  author:
+    - Baumer, Benjamin
+    - Udwin, Dana
+  date: 2015
+  page-range: 167-177
+  parent:
+    type: periodical
+    title: "Wiley Interdisciplinary Reviews: Computational Statistics"
+    publisher: Wiley Online Library
+    issue: 3
+    volume: 7
+
+Airbus09:
+  type: report
+  title: Final report on the accident on the 1st June 2009 to the Airbus A330-203
+  author: Bureau d'Enquêtes et d'Analyses pour la sécurité de l'aviation civile
+  date: 2009
+  organization: Minist{è}re de l'{É}cologie et de la Transition {é}nerg{é}tique
+
+Chaleplioglou23:
+  type: article
+  title: Preprint paper platforms in the academic scholarly communication environment
+  author:
+    - Chaleplioglou, Artemis
+    - Koulouris, Alexandros
+  date: 2023
+  page-range: 43-56
+  parent:
+    type: periodical
+    title: Journal of Librarianship and Information Science
+    publisher: "SAGE Publications Sage UK: London, England"
+    issue: 1
+    volume: 55
+
+Altarelli05:
+  type: article
+  title: The Standard model of particle physics
+  author: Altarelli, Guido
+  date: 2005
+  parent:
+    type: periodical
+    title: arXiv preprint hep-ph/0510281
+
+Dominici14:
+  type: article
+  title: An overview of Pandoc
+  author: Dominici, Massimiliano
+  date: 2014
+  page-range: 44-50
+  parent:
+    type: periodical
+    title: TUGboat
+    issue: 1
+    volume: 35
+
+Giachetta09:
+  type: book
+  title: Advanced Classical Field Theory
+  author: Giachetta, G.
+  date: 2009
+  publisher: World Scientific
+  serial-number:
+    isbn: "9789812838964"
+
+Peskin95:
+  type: book
+  title: "{An Introduction to Quantum Field Theory}"
+  author:
+    - Peskin, Michael Edward
+    - Schroeder, Daniel V.
+  date: 1995
+  publisher: Westview Press
+  note: "Reading, USA: Addison-Wesley (1995) 842 p"
+
+Wald84:
+  type: book
+  title: "{General Relativity}"
+  author: Wald, Robert M.
+  date: 1984
+  publisher:
+    name: Chicago Univ. Pr.
+    location: Chicago, USA
+  serial-number:
+    doi: 10.7208/chicago/9780226870373.001.0001
+
+Kottwitz23:
+  type: article
+  title: LaTeX graphics with TikZ
+  author: Kottwitz, Stefan
+  date: 2023
+  parent:
+    type: periodical
+    title: Packt, Birmingham
+
+Tosi09:
+  type: book
+  title: Matplotlib for Python developers
+  author: Tosi, Sandro
+  date: 2009
+  publisher: Packt Publishing Birmingham, UK
+  volume: 307
+
+Wright11:
+  type: article
+  title: "siunitx: A comprehensive (SI) units package"
+  author: Wright, Joseph
+  date: 2011
+  page-range: "95"
+  parent:
+    type: periodical
+    title: TUGboat-TeX Users Group
+    issue: 1
+    volume: 32
+
+Gansner09:
+  type: article
+  title: Drawing graphs with Graphviz
+  author: Gansner, Emden R
+  date: 2009
+  parent:
+    type: periodical
+    title: Technical report, AT&T Bell Laboratories, Murray, Tech. Rep, Tech. Rep.
+
+Bettels93:
+  type: article
+  title: "Unicode: A universal character code"
+  author:
+    - Bettels, Jürgen
+    - Bishop, F Avery
+  date: 1993
+  page-range: 21-31
+  parent:
+    type: periodical
+    title: Digital Technical Journal
+    publisher: Digital Equipment Corp. Acton, MA, USA
+    issue: 3
+    volume: 5
+
+Hofert10:
+  type: article
+  title: Scientific presentations with LaTeX
+  author:
+    - Hofert, Marius
+    - Kohm, Markus
+  date: 2010
+  parent:
+    type: periodical
+    title: The PracTEX Journal

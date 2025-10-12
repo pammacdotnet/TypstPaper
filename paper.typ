@@ -19,6 +19,7 @@
   "Noto Naskh Arabic UI",
   "Noto Color Emoji",
 ))
+#set scale(reflow: true)
 
 #show: codly-init
 // Add note about Noto Color Emoji being bad and glyphs not being centered,
@@ -82,6 +83,7 @@
   if thickness == auto { thickness = 1pt }
   set block(clip: true, outset: thickness / 2)
   show table.cell: set block(clip: false)
+  show: pad.with(thickness / 2)
   it
 }
 
@@ -115,7 +117,10 @@
 // Used with figures that have white background and do not have clear
 // visual dimentions.
 #let frame = rect.with(stroke: 0.05em)
-#let frame-round = block.with(stroke: 0.05em, clip: true, radius: 0.3em)
+#let frame(..args) = pad(0.05em / 2, rect(stroke: 0.05em, ..args))
+#let frame-round(..args) = {
+  pad(0.05em / 2, block(stroke: 0.05em, clip: true, radius: 0.3em, ..args))
+}
 
 #let universe-url(package) = {
   "https://typst.app/universe/package/" + lower(package)
@@ -250,7 +255,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [`$...$` or `\[...\]`, verbose (`\frac{}{}`)],
     [`$...$`, concise (auto-fractions, variants, etc.)],
     [Headings],
-    raw-size(0.97em)[`\section{}`, `\subsection{}`],
+    raw-size(0.96em)[`\section{}`, `\subsection{}`],
     [`= Heading`, `== Subheading`],
     [Lists],
     [`itemize`/`enumerate` environments],
@@ -510,7 +515,7 @@ $
   caption: [Rendering of the code in @fig:sm],
   frame({
     set par(leading: 0pt)
-    eval(lagrangian.text, scope: (mathbf: mathbf))
+    scale(99.7%, eval(lagrangian.text, scope: (mathbf: mathbf)))
   }),
 ) <fig:rsm>
 
@@ -986,19 +991,20 @@ The #Mannot package stands out as a didactic enhancement for mathematical docume
 #figure(
   placement: none,
   caption: [#Mannot;-annotated math expression],
-  v(3.3em)
-    + scale(
-      110%,
-      $
-        mark(V_g, tag: #<vg>, color: blueunir) eq.triple
-        markrect(hat(k), tag: #<k>, color: #blue, outset: #.1em) med crossproduct
-        (med markhl(1/(rho f), tag: #<rhof>, color: blueunir) med med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #.1em)
-          #annot(<vg>, pos: left, dx: -2.0em)[#align(center + horizon)[Geostrophic \ wind ]] thick)
-        #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
-        #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
-        #annot(<gradientp>, pos: top + right, dy: -1.5em)[Pressure gradient]#v(2.4em)
-      $,
-    ),
+  {
+    v(3em)
+    show: scale.with(110%)
+    $
+      mark(V_g, tag: #<vg>, color: blueunir) eq.triple
+      markrect(hat(k), tag: #<k>, color: #blue, outset: #0.1em) med crossproduct
+      (med markhl(1/(rho f), tag: #<rhof>, color: blueunir) med
+       med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #0.1em)
+        #annot(<vg>, pos: left, dx: -2.0em, align(center)[Geostrophic \ wind]) thick)
+      #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
+      #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
+      #annot(<gradientp>, pos: top + right, dy: -1.5em)[Pressure gradient]
+    $
+  }
 ) <fig:mannot>
 
 
@@ -1055,7 +1061,6 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 #import "@preview/cetz:0.3.4"
 
 
-#set scale(reflow: true)
 
 
 
@@ -1239,7 +1244,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 
 #figure(
   placement: none,
-  scale(66%, pad(left: 1em, right: 0.5em, gantt(gantt-yaml))),
+  scale(66%, pad(left: 1.15em, right: 0.55em, top: 0.05em, gantt(gantt-yaml))),
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 

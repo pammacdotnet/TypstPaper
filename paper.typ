@@ -760,10 +760,7 @@ The #Grayness package allows the application of complex image manipulation algor
 
 
 == Security <sec:sec>
-The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. In other words, it runs in a sandboxed environment that prevents arbitrary code execution and limits access to the underlying system.
-
-
-Additionally, Typst prohibits features like _shell escapes_ and network requests, which could otherwise be exploited for arbitrary code execution or data exfiltration (that currently may take place in the _TeX-sphere_ @Lacombe21 @Kim24). These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
+The Typst compiler ensures safety by implementing strict security measures that prevent potentially harmful operations during document compilation. It restricts file access to the project's root directory, disallowing reading or writing files outside this scope, thereby safeguarding against unauthorized data access. In other words, it runs in a sandboxed environment that prevents arbitrary code execution and limits access to the underlying system. This means features like _shell escape_ from the TeX world is prohibited @Lacombe21 @Kim24. Networking capabilities are restricted to downloading Typst packages and new compiler versions from trusted websites. These design choices collectively create a secure environment, making Typst safe to use even with untrusted input.
 
 
 

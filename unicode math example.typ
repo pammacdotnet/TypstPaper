@@ -4,7 +4,7 @@ ${(x, 💩), (x, 🔥), (y, 💩)} \
 #table(
   columns: 6,
   gutter: 2pt,
-  stroke: 0.1pt,
+  stroke: 0.3pt,
   [炬], [كتاب], [🍺], [🤡], [🍷], [🤡],
   [#emoji.checkmark], [👻], [∆], math.arrow, emoji.alien, sym.angstrom,
 )

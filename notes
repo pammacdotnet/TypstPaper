@@ -1,7 +1,6 @@
 = Now:
 make some figures unfloated (because of the bottom floating figure + place.flush not working bug)
 check that all figures are in their respective sections (place.flush)
-Make sure that all code is correctly highlighted
 microtypography and other stuff from 0.14.0-rc1
 mention the interactive figure
 
@@ -25,7 +24,6 @@ try to upstream gantty changes
 remove explicit function in template
 add image alt text?
 check that all figures are in their respective sections (place.flush)
-Make sure that all code is correctly highlighted
 
 
 

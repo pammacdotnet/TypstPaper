@@ -21,12 +21,13 @@
 #show: codly-init
 // Add note about Noto Color Emoji being bad and glyphs not being centered,
 // or use another one.
-#show raw: set text(size: 6.5pt, font: (
+#show raw: set text(font: (
   "Fira Code",
   "Noto Sans Mono CJK SC",
   "Kawkab Mono",
   "Noto Color Emoji",
 ))
+#show raw.where(block: true): set text(size: 6.5pt)
 #show raw: it => {
   show emph: set text(font: "Fira Mono")
   it
@@ -296,14 +297,14 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [`$...$` or `\[...\]`, verbose (`\frac{}{}`)],
     [`$...$`, concise (auto-fractions, variants, etc.)],
     [Headings],
-    raw-size(0.96em)[`\section{}`, `\subsection{}`],
-    [`= Heading`, `== Subheading`],
+    raw-size(0.87em)[`\section{}`, `\subsection{}`],
+    raw-size(0.91em)[`= Heading`, `== Subheading`],
     [Lists],
     [`itemize`/`enumerate` environments],
     [`-` (bullets), `+` (numbers), #box(`/ Term:`) (descriptions)],
     [Commands],
     [Macros (`\newcommand`)],
-    justify[1st-class functions (`#let f(x) = x + 1`), composable],
+    justify[1st-class functions (#raw-size(0.99em, `#let f(x) = x + 1`), composable],
     [Compiler],
     [Slow and multi-pass],
     justify[Fast (ms) and incremental],
@@ -319,7 +320,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [Own app (@sec:typstapp)],
     [Code blocks],
     [Very package-dependent (#Listings, #Minted, etc.)],
-    [Own native support for code blocks (`#raw(code)`)],
+    [Own native support for code blocks (#raw-size(0.98em, `#raw(code)`))],
     [Citations], [Managed externally], [Built-in (also Hayagriva)],
     [Deploy], [Can be initially heavy (\~5 GiB) for most distros], [Starts with a single binary (\~40 MiB)],
     // Current minimal Universe distribution is around 442 MiB.
@@ -451,18 +452,23 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 // This table does not show the transitions between modes, like in a matrix.
 #figure(
   placement: none,
-  table(
-    columns: (0.55fr, 1.5fr, 1.7fr),
-    inset: 5pt,
-    align: left,
-    stroke: 0.1mm,
-    table.header([*Mode*], [*Syntax*], [*Example*]),
-
-    [Code], [Prefix code with \#], raw("Number: #(1 + 2)", lang: "typ"),
-    [Math], [Surround math with \$…\$], raw("$-x$ is the opposite of $x$", lang: "typ"),
-    [Markup], [Put markup in \[…\]], raw("#let name = [*Typst!*]", lang: "typ"),
-  ),
   caption: [Typst syntactical modes],
+  {
+    set raw(lang: "typ")
+    show raw: set text(0.95em)
+    show "...": sym.dots
+    table(
+      columns: (0.55fr, 1.5fr, 1.7fr),
+      inset: 5pt,
+      align: left,
+      stroke: 0.1mm,
+      table.header([*Mode*], [*Syntax*], [*Example*]),
+
+      [Code], [Prefix code with `#`], `Number: #(1 + 2)`,
+      [Math], [Surround math with `$...$`], `$-x$ is the opposite of $x$`,
+      [Markup], [Put markup in `[...]`], `#let name = [*Typst!*]`,
+    )
+  },
 ) <tab:modes>
 
 All this content is written in Unicode @Bettels93. Typst has embraced this computing standard as a first-class citizen (@fig:mathunicode), making it much more modern and intuitive than traditional typesetting systems.
@@ -517,7 +523,11 @@ Normally, `show` and `set` statements are used in combination to tweak the appea
 == Control structures
 Typst incorporates several control structures that facilitate dynamic content generation and conditional logic within documents. The `if` statement enables conditional rendering, allowing content to be included or excluded based on specific conditions. For instance, `if dark { set page(fill: rgb("333333")) }` applies a dark theme when the `dark` variable is true. It is important to note that `set` rules are scoped, thus, applying them within an `if` block confines their effect to that block's scope. Additionally, Typst treats `if` as an expression, permitting concise inline conditionals like `if x > 10 { "High" } else { "Low" }`.
 
-For iterative operations, Typst offers `for` and `while` loops. The `for` loop is versatile, capable of iterating over strings, arrays, dictionaries, and more. For example, `for letter in "abc" { letter }` processes each character in the string. Control statements like `break` and `continue` are available to manage loop execution, allowing for early exits or skipping iterations. The `while` loop continues execution as long as a specified condition remains true. These loops can be utilized within content blocks to dynamically generate document elements, such as populating tables or lists based on data structures. Finally, arrays and dictionaries can be iterated with object oriented-like methods present in modern programming languages (`.map`, `.filter`, `.enumerate`, etc.)
+#let (map, filter, enumerate) = (
+  `map`, `filter`, `enumerate`,
+).map(x => `.` + text(typst-blue, x))
+
+For iterative operations, Typst offers `for` and `while` loops. The `for` loop is versatile, capable of iterating over strings, arrays, dictionaries, and more. For example, `for letter in "abc" { letter }` processes each character in the string. Control statements like `break` and `continue` are available to manage loop execution, allowing for early exits or skipping iterations. The `while` loop continues execution as long as a specified condition remains true. These loops can be utilized within content blocks to dynamically generate document elements, such as populating tables or lists based on data structures. Finally, arrays and dictionaries can be iterated with object oriented-like methods present in modern programming languages (#map, #filter, #enumerate, etc.)
 
 == Math
 #let lagrangian = ```typ
@@ -633,10 +643,11 @@ On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functi
 ) <fig:cetz-plot>
 
 
+#set raw(lang: "typ")
+#let cite = text(typst-blue, `cite`)
 
 == Bibliographic references
-
-Typst offers integrated support for bibliographic references, streamlining the citation process for users. It allows authors to include citations in their documents using the `cite` function or the `@key` syntax, referencing entries from bibliography files.
+Typst offers integrated support for bibliographic references, streamlining the citation process for users. It allows authors to include citations in their documents using the #cite function or the `@key` syntax, referencing entries from bibliography files.
 
 #figure(
   caption: [Sample of a BibTeX entry and its Hayagriva equivalent for @Corbi23],
@@ -725,11 +736,12 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
   caption: [Typst compiling process, comprising four main phases: _parsing_, _evaluation_, _layout_, and _rendering_. HTML export is in an experimental stage],
 ) <fig:compiler>
 
+#set raw(lang: "typc")
 
 == Abstraction and mutation
 Abstractions in Typst enables users to manage
 complexity by hiding irrelevant details through two primary mechanisms:
-/ Functions: are defined using `let` syntax and support required positional arguments, optional named arguments with defaults, and _argument sinks_ for variadic inputs. A key convenience is the shorthand for passing content as the last argument using brackets (`[...]`). Functions implicitly join multiple content pieces and return them without requiring an explicit `return` statement.
+/ Functions: are defined using `let` syntax and support required positional arguments, optional named arguments with defaults, and _argument sinks_ for variadic inputs. A key convenience is the shorthand for passing content as the last argument via brackets (`[...]`). Functions implicitly join multiple content pieces and return them without requiring an explicit `return` statement.
 #set raw(lang: "typ")
 / Modules: can be imported (`#import`) for later use or included (`#include`) for immediate inlining of their content.
 
@@ -743,7 +755,7 @@ Although value semantics suggest potential performance costs due to frequent cop
 // #let d = (x: 1); modify(d); d.x // Still 1
 // ```
 
-#let eval-func = api-link("foundations/eval")[`eval`]
+#let eval-func = api-link("foundations/eval", text(typst-blue, `eval`))
 
 A unique feature is _implicit coercion_: values like numbers or strings are automatically converted to content when used in markup. For instance, `#(1 + 2)` in markup becomes #(1 + 2), while `3.0` retains its fractional part in arrays for debugging clarity. Strings differ from content: even though they can be implicitly or explicitly coerced to content, special syntax for smart quotes, references, etc. will not be picked up, e.g., `#"'Hello'"` will produce #"'Hello'" and not #eval("'Hello'", mode: "markup") (#eval-func, introduced in @cs-other, can help with such issues).
 
@@ -759,13 +771,15 @@ Modules do not give the user/developer any way to mark items as _public_ or _pri
 
 // Some users#footnote[https://justinpombrio.net/2024/11/30/typst.html] have suggested some _solutions_, such as extending `set/show` to user-defined functions (e.g., `set sequence(codon-sep: "-")`) and improving `show` to tweak elements without reimplementing them entirely, like adding decorations to headings robustly.
 
+// #raw(read("paper.toml"), lang: "toml", block: true)
 
 == Packages <sec:package>
 As with LaTeX and as commented above, Typst also supports the addition of functionalities via _packages_. A Typst package is a self-contained collection of Typst source files and assets, structured around a mandatory `typst.toml` manifest file located at the package root (written in the _Tom's Obvious Minimal Language_#footnote[https://toml.io]). This manifest specifies essential metadata such as the package's `name`, `version`, and `entrypoint`, which points to the main `.typ` file to be evaluated upon import. Additional optional fields like `authors`, `license`, and `description` can also be included. The internal organization of the package is flexible, allowing authors to structure files and directories as they see fit, provided that the `entrypoint` path is correctly specified. All paths within the package are resolved relative to the package root, ensuring encapsulation and preventing access to files outside the package.
 
 #set raw(lang: "typ")
+#let preview = raw("@preview", lang: none)
 
-Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The `@preview` namespace in Typst serves as a dedicated space for community-contributed packages. These packages are hosted in the Typst package repository.
+Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The #preview namespace in Typst serves as a dedicated space for community-contributed packages. These packages are hosted in the Typst package repository.
 
 == Web technologies <sec:wasm>
 As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
@@ -1237,9 +1251,13 @@ There are other several packages that ship with Wasm plugins for different langu
 
 Another notable limitation within Wasm-based packages is that network and input/output (I/O) operations do not work, but there is a possibility of passing project-local files to these add-ons. The second, and more impactful constraint, is their slower execution. With time, it can be worth porting some functions and algorithms to native Typst to significantly decrease compilation time.
 
+#set raw(lang: "sh")
+
 #let Prequery = package-link("Prequery")
 
 The #Prequery package provides the ability to specify metadata regarding extra information associated to a document. This metadata then can be extracted with `typst query` command to be used by, for instance, an external Python script. That way, the workflow requires one compilation without assets (to get the metadata), one run of the external preprocessor (i.e., the Python script) to gather the fetched metadata, and a second compilation with the necessary distilled data. This kind of preprocessing allows for fully automated creation of report-like documents.
+
+#set raw(lang: none)
 
 #let Eqalc = package-link("Eqalc")
 #let IDWTET = package-link("IDWTET")
@@ -1260,7 +1278,9 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
 
 == Other use cases <cs-other>
 #let Self-Example = package-link("Self-Example")
-#let pdf-embed = api-link("pdf/embed")[`pdf.embed`]
+#let pdf-embed = api-link("pdf/embed", {
+  text(typst-purple, `pdf`) + `.` + text(typst-blue, `embed`)
+})
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
 #let Kantan = package-link("Kantan")

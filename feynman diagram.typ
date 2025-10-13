@@ -1,4 +1,4 @@
-#import "@preview/ijimai:0.0.5": blueunir
+#import "@preview/ijimai:1.0.0": blue-unir
 #import "@preview/cetz:0.3.4": *
 
 #canvas({
@@ -21,8 +21,8 @@
 
   let mark-arrow-style = (
     symbol: "stealth",
-    fill: blueunir,
-    stroke: .7pt + blueunir,
+    fill: blue-unir,
+    stroke: .7pt + blue-unir,
     width: .5,
     length: marklen,
     angle: 60deg,
@@ -30,7 +30,7 @@
   )
 
   let linemidmark(x1, y1, x2, y2, lname) = {
-    line((x1, y1), (x2, y2), name: lname, stroke: blueunir)
+    line((x1, y1), (x2, y2), name: lname, stroke: blue-unir)
     let angl = calc.atan2(x2 - x1, y2 - y1)
     let xmark = (x1 + x2) / 2 + marklen * calc.cos(angl)
     let ymark = (y1 + y2) / 2 + marklen * calc.sin(angl)
@@ -63,14 +63,14 @@
     line((-2, 0), (-r, 0)),
     amplitude: 0.2,
     segments: 3,
-    stroke: blueunir,
+    stroke: blue-unir,
     name: "photon1",
   )
   decorations.wave(
     line((r, 0), (2, 0)),
     amplitude: 0.2,
     segments: 3,
-    stroke: blueunir,
+    stroke: blue-unir,
     name: "photon2",
   )
   content("e+1.end", anchor: "north-east", padding: 1pt, $e^(+)$)
@@ -79,7 +79,7 @@
   content("e-2.end", anchor: "south-west", padding: 1pt, $e^(-)$)
   content((-r / 2 - 1, -0.3), $gamma$)
   content((+r / 2 + 1, -0.3), $gamma$)
-  circle((0, 0), radius: r, fill: white, name: "loop", stroke: blueunir)
+  circle((0, 0), radius: r, fill: white, name: "loop", stroke: blue-unir)
   for pos in (0.25, 0.75) {
     let angle = pos * 360
     // Between base and tip

@@ -1,4 +1,4 @@
-#import "@preview/ijimai:0.0.5": blueunir
+#import "@preview/ijimai:1.0.0": blue-unir
 #import "@preview/cetz:0.3.4": *
 
 #canvas(length: 2cm, {
@@ -7,7 +7,7 @@
   let scr(it) = text(features: ("ss01",), box($cal(it)$))
 
   // define colors and line thickness
-  let teal = blueunir
+  let teal = blue-unir
   let lt = 0.6pt
 
   // define the function for the kruskal coordinate wordlines and auxilliary variables
@@ -57,7 +57,7 @@
     amplitude: .03,
     segments: 101,
     fill: red.lighten(95%),
-    stroke: (paint: blueunir, thickness: 0.4mm),
+    stroke: (paint: blue-unir, thickness: 0.4mm),
     name: "origin-top",
   )
 
@@ -200,11 +200,11 @@
 
   // redraw lines on top to avoid wordlines getting on  the way
   line((0, 0), (1, 1), (2, 0), (1, -1), (0, 0), stroke: (
-    paint: blueunir,
+    paint: blue-unir,
     thickness: 0.4mm,
   ))
   line((0, 0), (-1, 1), (-2, 0), (-1, -1), (0, 0), stroke: (
-    paint: blueunir,
+    paint: blue-unir,
     thickness: 0.4mm,
   ))
 })

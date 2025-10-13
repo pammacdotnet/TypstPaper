@@ -1,10 +1,10 @@
-#import "@preview/ijimai:0.0.5": blueunir
+#import "@preview/ijimai:1.0.0": blue-unir
 #import "@preview/matofletcher:0.1.1": *
 
 #diagram(
   spacing: (2mm, 5mm),
   node-stroke: 1pt,
-  edge-stroke: 1pt + blueunir,
+  edge-stroke: 1pt + blue-unir,
   node-inset: 0.1em,
   edge-corner-radius: 0pt,
   mark-scale: 70%,

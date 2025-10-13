@@ -1,17 +1,14 @@
-#import "@preview/ijimai:0.0.5": *
+#import "@preview/ijimai:1.0.0": *
 
+#import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
 #import "@preview/metalogo:1.2.0"
 #import "@preview/codly:1.3.0": codly, codly-init, local as codly-local
 #import "@preview/codly-languages:0.1.8": codly-languages
 
-#let conf = toml("paper.toml")
-#let author-photos = conf.authors.map(author => read("photos/" + author.photo, encoding: none))
-#import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
 #show: ijimai.with(
-  conf: conf,
-  photos: author-photos,
-  logo: image("unir logo.svg", width: 17.5%),
-  bib-data: read("bibliography.yaml", encoding: none),
+  config: toml("paper.toml"),
+  bibliography: "bibliography.yaml",
+  read: path => read-raw(path),
 )
 #set text(fallback: false, font: (
   "Libertinus Serif",
@@ -39,10 +36,10 @@
 // https://github.com/Dherse/codly/issues/107
 #show raw.where(block: true): pad.with(1pt / 2)
 #codly(
-  zebra-fill: softblueunir,
+  zebra-fill: blue-unir-soft,
   number-align: right + horizon,
   number-format: none,
-  stroke: stroke(blueunir),
+  stroke: stroke(blue-unir),
   languages: codly-languages,
   lang-inset: 0.23em,
   lang-radius: 0.15em,
@@ -158,7 +155,7 @@
 #let mathbf(input) = $upright(bold(input))$
 
 = Introduction
-#first-paragraph[Typst][is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and exceptionally easy to use. For instance, with Typst, it is possible to:]
+Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and exceptionally easy to use. For instance, with Typst, it is possible to:
 
 - Create professional-quality documents with ease.
 - Access extensive functionality, including mathematical typesetting, figure management, and an auto-generated table of contents.
@@ -541,7 +538,7 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 / #Quick-Maths: package  allows users to define custom shorthands for complex expressions, streamlining the writing process.
 / #Great-Theorems: provides structured environments for theorems, lemmas, and proofs with customizable styling and numbering.
 / #Game-Theoryst: facilitates the typesetting of payoff matrices.
-/ #Physica: package offers tools for scientific and engineering mathematics, including matrix operations and vector calculus (@fig:physica).
+/ #Physica: offers tools for scientific and engineering mathematics, including matrix operations and vector calculus (@fig:physica).
 / #Equate: enhances the formatting and numbering of mathematical equations, improving readability and reference.
 / #MiTeX: integrates LaTeX math syntax into Typst, allowing users to write equations using familiar LaTeX commands.
 
@@ -690,7 +687,7 @@ Abstractions in Typst enables users to manage
 complexity by hiding irrelevant details through two primary mechanisms:
 / Functions: are defined using `let` syntax and support required positional arguments, optional named arguments with defaults, and _argument sinks_ for variadic inputs. A key convenience is the shorthand for passing content as the last argument using brackets (`[...]`). Functions implicitly join multiple content pieces and return them without requiring an explicit `return` statement.
 #set raw(lang: "typ")
-/ Modules: simplify design. They can be imported (`#import`) for later use or included (`#include`) for immediate inlining of their content.
+/ Modules: can be imported (`#import`) for later use or included (`#include`) for immediate inlining of their content.
 
 == Value semantics and coercion
 Typst employs _value semantics_, meaning values are treated as if they are copied whenever they are passed or modified. This approach prevents unintended side effects and simplifies reasoning about code. For instance, modifying a dictionary inside a function or during iteration does not affect the original structure because the function or loop receives a copy. This avoids common pitfalls such as cyclic data structures, iterator invalidation, and unintended global mutations. As a result, code becomes easier to test and debug, and features like multi-threading are safer and simpler to implement. In Typst, even function arguments and global variables behave as immutable within the scope of a function, reinforcing this isolation.
@@ -770,9 +767,9 @@ The Typst compiler ensures safety by implementing strict security measures that 
   Typst's introspection system provides a suite of functions that enable dynamic interaction with a document's structure and content. Central to this system are functions like `counter` and `query`. The `counter` function allows for tracking and manipulating counts of elements such as pages, headings, figures, and equations. Users can access current counter values, display them in various formats, and even define custom counters for specific needs. For instance, it is possible to create a custom counter to number specific elements uniquely throughout the document. On the other hand, the `query` function facilitates searching the document for elements that match certain criteria, such as all headings of a specific level or elements with certain labels. This is particularly useful for generating dynamic content like tables of contents or table of figures, as it allows for real-time retrieval and display of relevant elements based on the document's current state.
 
   Complementing these are functions like `here`, `locate`, and `metadata`, which offer deeper insights into the document's structure:
-  / `here`: retrieves the current location within the document, which can be used in conjunction with other functions to determine positional information. For example, combining `here` with `query` can yield the number of specific elements preceding the current point.
+  / `here`: retrieves the current location within the document, which can be used together with other functions to determine positional information. For example, combining `here` with `query` can yield the number of specific elements preceding the current point.
   / `locate`: identifies the position of a specific element, allowing for precise referencing or manipulation based on location.
-  / `metadata`: function enables embedding arbitrary values without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
+  / `metadata`: enables embedding arbitrary values without producing visible content, which can later be retrieved using `query`. This is particularly useful for storing and accessing auxiliary information that informs document behavior or content generation.
 ]
 
 #let tinymist-url = github-url("Myriad-Dreamin/tinymist")
@@ -991,9 +988,9 @@ The #Mannot package stands out as a didactic enhancement for mathematical docume
     v(3em)
     show: scale.with(110%)
     $
-      mark(V_g, tag: #<vg>, color: blueunir) eq.triple
+      mark(V_g, tag: #<vg>, color: #blue-unir) eq.triple
       markrect(hat(k), tag: #<k>, color: #blue, outset: #0.1em) med crossproduct
-      (med markhl(1/(rho f), tag: #<rhof>, color: blueunir) med
+      (med markhl(1/(rho f), tag: #<rhof>, color: #blue-unir) med
        med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #0.1em)
         #annot(<vg>, pos: left, dx: -2.0em, align(center)[Geostrophic \ wind]) thick)
       #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
@@ -1017,7 +1014,7 @@ Scientific typesetting can be cumbersome, but packages like the aforementioned #
 
 Using tensor and quantum notations is also an effortless task with #Physica. For instance: `$tensor(h, +mu, +nu)$` will be presented as $tensor(h, +mu, +nu)$, and `$bra(u)$` will be shown as $bra(u)$. There is even a way to visualize digital signals with convenient built-in procedures (@fig:signals).
 
-#let signals = signals.with(step: 0.5em, color: blueunir)
+#let signals = signals.with(step: 0.5em, color: blue-unir)
 #figure(
   placement: none,
   caption: [Signals rendered with the #Physica package],
@@ -1030,11 +1027,9 @@ Using tensor and quantum notations is also an effortless task with #Physica. For
 #let Typsium = package-link("Typsium")
 #let Atomic = package-link("Atomic")
 
-#[#set list(indent: 0.5cm)
-  Nuclear and chemical reactions can be typeset with #Physica and #Typsium, respectively:
-  - $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$ (#Physica)
-  - $ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O")$ (#Typsium)
-]
+Nuclear and chemical reactions can be typeset with #Physica and #Typsium, respectively:
+- $isotope("Bi", a: 211, z: 83) -> isotope("Tl", a: 207, z: 81) + isotope("He", a: 4, z: 2)$ (#Physica)
+- $ce("[Co(H2O)6]^(2+) + 4Cl^- <-> [CoCl4]^(2-) + 6H2O")$ (#Typsium)
 
 Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 
@@ -1132,8 +1127,7 @@ For creating truth tables, there is #Truthfy package that can create a table fro
 #let Pintorita = package-link("Pintorita")
 
 A prominent part of Computer Science is software and software engineering. For that, Typst has:
-/ Built-in listings: with automatic syntax highlighting (or custom
-  parsers/themes), that can be further enhanced with #Codly (@fig:listing).
+/ Built-in listings: with automatic syntax highlighting (or custom parsers/themes), that can be enhanced with #Codly (@fig:listing).
 / Built-in data loading: functions for JSON, CSV, XML, etc. (or XLSX with #ReXLlenT) for generating native tables or #Lilaq graphs.
 / Sequence diagrams: provided by #Chronos (@fig:sequence).
 / Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled in the #Pintorita package. However due to inherited Wasm limitations, these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
@@ -1142,11 +1136,11 @@ A prominent part of Computer Science is software and software engineering. For t
   placement: none,
   text(font: "Liberation Sans", chronos.diagram(width: 59.8%, {
     import chronos: *
-    _par("a", display-name: "alice", show-bottom: false, color: softblueunir)
-    _par("b", display-name: "bob", show-bottom: false, color: softblueunir)
-    _par("c", display-name: "charlie", show-bottom: false, color: softblueunir)
-    _par("d", display-name: "derek", show-bottom: false, color: softblueunir)
-    let style = (lifeline-style: (fill: blueunir))
+    _par("a", display-name: "alice", show-bottom: false, color: blue-unir-soft)
+    _par("b", display-name: "bob", show-bottom: false, color: blue-unir-soft)
+    _par("c", display-name: "charlie", show-bottom: false, color: blue-unir-soft)
+    _par("d", display-name: "derek", show-bottom: false, color: blue-unir-soft)
+    let style = (lifeline-style: (fill: blue-unir))
     _seq("a", "b", comment: "hello", enable-dst: true)
     _seq("b", "b", comment: "self call", enable-dst: true)
     _seq("c", "b", comment: "hello from thread 2", enable-dst: true, ..style)
@@ -1232,7 +1226,7 @@ The #eval-func function allows writing the code only once while showing both the
 
 #let gantt-yaml = yaml("gantt.yaml")
 #(gantt-yaml.style = (
-  gridlines: (table: (stroke: blueunir)),
+  gridlines: (table: (stroke: blue-unir)),
   milestones: (normal: (stroke: (paint: green))),
 ))
 
@@ -1302,11 +1296,9 @@ Typst can be extended for slide creation through the #Touying package, which pro
 Typst is a markup language for typesetting documents, combining ease of use, speed, and versatility. It transforms plain text files with markup into polished PDFs. Ideal for long-form writing, Typst excels at creating essays, articles, scientific papers, books, reports, and homework assignments. It also shines in technical fields, such as Mathematics, Physics, and Engineering thanks to its robust support for mathematical notation. Additionally, its powerful styling and automation capabilities make it perfect for document sets with a consistent design, like a book series or branded publications.
 
 = CRediT Authorship Contribution Statement
-#format-credit-section()
-
-#let associated-files-link = link.with("https://pdfa.org/resource/pdf-2-0-application-note-002-associated-files")
 
 = Data Statement
+#let associated-files-link = link.with("https://pdfa.org/resource/pdf-2-0-application-note-002-associated-files")
 The research does not involve the use of external data. All figures and tables have been generated dynamically in Typst and associated packages. The source code for this paper can be found at https://github.com/pammacdotnet/TypstPaper or inside this PDF document in the form of #associated-files-link[attached files.]
 
 = Declaration of Conflicts of Interest

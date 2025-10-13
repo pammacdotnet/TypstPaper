@@ -1,8 +1,8 @@
-#import "@preview/ijimai:0.0.5": blueunir, softblueunir
+#import "@preview/ijimai:1.0.0": blue-unir, blue-unir-soft
 #import "@preview/cetz:0.4.2"
 
 #set text(font: "Liberation Sans")
-#set table(fill: softblueunir, stroke: 0.5pt, inset: 0.6em)
+#set table(fill: blue-unir-soft, stroke: 0.5pt, inset: 0.6em)
 
 #let item(..nums) = table(columns: nums.pos().len(), ..nums.pos().map(str))
 
@@ -11,7 +11,7 @@
   import cetz.tree
   let edge-color = rgb("#0300bc")
   set-style(line: (
-    stroke: blueunir,
+    stroke: blue-unir,
     mark: (end: (symbol: "stealth", scale: 0.5, fill: edge-color)),
   ))
   tree.tree(name: "t", spread: 0.8, grow: 0.5, (

@@ -6,6 +6,7 @@ just check-package-links
 "
 
 alias c := compile
+alias pdf := compile-from-pdf
 alias w := watch
 alias init := pre-commit
 
@@ -17,6 +18,11 @@ typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
 compile: slide
   {{typst}} compile --ignore-system-fonts --font-path fonts paper.typ
+
+compile-from-pdf paper="paper.pdf":
+  pdfdetach -list '{{paper}}' | sed -E 's/^[0-9]+: //' | xargs -I{} dirname '{}' | grep -vxF . | sort | uniq | xargs -I{} mkdir -p '{}'
+  pdfdetach -saveall '{{paper}}'
+  just compile
 
 watch: slide
   {{typst}} watch --ignore-system-fonts --font-path fonts paper.typ
@@ -57,6 +63,7 @@ pdf-attach:
   files=$(fd -e typ -e latex -e csv -e dot -e yaml -e toml -e jpg -e png)
   sorted=$(
     echo "$files" | grep / | sort -f
+    echo ".justfile"
     echo "$files" | grep -v / | sort -f
   )
   lines=$(echo "$sorted" | sed 's/.*/  "&",/')

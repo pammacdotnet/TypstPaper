@@ -154,6 +154,50 @@
 
 #let mathbf(input) = $upright(bold(input))$
 
+// +1.02 MiB
+#let files = (
+  "assets/ieee.jpg",
+  "assets/mdpi.jpg",
+  "assets/mileva.jpg",
+  "assets/vscodium.jpg",
+  "assets/vscodium_screenshot_source/pronunciation/main.typ",
+  "assets/web_app.jpg",
+  "examples/affine/latex.latex",
+  "examples/affine/typst.typ",
+  "examples/atom.typ",
+  "examples/cartesian_product.dot",
+  "examples/cetz-plot.typ",
+  "examples/chess.typ",
+  "examples/diagraph.typ",
+  "examples/eqalc.typ",
+  "examples/feynman_diagram.typ",
+  "examples/flowchart_diagram.typ",
+  "examples/gantt.yaml",
+  "examples/gradient_stack.typ",
+  "examples/lilaq/data.csv",
+  "examples/lilaq/lilaq.typ",
+  "examples/neoplot.typ",
+  "examples/penrose-carter_diagram.typ",
+  "examples/physica.typ",
+  "examples/pyrunner.typ",
+  "examples/slide/slide.typ",
+  "examples/slide/typst-guy-scientist.png",
+  "examples/tree.typ",
+  "examples/typesetting_systems.typ",
+  "examples/unicode_math.typ",
+  "photos/alberto.jpg",
+  "photos/andrey.jpg",
+  "photos/david.jpg",
+  "photos/pau.jpg",
+  "vendor/gantty.typ",
+  ".justfile",
+  "bibliography.yaml",
+  "paper.toml",
+  "paper.typ",
+  "README.md",
+)
+#files.map(pdf.attach).join()
+
 = Introduction
 Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and exceptionally easy to use. For instance, with Typst, it is possible to:
 

@@ -60,7 +60,7 @@ slide-watch:
 pdf-attach:
   #!/bin/sh
   set -eu
-  files=$(fd -e typ -e latex -e csv -e dot -e yaml -e toml -e jpg -e png)
+  files=$(fd -e md -e typ -e latex -e csv -e dot -e yaml -e toml -e jpg -e png)
   sorted=$(
     echo "$files" | grep / | sort -f
     echo ".justfile"

@@ -44,10 +44,10 @@ alias s := slide
 alias sw := slide-watch
 
 slide:
-  typst compile --ignore-system-fonts --font-path fonts "slide example/example.typ"
+  typst compile --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
 
 slide-watch:
-  typst watch --ignore-system-fonts --font-path fonts "slide example/example.typ"
+  typst watch --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
 
 # Produce code to embed all the source code in the paper to make it reproducible.
 # Requires fd, wl-clipboard packages.

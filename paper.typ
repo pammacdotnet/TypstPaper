@@ -180,8 +180,8 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 
 @fig:LaTeXvTypst demonstrates a side-by-side example of the equivalent LaTeX and Typst code. As it can be seen, even for a small document describing simple, introductory Algebra-related concepts, any LaTeX distribution would need a more cumbersome syntax and auxiliary markup.
 
-#let affine-typst = "affine example/typst.typ"
-#let affine-latex = "affine example/latex.latex"
+#let affine-typst = "./examples/affine/typst.typ"
+#let affine-latex = "./examples/affine/latex.latex"
 
 #figure(
   placement: none,
@@ -331,7 +331,7 @@ Historically, the development of markup-oriented systems began in the 1960s with
 
 #figure(
   placement: none,
-  include "typesetting systems.typ",
+  include "./examples/typesetting_systems.typ",
   caption: [Evolution of some Typesetting technologies],
 ) <fig:mlevolution>
 
@@ -375,7 +375,7 @@ For instance, the package #Pyrunner#footnote(link(pyrunner-url)) allows the exec
 
 #figure(
   placement: none,
-  code-grid("pyrunner example.typ", gutter: 0.5em, left-column: none),
+  code-grid("./examples/pyrunner.typ", gutter: 0.5em, left-column: none),
   caption: [Python code and its output produced by #Pyrunner],
   kind: image,
 ) <fig:pyrunner>
@@ -391,7 +391,7 @@ Other current WebAssembly-grounded integration solutions for computational docum
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
-  no-lang(raw-size(0.91em, code-grid("diagraph example.typ", left-column: 1.7fr))),
+  no-lang(raw-size(0.91em, code-grid("./examples/diagraph.typ", left-column: 1.7fr))),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm],
   kind: image,
   placement: none,
@@ -425,7 +425,7 @@ All this content is written in Unicode @Bettels93. Typst has embraced this compu
 // First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability.
 
 #figure(
-  raw-size(0.96em, code-grid("unicode math example.typ", left-column: 1.73fr)),
+  raw-size(0.96em, code-grid("./examples/unicode_math.typ", left-column: 1.73fr)),
   caption: [Illustration of Unicode use in Typst for text and math.],
   kind: image,
   placement: none,
@@ -526,7 +526,7 @@ $
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
   no-lang(raw-size(0.96em, code-grid(
-    "physica example.typ",
+    "./examples/physica.typ",
     left-column: 1.55fr,
   ))),
   caption: [Example of advanced math with the #Physica package],
@@ -548,8 +548,8 @@ Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] of
 // Should be different to show the diversity.
 #figure(
   placement: none,
-  code-grid("gradient stack.typ", left-column: 2fr),
-  caption: [Gradient stack example showing Typst drawing capabilities],
+  code-grid("./examples/gradient_stack.typ", left-column: 2fr),
+  caption: [Gradient stack showing Typst drawing capabilities],
   kind: image,
 ) <fig:gradient>
 
@@ -557,7 +557,7 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 #figure(
   placement: none,
-  no-lang(raw-size(0.91em, code-grid("chess example.typ", left-column: 1.8fr))),
+  no-lang(raw-size(0.91em, code-grid("./examples/chess.typ", left-column: 1.8fr))),
   caption: [Chessboard tiled pattern (with the board-n-pieces package)],
   kind: image,
 ) <fig:chess>
@@ -570,7 +570,7 @@ Regarding data visualization, Typst also offers powerful capabilities through it
 
 #figure(
   no-lang(raw-size(0.94em, code-grid(
-    "lilaq example/example.typ",
+    "./examples/lilaq/lilaq.typ",
     left-column: 1.95fr,
   ))),
   caption: [Example of a plot made with the Lilaq plotting package],
@@ -581,7 +581,7 @@ On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functi
 
 #figure(
   no-lang(raw-size(0.96em, code-grid(
-    "cetz-plot example.typ",
+    "./examples/cetz-plot.typ",
     left-column: 1.5fr,
   ))),
   caption: [Example of a cycle diagram created with #CeTZ-Plot],
@@ -730,7 +730,7 @@ As an example, the #Neoplot package is a specialized tool designed to integrate 
 
 #figure(
   no-lang(raw-size(0.97em, code-grid(
-    "neoplot example.typ",
+    "./examples/neoplot.typ",
     left-column: 1.6fr,
     gutter: 0pt,
   ))),
@@ -743,7 +743,7 @@ As an example, the #Neoplot package is a specialized tool designed to integrate 
 
 The #Grayness package allows the application of complex image manipulation algorithms (@fig:mileva).
 
-#let data = read("mileva.jpg", encoding: none)
+#let data = read("./assets/mileva.jpg", encoding: none)
 #figure(
   placement: none,
   caption: [Complex image manipulation via the #Grayness Wasm plugin],
@@ -786,7 +786,7 @@ Typst integrates seamlessly with existing integrated development environments, s
 
 #figure(
   frame-round({
-    image("VSCodium.jpg")
+    image("./assets/vscodium.jpg")
     let place-link(dx, dy, width, height, url) = {
       let link = link(url, box(width: width, height: height))
       place(top + left, dx: dx, dy: dy, link)
@@ -815,7 +815,7 @@ Having a big variety of image formats that can be included in a document is unde
 The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion#footnote(link(notion-url)), reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
 
 #figure(
-  frame-round(image("web app.jpg")),
+  frame-round(image("./assets/web_app.jpg")),
   placement: none,
   caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>
@@ -863,7 +863,7 @@ Finally, although not its intention, the online service typst.app can also be us
     columns: (1fr, 1fr),
     column-gutter: 2pt,
     gutter: 5pt,
-    image("ieee.jpg", width: image-width), image("mdpi.jpg", width: image-width),
+    image("./assets/ieee.jpg", width: image-width), image("./assets/mdpi.jpg", width: image-width),
   ),
 ) <fig:papers>
 
@@ -910,7 +910,7 @@ Typst Universe#footnote[http://typst.app/universe] is an online platform that of
 Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the #CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
 
 #figure(
-  include "penrose-carter diagram.typ",
+  include "./examples/penrose-carter_diagram.typ",
   caption: [Penrose-Carter diagram of the Schwarzschild manifold
     //The $I$ region corresponds to the exterior (universe) region, the $I I$ region corresponds to the interior of the black hole, the $I I I$ corresponds to a parallel exterior region and the $I V$ region is the interior of a white hole. Moreover, $i^(plus.minus)$ denotes future/past temporal infinity, $scr(I)^(plus.minus)$ denotes future/past null infinity and $i^(0)$ denotes spatial infinity @Wald84.
   ],
@@ -920,7 +920,7 @@ In addition to spacetime visualizations, Typst's #CeTZ package can be applied in
 
 #figure(
   placement: none,
-  include "feynman diagram.typ",
+  include "./examples/feynman_diagram.typ",
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$],
 ) <fig:feynman-diagram>
 
@@ -1037,7 +1037,7 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
   kind: image,
   placement: none,
   caption: [Atom shells rendered with the #Atomic package],
-  raw-size(0.997em, code-grid("atom example.typ", left-column: 2.95fr)),
+  raw-size(0.997em, code-grid("./examples/atom.typ", left-column: 2.95fr)),
 ) <fig:atom>
 
 
@@ -1048,7 +1048,7 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 //
 // New version release
 // https://gitlab.com/john_t/typst-gantty/-/issues/12
-#import "gantty.typ": gantt
+#import "./vendor/gantty.typ": gantt
 #import "@preview/cetz:0.3.4"
 
 
@@ -1077,7 +1077,7 @@ Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns ou
     set text(font: "Liberation Sans")
     set par(justify: false, leading: 0.3em)
     show: raw-size.with(0.9em)
-    scale(95%, include "flowchart diagram.typ")
+    scale(95%, include "./examples/flowchart_diagram.typ")
   },
   caption: [Example of a flowchart created with #Matofletcher],
 ) <fig:flowchart>
@@ -1086,7 +1086,7 @@ Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns ou
 
 #figure(
   placement: none,
-  scale(85%, include "tree example.typ"),
+  scale(85%, include "./examples/tree.typ"),
   caption: [Example of a tree diagram created with #CeTZ's tree library],
 ) <fig:tree>
 
@@ -1106,7 +1106,7 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
       [🩵], [🪼],
       [], [🥶],
     ),
-    render(read("cartesian product.dot"), width: 98%),
+    render(read("./examples/cartesian_product.dot"), width: 98%),
   )),
   caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #Diagraph package],
 ) <fig:cart-prod>
@@ -1204,7 +1204,7 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
 
 #figure(
   no-lang(raw-size(0.94em, code-grid(
-    "eqalc example.typ",
+    "./examples/eqalc.typ",
     left-column: 1.83fr,
   ))),
   caption: [A math function $f(t)$ being translated/evaluated to/by Typst.],
@@ -1224,7 +1224,7 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
 The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
 
-#let gantt-yaml = yaml("gantt.yaml")
+#let gantt-yaml = yaml("./examples/gantt.yaml")
 #(gantt-yaml.style = (
   gridlines: (table: (stroke: blue-unir)),
   milestones: (normal: (stroke: (paint: green))),
@@ -1286,7 +1286,7 @@ As listed in @tab:packages, QR and bar codes can be issued and customized via th
 Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control the visual style while focusing on content. #Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key (@fig:slides).
 
 #figure(
-  image("./slide example/example.pdf", width: 98%),
+  image("./examples/slide/slide.pdf", width: 98%),
   kind: image,
   caption: [A slide with complex content (code, gradients, advanced styling, etc.) created with the #Touying package and the Metropolis theme],
   placement: none,

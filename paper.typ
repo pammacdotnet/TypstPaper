@@ -4,11 +4,20 @@
 #import "@preview/metalogo:1.2.0"
 #import "@preview/codly:1.3.0": codly, codly-init, local as codly-local
 #import "@preview/codly-languages:0.1.8": codly-languages
+#import "@preview/titleize:0.1.1": string-to-titlecase
 
+#let config = toml("paper.toml")
 #show: ijimai.with(
-  config: toml("paper.toml"),
+  config: config,
   bibliography: "bibliography.yaml",
   read: path => read-raw(path),
+)
+
+#set document(
+  title: string-to-titlecase(config.paper.title),
+  author: config.authors.map(x => x.name),
+  keywords: config.paper.keywords.sorted(),
+  description: "The paper is available at https://github.com/pammacdotnet/TypstPaper.",
 )
 #set text(fallback: false, font: (
   "Libertinus Serif",

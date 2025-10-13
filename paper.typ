@@ -238,7 +238,6 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 #let affine-latex = "./examples/affine/latex.latex"
 
 #figure(
-  placement: none,
   kind: image,
   caption: [Typst vs. LaTeX comparison example],
   grid(
@@ -250,7 +249,7 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 
 The output of the Typst part in @fig:LaTeXvTypst is rendered in @fig:affine (although the LaTeX one would be very similar).
 #figure(
-  placement: none,
+  placement: top,
   {
     set text(9pt)
     show heading: set align(center)
@@ -288,7 +287,6 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
   table
 }
 #figure(
-  placement: none,
   caption: [Main differences between LaTeX and Typst],
   unjustify(feature(table(
     columns: (1.01fr, 2fr, 2fr),
@@ -347,7 +345,7 @@ These setups rely on compiling source text into formatted output like PDF, separ
 
 Additionally, avoiding formatting issues like _widows_ (the last line of a paragraph stranded at the top of a page) and _orphans_ (the first line of a paragraph left alone at the bottom of a page) is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
-#figure(placement: none, caption: [Most important typesetting algorithms], unjustify(table(
+#figure(caption: [Most important typesetting algorithms], unjustify(table(
   columns: (1fr, 2fr, 2fr),
   align: horizon,
   stroke: 0.1mm,
@@ -384,7 +382,6 @@ Historically, the development of markup-oriented systems began in the 1960s with
 
 
 #figure(
-  placement: none,
   include "./examples/typesetting_systems.typ",
   caption: [Evolution of some Typesetting technologies],
 ) <fig:mlevolution>
@@ -428,7 +425,6 @@ In contrast, Typst offers a more unified and modern approach: rather than embedd
 For instance, the package #Pyrunner#footnote(link(pyrunner-url)) allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
-  placement: none,
   code-grid("./examples/pyrunner.typ", gutter: 0.5em, left-column: none),
   caption: [Python code and its output produced by #Pyrunner],
   kind: image,
@@ -448,7 +444,6 @@ Other current WebAssembly-grounded integration solutions for computational docum
   no-lang(raw-size(0.91em, code-grid("./examples/diagraph.typ", left-column: 1.7fr))),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm],
   kind: image,
-  placement: none,
 ) <fig:dot>
 
 
@@ -504,12 +499,11 @@ Typst makes styling documents flexible, and consistent with a modern and declara
 
 Typst uses a two-pronged styling system to separate styling from content. First, `set` rules allow the declaration of global or local scoped defaults for elements (like text, page, par, heading, etc.), specifying parameters such as font, size, margins, justification, line spacing, numbering, and layout. Once set, these defaults apply automatically wherever that element appears. Second, `show` rules enable custom rendering logic for specific elements#footnote(api-link("foundations/function/#element-functions")) by providing a selector#footnote(api-link("foundations/selector")).
 
-Normally, `show` and `set` statements are used in combination to tweak the appearance of an element with code-based transformations (e.g., small caps, run-in headings, added logotypes, etc.). They can also be used for theming an entire document (templates) via an _everything_ `show`-`set` directive. By combining the rigor of traditional typesetting with modern programming paradigms, Typst provides a powerful yet intuitive way to manage document styling, whether for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
+Normally, `show` and `set` statements are combined to tweak an element's appearance through code-based transformations (e.g., small caps, run-in headings, added logotypes, etc.). They can also theme an entire document (templates) via an _everything_ `show`-`set` directive. By combining traditional typesetting with modern programming, Typst provides a powerful, intuitive way to manage document styling for academic papers, technical reports, or dynamic publications. For instance, the style rules necessary to produce @fig:affine are presented in @fig:setshow.
 
 #let show-set = `show` + raw(lang: none, "-") + `set`
 #let Heading = text(typst-blue, `heading`)
 #figure(
-  placement: none,
   caption: [Example of a global `set` rule and #show-set & `show` rules (on the #Heading elements) necessary to render the content of @fig:affine],
   kind: image,
   raw-size(0.982em, grid(
@@ -563,18 +557,16 @@ $
 ]
 
 #figure(
-  placement: none,
   kind: image,
-  raw-size(0.95em, lagrangian),
+  raw-size(0.94em, lagrangian),
   caption: [Typst code for the Lagrangian of the Standard Model],
 ) <fig:sm>
 
 #figure(
-  placement: none,
   caption: [Rendering of the code in @fig:sm],
   frame({
     set par(leading: 0pt)
-    scale(99.7%, eval(lagrangian.text, scope: (mathbf: mathbf)))
+    scale(99.6%, eval(lagrangian.text, scope: (mathbf: mathbf)))
   }),
 ) <fig:rsm>
 
@@ -588,13 +580,12 @@ $
 
 Beyond basic syntax, Typst allows for advanced customization of mathematical expressions. Matrices can be defined using the `mat` function, which accepts semicolon-separated rows and comma-separated columns, such as `$mat(1, 2; 3, 4)$` to render a $2 times 2$ matrix. Typst also supports piecewise functions through the `cases` function, enabling the definition of functions with multiple conditions in a clear format. Moreover, text can be incorporated within math expressions by enclosing it in double quotes, like `$x > 0 "if" y < 1$`. For users who prefer using Unicode symbols directly, Typst accommodates this as well, allowing for a more natural input of mathematical notation.
 #figure(
-  no-lang(raw-size(0.96em, code-grid(
+  no-lang(raw-size(0.88em, code-grid(
     "./examples/physica.typ",
-    left-column: 1.55fr,
+    left-column: 1.63fr,
   ))),
   caption: [Example of advanced math with the #Physica package],
   kind: image,
-  placement: none,
 ) <fig:physica>
 
 Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related packages to enhance mathematical typesetting:
@@ -610,7 +601,7 @@ Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] of
 
 // Should be different to show the diversity.
 #figure(
-  placement: none,
+  placement: bottom,
   code-grid("./examples/gradient_stack.typ", left-column: 2fr),
   caption: [Gradient stack showing Typst drawing capabilities],
   kind: image,
@@ -619,7 +610,6 @@ Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] of
 The module also allows for the inclusion of images (both raster and vector) and supports advanced styling options such as gradients (@fig:gradient) and tiled patterns (@fig:chess).
 
 #figure(
-  placement: none,
   no-lang(raw-size(0.91em, code-grid("./examples/chess.typ", left-column: 1.8fr))),
   caption: [Chessboard tiled pattern (with the board-n-pieces package)],
   kind: image,
@@ -661,7 +651,6 @@ Typst offers integrated support for bibliographic references, streamlining the c
 #figure(
   caption: [Sample of a BibTeX entry and its Hayagriva equivalent for @Corbi23],
   kind: image,
-  placement: none,
   name-lang(grid(
     columns: (4.5fr, 5.5fr),
     rows: (auto, auto),
@@ -721,7 +710,6 @@ Typst's choice of Rust @Klabnik23 as its underlying programming language provide
 
 
 #figure(
-  placement: bottom,
   kind: image,
   scope: "parent",
   ```pintora
@@ -853,18 +841,18 @@ Typst integrates seamlessly with existing integrated development environments, s
 
 #figure(
   frame-round({
-    image("./assets/vscodium.jpg")
+    let s = 99% // scale/width
+    image("./assets/vscodium.jpg", width: s)
     let place-link(dx, dy, width, height, url) = {
       let link = link(url, box(width: width, height: height))
       place(top + left, dx: dx, dy: dy, link)
     }
-    place-link(2cm, 2.6cm, 4cm, 0.5em, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
-    place-link(1.65cm, 6.88cm, 2.63cm, 0.45em, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
-    place-link(1.65cm, 7.05cm, 3.11cm, 0.45em, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
+    place-link(21.7%, 34.8%, 44.5% * s, 0.75% * s, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
+    place-link(18.2%, 92.4%, 28.9% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
+    place-link(18.2%, 94.7%, 34.2% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
   }),
   kind: image,
   caption: [Creation of a document in #VSCodium with #Tinymist extension],
-  placement: none,
 ) <fig:vscodium>
 
 #set raw(lang: none)
@@ -883,7 +871,6 @@ The shift to cloud-based tools is revolutionizing content creation, academic wor
 
 #figure(
   frame-round(image("./assets/web_app.jpg")),
-  placement: none,
   caption: [Screenshot of the typst.app web application (online editor)],
 ) <fig:typstapp>
 
@@ -923,7 +910,6 @@ Finally, although not its intention, the online service typst.app can also be us
 
 #let image-width = 100%
 #figure(
-  placement: none,
   //caption: [Some journal Typst-based templates already qualified to be used for editorial pourposes: _Joint Accelerator Conferences Website_#footnote[https://jacow.org], _Journal of Machine Learning Research_#footnote[https://www.jmlr.org], _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com]],
   caption: [Some Typst-based journal templates already qualified to be used for editorial purposes: _Institute of Electrical and Electronics Engineers_#footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_#footnote[https://mdpi.com]],
   grid(
@@ -986,7 +972,6 @@ Typst's robustness, powerful features and intuitive syntax make it an all-in-one
 In addition to spacetime visualizations, Typst's #CeTZ package can be applied in particle physics through the creation of Feynman diagrams. Physicists relate the initial and final states of a physical system via the scattering matrix, or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted in @fig:feynman-diagram.
 
 #figure(
-  placement: none,
   include "./examples/feynman_diagram.typ",
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$],
 ) <fig:feynman-diagram>
@@ -998,7 +983,7 @@ Another common diagram type in math and present in some branches of theoretical 
 #import "@preview/commute:0.3.0": *
 
 #figure(
-  placement: none,
+  placement: top,
   commutative-diagram(
     node-padding: (32pt, 30pt),
     node((0, -1), $dots$, "dots_upper"),
@@ -1049,7 +1034,6 @@ The flexibility of the #CeTZ package enables the creation of a wide range of dia
 The #Mannot package stands out as a didactic enhancement for mathematical documents. It enables authors to label and annotate individual parts of equations (@fig:mannot), offering an effective means to clarify and explain their components step by step.
 
 #figure(
-  placement: none,
   caption: [#Mannot;-annotated math expression],
   {
     v(3em)
@@ -1200,8 +1184,7 @@ A prominent part of Computer Science is software and software engineering. For t
 / Activity, class, component, entity relationship: and other diagrams can be created with Pintora text-to-diagram JavaScript library bundled in the #Pintorita package. However due to inherited Wasm limitations, these diagrams can significantly increase compilation time, i.e., up to several seconds. As an example, @fig:compiler was also created with this package.
 
 #figure(
-  placement: none,
-  text(font: "Liberation Sans", chronos.diagram(width: 59.8%, {
+  text(font: "Liberation Sans", chronos.diagram(width: 59%, {
     import chronos: *
     _par("a", display-name: "alice", show-bottom: false, color: blue-unir-soft)
     _par("b", display-name: "bob", show-bottom: false, color: blue-unir-soft)
@@ -1247,8 +1230,8 @@ console.log(`Area is ${area}`);
 ```
 
 #figure(
-  placement: none,
-  line-num(listing + v(-1em) + listing2),
+  placement: top,
+  line-num(grid(gutter: 0.5em, listing, listing2)),
   caption: [Styled sample codes in Rust and JavaScript (with #Codly)],
   kind: image,
 ) <fig:listing>
@@ -1280,7 +1263,6 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
   ))),
   caption: [A math function $f(t)$ being translated/evaluated to/by Typst.],
   kind: image,
-  placement: none,
 ) <fig:eqalc>
 
 
@@ -1306,7 +1288,6 @@ The #eval-func function allows writing the code only once while showing both the
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
 
 #figure(
-  placement: none,
   scale(66%, pad(left: 1.15em, right: 0.55em, top: 0.05em, gantt(gantt-yaml))),
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
@@ -1348,7 +1329,6 @@ From a management perspective, creating Gantt charts is possible with packages l
   },
   kind: image,
   caption: [Example of a kanban board made with the #Kantan package],
-  placement: none,
 ) <fig:kanban>
 
 

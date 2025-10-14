@@ -1,29 +1,11 @@
 = Now:
 microtypography and other stuff from 0.14.0-rc1
-
-From paper.typ:
-Current minimal Universe distribution is around 442 MiB.
-While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html). (187G)
-"and a significantly improved user experience" sounds bad/backwards with the current phrasing. (248G)
-inconsistent example/description narrative. (283G)
-This table does not show the transitions between modes, like in a matrix. (287G)
-First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability. (305G)
-Mention Neovim etc. (617G)
-Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe. (779G)
-If quad is added in the preview, it must be added in the code. (810G)
-
-
-
-= After final review, before submission for publication:
-regroup/restructure repository
 maybe add space before footnotes
-try to upstream gantty changes
-remove explicit function in template
 add image alt text?
 
 
-
 = After submission for publication:
+try to upstream gantty changes
 Remove leading whitespaces
 Add missing EOF newlines
 Add links to all fonts.

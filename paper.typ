@@ -395,7 +395,7 @@ Historically, the development of markup-oriented systems began in the 1960s with
 
 Recent efforts in the typesetting world have aimed at modernizing older systems. Lightweight languages like #Markdown#footnote(link(markdown-url)) or #AsciiDoc#footnote(link(asciidoc-url)) prioritize ease of use but sacrifice power. For this reason, these tools usually team up with conversion solutions, such as Pandoc @Dominici14.
 
-On the other hand, advanced software like LuaTeX @Pegourie13 or #ConTeXt#footnote(link(context-url)) attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved around usability, accessibility, and automation. // "and a significantly improved user experience" sounds bad/backwards with the current phrasing.
+On the other hand, advanced software like LuaTeX @Pegourie13 or #ConTeXt#footnote(link(context-url)) attempt to replace TeX while maintaining its output quality. However, these often inherit TeX's core limitations, like performance or syntax issues. LaTeX has slowly evolved with modular improvements like the L3 layer and a new hook system @Mittelbach24. Nevertheless, many challenges remained unsolved around usability, accessibility, and automation.
 #let Pyrunner = package-link("Pyrunner")
 #let Diagraph = package-link("Diagraph")
 #let Neoplot = package-link("Neoplot")
@@ -449,11 +449,10 @@ Other current WebAssembly-grounded integration solutions for computational docum
 
 
 = The markup language <sec:markup>
-Typst employs straightforward markup syntax for standard formatting operations. For instance, headings can be created with the `=` symbol, while text can be italicized by enclosing it in `_underscores_`. // inconsistent example/description narrative.
+Typst employs straightforward markup syntax for standard formatting operations. For instance, headings can be created with the `=` symbol, while text can be italicized by enclosing it in `_underscores_`.
 
 Typst employs three distinct syntactical modes: markup, math, and code. By default, a `.typ` document operates in _markup mode_, which handles standard text formatting. _Math mode_ enables the composition of mathematical expressions, while _code mode_ provides access to Typst's scripting capabilities for dynamic content generation. Transitions between these modes are governed by specific markers (@tab:modes).
 
-// This table does not show the transitions between modes, like in a matrix.
 #figure(
   placement: none,
   caption: [Typst syntactical modes],
@@ -476,7 +475,6 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 ) <tab:modes>
 
 All this content is written in Unicode @Bettels93. Typst has embraced this computing standard as a first-class citizen (@fig:mathunicode), making it much more modern and intuitive than traditional typesetting systems.
-// First-class citizen, in my mind, is example where different Unicode characters are used as variable/function names, as it can be more practical sometimes to use native language to improve overall source readability.
 
 #figure(
   raw-size(0.96em, code-grid("./examples/unicode_math.typ", left-column: 1.73fr)),
@@ -599,7 +597,6 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 == Drawing capabilities
 Typst's visualize module#footnote[https://typst.app/docs/reference/visualize] offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke, and radius.
 
-// Should be different to show the diversity.
 #figure(
   placement: bottom,
   code-grid("./examples/gradient_stack.typ", left-column: 2fr),

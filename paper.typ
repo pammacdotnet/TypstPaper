@@ -763,8 +763,7 @@ As mentioned, Typst's other form of abstraction is modules. There are three ways
 / `#include "mymodule.typ"`: inlines the _content_ (and only the content) from `mymodule.typ`.
 #set raw(lang: "typc")
 
-Modules do not give the user/developer any way to mark items as _public_ or _private_. Thus, every `let` statement in the whole module is exported (public).
-// Say that private/public can be achieved by re-exporting modules with main (lib.typ) file.
+Modules do not give the user/developer any way to mark items as _public_ or _private_. Thus, every `let` statement in the whole module is exported (public). Although this can be solved with re-exports.
 
 // Some users#footnote[https://justinpombrio.net/2024/11/30/typst.html] have suggested some _solutions_, such as extending `set/show` to user-defined functions (e.g., `set sequence(codon-sep: "-")`) and improving `show` to tweak elements without reimplementing them entirely, like adding decorations to headings robustly.
 

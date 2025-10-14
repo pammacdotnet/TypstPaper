@@ -239,6 +239,7 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 #let affine-latex = "./examples/affine/latex.latex"
 
 #figure(
+  placement: none,
   kind: image,
   caption: [Typst vs. LaTeX comparison example],
   grid(
@@ -250,7 +251,7 @@ Typst and LaTeX @Knuth86@Lamport94 are both markup-based typesetting systems (wh
 
 The output of the Typst part in @fig:LaTeXvTypst is rendered in @fig:affine (although the LaTeX one would be very similar).
 #figure(
-  placement: top,
+  placement: none,
   {
     set text(9pt)
     show heading: set align(center)
@@ -503,6 +504,7 @@ Normally, `show` and `set` statements are combined to tweak an element's appeara
 #let show-set = `show` + raw(lang: none, "-") + `set`
 #let Heading = text(typst-blue, `heading`)
 #figure(
+  placement: none,
   caption: [Example of a global `set` rule and #show-set & `show` rules (on the #Heading elements) necessary to render the content of @fig:affine],
   kind: image,
   raw-size(0.982em, grid(
@@ -526,7 +528,9 @@ Normally, `show` and `set` statements are combined to tweak an element's appeara
 Typst incorporates several control structures that facilitate dynamic content generation and conditional logic within documents. The `if` statement enables conditional rendering, allowing content to be included or excluded based on specific conditions. For instance, `if dark { set page(fill: rgb("333333")) }` applies a dark theme when the `dark` variable is true. It is important to note that `set` rules are scoped, thus, applying them within an `if` block confines their effect to that block's scope. Additionally, Typst treats `if` as an expression, permitting concise inline conditionals like `if x > 10 { "High" } else { "Low" }`.
 
 #let (map, filter, enumerate) = (
-  `map`, `filter`, `enumerate`,
+  `map`,
+  `filter`,
+  `enumerate`,
 ).map(x => `.` + text(typst-blue, x))
 
 For iterative operations, Typst offers `for` and `while` loops. The `for` loop is versatile, capable of iterating over strings, arrays, dictionaries, and more. For example, `for letter in "abc" { letter }` processes each character in the string. Control statements like `break` and `continue` are available to manage loop execution, allowing for early exits or skipping iterations. The `while` loop continues execution as long as a specified condition remains true. These loops can be utilized within content blocks to dynamically generate document elements, such as populating tables or lists based on data structures. Finally, arrays and dictionaries can be iterated with object oriented-like methods present in modern programming languages (#map, #filter, #enumerate, etc.)
@@ -550,24 +554,22 @@ $
 #[
   #let left = ```tex \left```
   #let right = ```tex \right```
-  Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces or newlines can be added between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$.
-
-  Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's #left and #right commands. This ensures that complex expressions are rendered clearly and accurately. For instance, the Typst math code in @fig:sm allows the typesetting of the Lagrangian of the Standard Model of Physics (@fig:rsm).
+  Typst offers robust support for mathematical expressions, providing a syntax that is both intuitive and powerful. To enter math mode, it is only necessary to enclose mathematical expressions within dollar signs (`$...$`). For display-style equations, spaces or newlines can be added between the dollar signs and the content. Typst's math mode supports a wide range of symbols and functions, including Greek letters, operators, and more. Subscripts and superscripts are handled using the underscore (`_`) and caret (`^`) symbols, respectively. For example, `$x^2$` renders as $x^2$, and `$a_b$` renders as $a_b$. Additionally, Typst automatically scales delimiters like parentheses and brackets to fit their content, similar to LaTeX's #left and #right commands. This ensures that complex expressions are rendered accurately. For instance, the math code in @fig:sm allows the typesetting of the Lagrangian of the Standard Model of particl physics.
 ]
 
+
 #figure(
+  placement: none,
   kind: image,
   raw-size(0.94em, lagrangian),
   caption: [Typst code for the Lagrangian of the Standard Model],
 ) <fig:sm>
 
-#figure(
-  caption: [Rendering of the code in @fig:sm],
-  frame({
-    set par(leading: 0pt)
-    scale(99.6%, eval(lagrangian.text, scope: (mathbf: mathbf)))
-  }),
-) <fig:rsm>
+This theory, describing three of the four known fundamental forces (electromagnetic, weak and strong interactions), is rendered in @fig:rsm.
+#figure(placement: none, caption: [Rendering of the code in @fig:sm], frame({
+  set par(leading: 0pt)
+  scale(99.6%, eval(lagrangian.text, scope: (mathbf: mathbf)))
+})) <fig:rsm>
 
 
 #let Quick-Maths = package-link("Quick-Maths")
@@ -599,7 +601,7 @@ Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related
 Typst's visualize module #footnote[https://typst.app/docs/reference/visualize] offers a comprehensive suite of tools for creating vector graphics and data visualizations directly within documents. It supports a variety of shapes and elements, including circles, ellipses, rectangles, squares, lines, polygons, and Bézier curves, each customizable with parameters like fill, stroke, and radius.
 
 #figure(
-  placement: bottom,
+  placement: none,
   code-grid("./examples/gradient_stack.typ", left-column: 2fr),
   caption: [Gradient stack showing Typst drawing capabilities],
   kind: image,
@@ -608,6 +610,7 @@ Typst's visualize module #footnote[https://typst.app/docs/reference/visualize] o
 The module also allows for the inclusion of images (both raster and vector) and supports advanced styling options such as gradients (@fig:gradient) and tiled patterns (@fig:chess).
 
 #figure(
+  placement: none,
   no-lang(raw-size(0.91em, code-grid("./examples/chess.typ", left-column: 1.8fr))),
   caption: [Chessboard tiled pattern (with the board-n-pieces package)],
   kind: image,
@@ -619,7 +622,11 @@ It is worth mentioning the Typst's #CeTZ library. #CeTZ is a graphics package de
 
 Regarding data visualization, Typst also offers powerful capabilities through its extensible package ecosystem, enabling users to create high-quality plots and charts directly within their documents. Two prominent packages facilitating this are #Lilaq and #CeTZ-Plot. The first one provides a user-friendly interface for scientific data visualization, drawing inspiration from tools like Matplotlib @Tosi09 and PGFplots (@fig:lilaq). It emphasizes ease of use, allowing for quick creation of plots with minimal code, and supports features like customizable color cycles, axis configurations, and various plot types.
 
+
+
+On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz-plot). It supports various chart types, including pie charts, bar charts, and pyramids.
 #figure(
+  placement: none,
   no-lang(raw-size(0.94em, code-grid(
     "./examples/lilaq/lilaq.typ",
     left-column: 1.95fr,
@@ -628,9 +635,8 @@ Regarding data visualization, Typst also offers powerful capabilities through it
   kind: image,
 ) <fig:lilaq>
 
-On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functionalities for creating plots and charts within the #CeTZ canvas environment (@fig:cetz-plot). It supports various chart types, including pie charts, bar charts, and pyramids.
-
 #figure(
+  placement: none,
   no-lang(raw-size(0.96em, code-grid(
     "./examples/cetz-plot.typ",
     left-column: 1.5fr,
@@ -843,7 +849,7 @@ Typst integrates seamlessly with existing integrated development environments (I
     place-link(18.2%, 94.7%, 34.2% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
   }),
   kind: image,
-  caption: [Creation of a document in #VSCodium with #Tinymist extension (the links in the figure are interactive thanks to #place-func and #link-func)],
+  caption: [Creation of a document in #VSCodium with #Tinymist extension (the links in the figure are interactive via the #place-func and #link-func functions)],
 ) <fig:vscodium>
 
 == Export options
@@ -947,9 +953,10 @@ Typst Universe #footnote[http://typst.app/universe] is an online platform that o
 
 
 = Application of Typst for theoretical Physics <sec:theophys>
-Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the #CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter.
+Typst's robustness, powerful features and intuitive syntax make it an all-in-one tool to create texts with publication-quality figures. For instance, Penrose-Carter diagrams (PCd) are a way of sketching the entire spacetime of a given spacetime manifold in general relativity on a single, finite sheet of paper. By applying a _conformal_ transformation (one that preserves angles but adjusts distances), these diagrams bring infinity to a finite boundary while preserving the light cone structure, so that the global causal layout is immediately visible. PCd simplify the understanding of black holes, cosmological models, and other relativistic effects. In Typst, it is possible to create them using the #CeTZ package. For instance, the PCd associated to the Kruskal extension of the Schwarzschild spacetime is displayed in @fig:penrose-carter. #CeTZ combines precise mathematical typesetting with programmatic control over geometric constructions. Its declarative syntax ensures clear, scalable, and publication-ready diagrams without external graphics tools.
 
 #figure(
+  placement: none,
   include "./examples/penrose-carter_diagram.typ",
   caption: [Penrose-Carter diagram of the Schwarzschild manifold],
 )<fig:penrose-carter>
@@ -957,6 +964,7 @@ Typst's robustness, powerful features and intuitive syntax make it an all-in-one
 In addition to spacetime visualizations, Typst's #CeTZ package can be applied in particle physics through the creation of Feynman diagrams. Physicists relate the initial and final states of a physical system via the scattering matrix, or S-matrix @Peskin95. The S-matrix is a complex object that has to be perturbatively calculated as a sum of infinite terms. Feynman diagrams are pictorial representations of these terms, each depicting one of the potentially infinite interaction processes that lead to the same final state. A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ scattering process at one-loop order in QED is depicted in @fig:feynman-diagram.
 
 #figure(
+  placement: none,
   include "./examples/feynman_diagram.typ",
   caption: [A Feynman diagram for the $e^(+) e^(-) arrow.r e^(+) e^(-)$ at one loop order. The $e^(+)$ and $e^(-)$ annihilate, producing a photon ($gamma$). This photon then becomes a virtual electron-positron pair, which subsequently produces another photon. Finally, the photon becomes the scattered $e^(-)$ and $e^(+)$],
 ) <fig:feynman-diagram>
@@ -968,7 +976,7 @@ Another common diagram type in math and present in some branches of theoretical 
 #import "@preview/commute:0.3.0": *
 
 #figure(
-  placement: top,
+  placement: none,
   commutative-diagram(
     node-padding: (32pt, 30pt),
     node((0, -1), $dots$, "dots_upper"),
@@ -1027,13 +1035,13 @@ The #Mannot package stands out as a didactic enhancement for mathematical docume
       mark(V_g, tag: #<vg>, color: #blue-unir) eq.triple
       markrect(hat(k), tag: #<k>, color: #blue, outset: #0.1em) med crossproduct
       (med markhl(1/(rho f), tag: #<rhof>, color: #blue-unir) med
-       med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #0.1em)
+        med markrect(grad P, tag: #<gradientp>, color: #purple, outset: #0.1em)
         #annot(<vg>, pos: left, dx: -2.0em, align(center)[Geostrophic \ wind]) thick)
       #annot(<k>, pos: top + left, dy: -1.0em, leader-connect: "elbow")[Vertical axis]
       #annot(<rhof>, pos: top + right, dy: -2.0em, leader-connect: "elbow")[Density and Coriolis force]
       #annot(<gradientp>, pos: top + right, dy: -1.5em)[Pressure gradient]
     $
-  }
+  },
 ) <fig:mannot>
 
 
@@ -1216,7 +1224,11 @@ console.log(`Area is ${area}`);
 
 #figure(
   placement: top,
-  line-num(grid(gutter: 0.5em, listing, listing2)),
+  line-num(grid(
+    gutter: 0.5em,
+    listing,
+    listing2,
+  )),
   caption: [Styled sample codes in Rust and JavaScript (with #Codly)],
   kind: image,
 ) <fig:listing>
@@ -1242,6 +1254,7 @@ The #Prequery package provides the ability to specify metadata regarding extra i
 Similarly, as stated in @sec:markup, a LaTeX-based math expression can be directly used as is through the #MiTeX package. This can turn out helpful for migrating foreign `.tex` resources. Finally, with the #Eqalc package, it is possible to convert a math expression to a native Typst function that can be evaluated and whose result can be plotted or tabulated (@fig:eqalc).
 
 #figure(
+  placement: none,
   no-lang(raw-size(0.94em, code-grid(
     "./examples/eqalc.typ",
     left-column: 1.83fr,
@@ -1265,10 +1278,12 @@ The #eval-func function allows writing the code only once while showing both the
 
 
 #let gantt-yaml = yaml("./examples/gantt.yaml")
-#(gantt-yaml.style = (
-  gridlines: (table: (stroke: blue-unir)),
-  milestones: (normal: (stroke: (paint: green))),
-))
+#(
+  gantt-yaml.style = (
+    gridlines: (table: (stroke: blue-unir)),
+    milestones: (normal: (stroke: (paint: green))),
+  )
+)
 
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
 

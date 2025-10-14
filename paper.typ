@@ -25,6 +25,7 @@
   "Noto Naskh Arabic UI",
   "Noto Color Emoji",
 ))
+#set par(justification-limits: (tracking: (min: -0.01em, max: 0.005em)))
 #set scale(reflow: true)
 
 #show: codly-init
@@ -214,7 +215,7 @@ Typst is a new markup-based typesetting language (and its tooling ecosystem) for
 - Create professional-quality documents with ease.
 - Access extensive functionality, including mathematical typesetting, figure management, and an auto-generated table of contents.
 - Utilize powerful templates that automatically apply consistent formatting during the writing process.
-- Benefit from high-quality typographical output with uncompromising justification and overall layout.
+- Benefit from high-quality typographical output with uncompromising word- and character-level justification and overall layout.
 - View changes instantly with real-time preview functionality.
 - Make use of clear and understandable error messages for efficient corrections.
 - Apply a consistent styling system to configure fonts, margins, headings, lists, and other elements uniformly.
@@ -845,12 +846,11 @@ Typst integrates seamlessly with existing integrated development environments (I
   caption: [Creation of a document in #VSCodium with #Tinymist extension (the links in the figure are interactive thanks to #place-func and #link-func)],
 ) <fig:vscodium>
 
-#set raw(lang: none)
 == Export options
-As of mid 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard. It also supports PDF/A-2b and PDF/A-3b formats for archival purposes, with options to specify page ranges and standards via the command-line interface or the web application (the web app). SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has the same feature set as SVG, except it is a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development. It requires enabling a feature flag (`--features html`) in the command line interface, supports basic markup elements, and is not yet available in the web app.
+As of Q3 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard, but it also supports PDF versions 1.4, 1.5, 1.6, and 2.0, with Tagged PDF supported by default. It includes all PDF/A standards for archival purposes and PDF/UA-1 for enhanced accessibility, allowing options to specify page ranges and standards via the command-line interface or the web application (the web app). SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has the same feature set as SVG, except it is a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development, requiring a feature flag for command line support.
 
 == Image formats
-Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, GIF (static-only), and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
+Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, WebP, GIF (static-only), and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
 
 #let notion-url = "https://www.notion.com"
 #let Notion = link(notion-url)[Notion]
@@ -1254,14 +1254,14 @@ Similarly, as stated in @sec:markup, a LaTeX-based math expression can be direct
 
 == Other use cases <cs-other>
 #let Self-Example = package-link("Self-Example")
-#let pdf-embed = api-link("pdf/embed", {
-  text(typst-purple, `pdf`) + `.` + text(typst-blue, `embed`)
+#let pdf-attach = api-link("pdf/attach", {
+  text(typst-purple, `pdf`) + `.` + text(typst-blue, `attach`)
 })
 #let Gantty = package-link("Gantty")
 #let Timeliney = package-link("Timeliney")
 #let Kantan = package-link("Kantan")
 
-The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-embed function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
+The #eval-func function allows writing the code only once while showing both the result and its associated source. Packages like #Self-Example and #IDWTET provide useful abstractions. Reproducibility often requires saving full source code or images. Typst's #pdf-attach function allows embedding arbitrary byte sequences as files within a PDF, which can later be extracted if needed.
 
 
 #let gantt-yaml = yaml("./examples/gantt.yaml")

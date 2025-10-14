@@ -837,7 +837,10 @@ The Typst compiler ensures safety by implementing strict security measures that 
 #let Emacs = link("https://www.gnu.org/software/emacs")[Emacs]
 
 == Integrated development environments <sec:ide>
-Typst integrates seamlessly with existing integrated development environments, such as #VSCodium#footnote(link(vscodium-url)) (@fig:vscodium). For instance, extensions like #Tinymist#footnote(link(tinymist-url)), provide a comprehensive environment for Typst document creation. #Tinymist offers features such as syntax highlighting, real-time previews, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, format documents with LSP-enhanced formatters, and manage local packages directly within #VSCodium. Similar feature set is available in #Zed, #Neovim, #Helix, and #Emacs. These tools collectively transform almost any code editor or development platform into a powerful solution for Typst-based typesetting.
+Typst integrates seamlessly with existing integrated development environments (IDE), such as #VSCodium#footnote(link(vscodium-url)) (@fig:vscodium). For instance, the #Tinymist#footnote(link(tinymist-url)) extension provides a comprehensive toolkit for Typst document creation. It offers features such as syntax highlighting, real-time preview, code completion, and error diagnostics, enhancing the editing experience. Users can initialize Typst projects using built-in templates, make use of LSP-enhanced formatting, and manage local packages directly within the editor. Similar feature set is available in #Zed, #Neovim, #Helix, and #Emacs. These tools collectively transform almost any text editor or an IDE into a powerful solution for Typst-based typesetting.
+
+#let place-func = api-link("layout/place", text(typst-blue, `place`))
+#let link-func = api-link("model/link", text(typst-blue, `link`))
 
 #figure(
   frame-round({
@@ -852,7 +855,7 @@ Typst integrates seamlessly with existing integrated development environments, s
     place-link(18.2%, 94.7%, 34.2% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
   }),
   kind: image,
-  caption: [Creation of a document in #VSCodium with #Tinymist extension],
+  caption: [Creation of a document in #VSCodium with #Tinymist extension (the links in the figure are interactive thanks to #place-func and #link-func)],
 ) <fig:vscodium>
 
 #set raw(lang: none)

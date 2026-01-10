@@ -1,4 +1,4 @@
-#import "@preview/physica:0.9.5": *
+#import "@preview/physica:0.9.8": *
 $
   curl (grad f), tensor(T, -mu, +nu), pdv(f, x, y, [1,2]) \
   H(f) = hmat(f; x, y; delim: "[", big: #true) \

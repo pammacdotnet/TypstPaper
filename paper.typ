@@ -1012,7 +1012,7 @@ Another common diagram type in math and present in some branches of theoretical 
 The flexibility of the #CeTZ package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in Physics and Math, not just communicate them via papers, books, etc.
 
 
-#import "@preview/physica:0.9.5": *
+#import "@preview/physica:0.9.8": *
 #import "@preview/unify:0.7.1": add-prefix, add-unit, num, numrange, qty, qtyrange, unit
 #import "@preview/mannot:0.3.0": *
 // Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.

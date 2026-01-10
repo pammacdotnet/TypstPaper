@@ -200,7 +200,6 @@
   "photos/andrey.jpg",
   "photos/david.jpg",
   "photos/pau.jpg",
-  "vendor/gantty.typ",
   ".justfile",
   "bibliography.yaml",
   "paper.toml",
@@ -1088,11 +1087,13 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 #import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
 #import "@preview/chronos:0.2.1"
 #import "@preview/suiji:0.4.0": gen-rng-f, random-f
-// Latest release does not support sidebar text alignment.
-//
-// New version release
-// https://gitlab.com/john_t/typst-gantty/-/issues/12
-#import "./vendor/gantty.typ": gantt
+#import "@preview/gantty:0.5.1": (
+  dependencies.default-dependencies-drawer, dividers,
+  dividers.default-dividers-drawer, field.default-field-drawer, gantt,
+  header.default-headers-drawer, header.default-month-header,
+  header.default-week-header, milestones.default-milestones-drawer,
+  sidebar.default-sidebar-drawer, task.default-tasks-drawer,
+)
 #import "@preview/cetz:0.3.4"
 
 
@@ -1278,17 +1279,38 @@ The #eval-func function allows writing the code only once while showing both the
 
 
 #let gantt-yaml = yaml("./examples/gantt.yaml")
-#(
-  gantt-yaml.style = (
-    gridlines: (table: (stroke: blue-unir)),
-    milestones: (normal: (stroke: (paint: green))),
-  )
+#let table-style = (stroke: (paint: blue-unir))
+#let milestone-style = (stroke: (paint: green))
+#let drawer = (
+  dependencies: default-dependencies-drawer,
+  tasks: default-tasks-drawer,
+  field: default-field-drawer.with(style: table-style),
+  milestones: default-milestones-drawer.with(style: milestone-style),
+  dividers: default-dividers-drawer.with(
+    styles: (table-style, dividers.default-styles.at(1)),
+  ),
+  headers: default-headers-drawer.with(headers: (
+    default-month-header(table-style: table-style),
+    default-week-header(table-style: table-style),
+  )),
+  sidebar: default-sidebar-drawer.with(
+    formatters: (
+      x => align(left, strong(smallcaps(x.name))),
+      x => align(left, x.name),
+    ),
+    dividers: (table-style, none),
+    ..table-style,
+  ),
 )
 
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
 
 #figure(
-  scale(66%, pad(left: 1.15em, right: 0.55em, top: 0.05em, gantt(gantt-yaml))),
+  {
+    show: scale.with(66%)
+    show: pad.with(left: 1.15em, right: 0.55em, top: 0.05em)
+    gantt(gantt-yaml, drawer: drawer)
+  },
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 

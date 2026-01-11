@@ -509,7 +509,7 @@ Normally, `show` and `set` statements are combined to tweak an element's appeara
   raw-size(0.982em, grid(
     columns: (1.05fr, 3fr),
     gutter: 0.5em,
-    [Global `set` rule], [Show and show-set rules for heading styling],
+    [Global set rule], [Show and show-set rules for heading styling],
     no-lang(```typ
     #set text(9pt)
     ```),

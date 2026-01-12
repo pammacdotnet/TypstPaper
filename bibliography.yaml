@@ -2,15 +2,15 @@ Madje22:
   type: thesis
   title: A Programmable Markup Language for Typesetting
   author: Mädje, Laurenz
-  date: 2022
-  organization: "2022"
+  date: 2022-09-08
+  organization: Technische Universität Berlin
 
 Haug22:
   type: thesis
-  title: Fast typesetting with incremental compilation
-  author: Haug, Martin E
-  date: 2022
-  organization: Master's thesis, Technische Universit{ä}t Berlin, Faculty IV—Electrical~{\\ldots }
+  title: Fast Typesetting with Incremental Compilation
+  author: Haug, Martin Ernst
+  date: 2022-06
+  organization: Technische Universität Berlin
 
 Haas17:
   type: article
@@ -33,30 +33,34 @@ Haas17:
 
 Janert16:
   type: book
-  title: "Gnuplot in action: understanding data with graphs"
+  title: "Gnuplot in Action: Understanding Data with Graphs"
   author: Janert, Philipp K
   date: 2016
-  publisher: Simon, Schuster
+  publisher:
+    name: Simon and Schuster
+    location: NY, USA
 
 Knuth86:
   type: book
   title: "The Computers & Typesetting, Vol. A: The Texbook"
   author: Knuth, Donald Ervin
   date: 1986
-  publisher: Addison-Wesley Longman Publishing Co., Inc.
+  publisher:
+    name: Addison-Wesley Longman Publishing Co., Inc.
+    location: MA, USA
 
 Lamport94:
   type: misc
-  title: Document Preparation System
-  author:
-    - Lamport, Leslie
-    - LaTeX, A
+  title: "LaTeX: a Document Preparation System"
+  author: Lamport, Leslie
   date: 1994
-  publisher: Addison-Wesley Reading, MA
+  publisher:
+    name: Addison-Wesley Reading
+    location: MA, USA
 
 Voegler14:
   type: article
-  title: Markdown–A simple syntax for transcription of accessible study materials
+  title: Markdown – A Simple Syntax for Transcription of Accessible Study Materials
   author:
     - Voegler, Jens
     - Bornschein, Jens
@@ -84,12 +88,14 @@ Ewelina20:
 
 Klabnik23:
   type: book
-  title: The Rust programming language
+  title: The Rust Programming Language, 2nd Edition
   author:
     - Klabnik, Steve
     - Nichols, Carol
   date: 2023
-  publisher: No Starch Press
+  publisher:
+    name: No Starch Press
+    location: CA, USA
 
 Crichton24:
   type: article
@@ -113,15 +119,19 @@ Barron87:
     - Barron, David
     - Rees, Mike
   date: 1987
-  publisher: Addison-Wesley Longman Publishing Co., Inc.
+  publisher:
+    name: Addison-Wesley Longman Publishing Co., Inc.
+    location: MA, USA
 
 Derose97:
   type: book
-  title: "The SGML FAQ book: understanding the foundation of HTML and XML"
+  title: "The SGML FAQ book: Understanding the Foundation of HTML and XML"
   author: DeRose, Steven J
   date: 1997
-  publisher: Springer Science & Business Media
   volume: 7
+  publisher:
+    name: Springer Science+Business Media
+    location: NY, USA
 
 Cole00:
   type: article
@@ -144,10 +154,9 @@ Pegourie13:
   title: A guide to LuaLaTeX
   author: Pégourié-Gonnard, Manuel
   date: 2013
-  page-range: "2013"
   parent:
     type: periodical
-    title: DANTE eV, Heidelberg, Germany, accessed May
+    title: DANTE e.V.
     volume: 5
 
 Mittelbach24:
@@ -155,10 +164,11 @@ Mittelbach24:
   title: LaTeX’s hook management
   author: Mittelbach, Frank
   date: 2024
+  page-total: 31
 
 Xie18:
   type: anthos
-  title: "knitr: a comprehensive tool for reproducible research in R"
+  title: "knitr: A Comprehensive Tool for Reproducible Research in R"
   author: Xie, Yihui
   date: 2018
   page-range: 3-31
@@ -169,9 +179,10 @@ Xie18:
 
 Leisch02:
   type: article
-  title: "Sweave: Dynamic generation of statistical reports using literate data analysis"
+  title: "Sweave: Dynamic Generation of Statistical Reports Using Literate Data Analysis"
   author: Leisch, Friedrich
   date: 2002
+  page-range: 575-580
   parent:
     type: proceedings
     title: "COMPSTAT: Proceedings in computational statistics"
@@ -193,17 +204,17 @@ Lacombe21:
 
 Doherty82:
   type: article
-  title: Design and response time in man-computer conversational transactions
+  title: Computing as a tool for human augmentation
   author:
-    - Doherty, WJ
-    - Thadani, AJ
-  date: 1982
-  page-range: 3-21
+    - Doherty, W. J.
+    - Pope, W. G.
+  date: 1986
+  page-range: 306-320
   parent:
     type: periodical
     title: IBM Systems Journal
-    issue: 1
-    volume: 21
+    issue: "3.4"
+    volume: 25
 
 Chagnon02:
   type: article
@@ -213,13 +224,15 @@ Chagnon02:
   parent:
     type: periodical
     title: Journal of Electronic Publishing
-    publisher: Michigan Publishing, University of Michigan Library
+    publisher:
+      name: Michigan Publishing
+      location: University of Michigan Library
     issue: 1
     volume: 8
 
 Clark07:
   type: article
-  title: Content management and the separation of presentation and content
+  title: Content Management and the Separation of Presentation and Content
   author: Clark, Dave
   date: 2007
   page-range: 35-60
@@ -232,7 +245,7 @@ Clark07:
 
 Hassan15:
   type: article
-  title: "Knuth-Plass revisited: Flexible line-breaking for automatic document layout"
+  title: "Knuth-Plass Revisited: Flexible Line-Breaking for Automatic Document Layout"
   author:
     - Hassan, Tamir
     - Hunter, Andrew
@@ -274,10 +287,12 @@ Kim24:
 
 Lombardi2015:
   type: book
-  title: "WebSocket: lightweight client-server communications"
+  title: "WebSocket: Lightweight Client-Server Communications"
   author: Lombardi, Andrew
   date: 2015
-  publisher: '" O''Reilly Media, Inc."'
+  publisher:
+    name: O'Reilly Media, Inc.
+    location: CA, USA
 
 Knuth81:
   type: article
@@ -285,7 +300,7 @@ Knuth81:
   author:
     - Knuth, Donald E
     - Plass, Michael F
-  date: 1981
+  date: 1981-11
   page-range: 1119-1184
   parent:
     type: periodical
@@ -296,10 +311,12 @@ Knuth81:
 
 Plass81:
   type: book
-  title: Optimal pagination techniques for automatic typesetting systems
+  title: Optimal Pagination Techniques for Automatic Typesetting Systems
   author: Plass, Michael Frederick
   date: 1981
-  publisher: Stanford University
+  publisher:
+    name: Stanford University
+    location: CA, USA
 
 Toledo01:
   type: article
@@ -314,13 +331,12 @@ Toledo01:
 
 Elkhayati2022:
   type: article
-  title: Segmentation of handwritten Arabic graphemes using a directed convolutional neural network and mathematical morphology operations
+  title: Segmentation of Handwritten Arabic Graphemes Using a Directed Convolutional Neural Network and Mathematical Morphology Operations
   author:
     - Elkhayati, Mohsine
     - Elkettani, Youssfi
     - Mourchid, Mohammed
   date: 2022
-  page-range: "108288"
   parent:
     type: periodical
     title: Pattern Recognition
@@ -341,19 +357,20 @@ Rougier18:
 
 Feiner98:
   type: article
-  title: A grid-based approach to automating display layout
+  title: A Grid-Based Approach to Automating Display Layout
   author: Feiner, Steven
   date: 1998
   page-range: 249-254
   parent:
     type: periodical
-    title: Book Readings in Intelligent User Interfaces, Morgan Kaufmann Publishers Inc
+    title: Book Readings in Intelligent User Interfaces
+    publisher: Morgan Kaufmann Publishers, Inc.
 
 Fisher91:
   type: article
   title: Incremental algorithms for interactive text formatting
-  author: Fisher, AJ
-  date: 1991
+  author: Fisher, A.J
+  date: 1991-09
   page-range: 3-16
   parent:
     type: periodical
@@ -365,9 +382,7 @@ Fisher91:
 Datta17:
   type: article
   title: Bibliography with the BIBTeX Program
-  author:
-    - Datta, Dilip
-    - Datta, Dilip
+  author: Datta, Dilip
   date: 2017
   page-range: 141-151
   parent:
@@ -386,8 +401,10 @@ Fenner14:
   page-range: 125-137
   parent:
     type: periodical
-    title: "Opening science: The evolving guide on how the Internet is changing research, collaboration and scholarly publishing"
-    publisher: Springer International Publishing
+    title: "Opening science: The Evolving Guide on How the Internet is Changing Research, Collaboration and Scholarly Publishing"
+    publisher:
+      name: Springer International Publishing
+      location: London, UK
 
 Knuth89:
   type: article
@@ -435,7 +452,9 @@ Chaleplioglou23:
   parent:
     type: periodical
     title: Journal of Librarianship and Information Science
-    publisher: "SAGE Publications Sage UK: London, England"
+    publisher:
+      name: SAGE Publications Sage UK
+      location: London, UK
     issue: 1
     volume: 55
 
@@ -465,57 +484,62 @@ Giachetta09:
   title: Advanced Classical Field Theory
   author: Giachetta, G.
   date: 2009
-  publisher: World Scientific
+  publisher:
+    name: World Scientific
+    location: Singapore
   serial-number:
-    isbn: "9789812838964"
+    isbn: 978-981-283-895-7
 
 Peskin95:
   type: book
-  title: "{An Introduction to Quantum Field Theory}"
+  title: An Introduction to Quantum Field Theory
   author:
     - Peskin, Michael Edward
     - Schroeder, Daniel V.
-  date: 1995
-  publisher: Westview Press
-  note: "Reading, USA: Addison-Wesley (1995) 842 p"
+  date: 2018
+  publisher:
+    name: CRC Press
+    location: FL, USA
 
 Wald84:
   type: book
-  title: "{General Relativity}"
+  title: "General Relativity"
   author: Wald, Robert M.
   date: 1984
   publisher:
-    name: Chicago Univ. Pr.
-    location: Chicago, USA
+    name: CRC Press
+    location: FL, USA
   serial-number:
     doi: 10.7208/chicago/9780226870373.001.0001
 
 Kottwitz23:
   type: article
-  title: LaTeX graphics with TikZ
+  title: "LaTeX Graphics with TikZ: A practitioner’s guide to drawing 2D and 3D images, diagrams, charts, and plots"
   author: Kottwitz, Stefan
   date: 2023
-  parent:
-    type: periodical
-    title: Packt, Birmingham
+  publisher:
+    name: Packt Publishing
+    location: Birmingham, UK
 
 Tosi09:
   type: book
-  title: Matplotlib for Python developers
+  title: Matplotlib for Python Developers
   author: Tosi, Sandro
   date: 2009
-  publisher: Packt Publishing Birmingham, UK
   volume: 307
+  publisher:
+    name: Packt Publishing
+    location: Birmingham, UK
 
 Wright11:
   type: article
   title: "siunitx: A comprehensive (SI) units package"
   author: Wright, Joseph
   date: 2011
-  page-range: "95"
+  page-range: 95-98
   parent:
     type: periodical
-    title: TUGboat-TeX Users Group
+    title: TUGboat
     issue: 1
     volume: 32
 
@@ -530,7 +554,7 @@ Gansner09:
 
 Bettels93:
   type: article
-  title: "Unicode: A universal character code"
+  title: "Unicode: A Universal Character Code"
   author:
     - Bettels, Jürgen
     - Bishop, F Avery
@@ -539,13 +563,15 @@ Bettels93:
   parent:
     type: periodical
     title: Digital Technical Journal
-    publisher: Digital Equipment Corp. Acton, MA, USA
+    publisher:
+      name: Digital Equipment Corp.
+      location: Acton, MA, USA
     issue: 3
     volume: 5
 
 Hofert10:
   type: article
-  title: Scientific presentations with LaTeX
+  title: Scientific Presentations with LaTeX
   author:
     - Hofert, Marius
     - Kohm, Markus
@@ -553,3 +579,4 @@ Hofert10:
   parent:
     type: periodical
     title: The PracTEX Journal
+    issue: 2

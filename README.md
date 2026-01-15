@@ -2,6 +2,9 @@
 
 ## Compilation
 
+- Minimal Typst version required: 0.14.0-rc1
+- Typst version used: 0.14.2
+
 ### From repository
 
 ```sh
@@ -16,9 +19,6 @@ You need to (ideally) copy the `fonts` directory from
 https://github.com/pammacdotnet/TypstPaper. Technically, if all the listed
 fonts are already installed on the machine, this is not required, but font
 version and therefore output can differ.
-
-The `typst` was compiled from commit
-[`16758e7da`](https://github.com/typst/typst/tree/16758e7da).
 
 To make it seamless, copy the `.justfile` from
 https://github.com/pammacdotnet/TypstPaper as well.

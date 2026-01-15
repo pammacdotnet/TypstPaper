@@ -12,7 +12,7 @@ packages=$(echo "$definitions" | awk '{print $2}')
 unused=false
 while read -r package; do
   hash_count=$(grep -c "#$package" "$@" | cat)
-  count=$(($(grep -cE "(^|[^#])$package([^\"a-zA-Z-]|$)" "$@") - 1))
+  count=$(($(grep -cE "(^|[^#(])$package([^\")a-zA-Z-]|$)" "$@") - 1))
   if [ "$hash_count" -eq 0 ] && [ "$count" -eq 0 ]; then
     if [ "$unused" != "true" ]; then
       echo "Next package links are unused:" >&2

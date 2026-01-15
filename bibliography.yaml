@@ -4,6 +4,7 @@ Madje22:
   author: Mädje, Laurenz
   date: 2022-09-08
   organization: Technische Universität Berlin
+  url: https://laurmaedje.github.io/programmable-markup-language-for-typesetting.pdf
 
 Haug22:
   type: thesis
@@ -11,6 +12,8 @@ Haug22:
   author: Haug, Martin Ernst
   date: 2022-06
   organization: Technische Universität Berlin
+  serial-number:
+    doi: nw6b
 
 Haas17:
   type: article
@@ -27,6 +30,8 @@ Haas17:
     - Bastien, JF
   date: 2017
   page-range: 185-200
+  serial-number:
+    doi: gfgvf4
   parent:
     type: proceedings
     title: Proceedings of the 38th ACM SIGPLAN conference on programming language design and implementation
@@ -67,6 +72,9 @@ Voegler14:
     - Weber, Gerhard
   date: 2014
   page-range: 545-548
+  serial-number:
+    doi: qm5p
+    isbn: 978-3-319-08596-8
   parent:
     type: proceedings
     title: "Computers Helping People with Special Needs: 14th International Conference, ICCHP 2014, Paris, France, July 9-11, 2014, Proceedings, Part I 14"
@@ -81,6 +89,9 @@ Ewelina20:
     - Marcin, Werachowski
   date: 2020
   page-range: 75-89
+  serial-number:
+    doi: qm5r
+    isbn: 978-3-030-32861-0
   parent:
     type: proceedings
     title: Smart Innovations in Engineering and Technology
@@ -93,6 +104,8 @@ Klabnik23:
     - Klabnik, Steve
     - Nichols, Carol
   date: 2023
+  serial-number:
+    isbn:  978-1718503106
   publisher:
     name: No Starch Press
     location: CA, USA
@@ -114,6 +127,9 @@ Derose97:
   author: DeRose, Steven J
   date: 1997
   volume: 7
+  serial-number:
+    doi: cv32sq
+    isbn: 978-0-585-34049-4
   publisher:
     name: Springer Science+Business Media
     location: NY, USA
@@ -150,6 +166,7 @@ Mittelbach24:
   author: Mittelbach, Frank
   date: 2024
   page-total: 31
+  url: https://www.latex-project.org/help/documentation/lthooks-doc.pdf
 
 Xie18:
   type: anthos
@@ -161,6 +178,8 @@ Xie18:
     type: anthology
     title: Implementing reproducible research
     publisher: Chapman, Hall/CRC
+    serial-number:
+      isbn: 978-1466561595
 
 Leisch02:
   type: article
@@ -172,6 +191,9 @@ Leisch02:
     type: proceedings
     title: "COMPSTAT: Proceedings in computational statistics"
     organization: Springer
+  serial-number:
+    doi: ccd66d
+    isbn: 978-3-642-57489-4
 
 Lacombe21:
   type: article
@@ -195,6 +217,8 @@ Doherty82:
     - Pope, W. G.
   date: 1986
   page-range: 306-320
+  serial-number:
+    doi: cj4q4c
   parent:
     type: periodical
     title: IBM Systems Journal
@@ -206,6 +230,8 @@ Chagnon02:
   title: "The Publishing Business: Desktop Publishing Software"
   author: Chagnon, Bevi
   date: 2002
+  serial-number:
+    doi: cvrbkk
   parent:
     type: periodical
     title: Journal of Electronic Publishing
@@ -221,6 +247,8 @@ Clark07:
   author: Clark, Dave
   date: 2007
   page-range: 35-60
+  serial-number:
+    doi: cwqfnb
   parent:
     type: periodical
     title: Technical communication quarterly
@@ -236,6 +264,8 @@ Hassan15:
     - Hunter, Andrew
   date: 2015
   page-range: 17-20
+  serial-number:
+    doi: qm5t
   parent:
     type: proceedings
     title: Proceedings of the 2015 ACM Symposium on Document Engineering
@@ -249,6 +279,8 @@ Corbi23:
     - Pérez, Antonio Mar\ia
   date: 2023
   page-range: 893-902
+  serial-number:
+    doi: qm5v
   parent:
     type: periodical
     title: IEEE Transactions on Learning Technologies
@@ -263,6 +295,8 @@ Kim24:
     - Lee, Jiyeon
   date: 2024
   page-range: 109-115
+  serial-number:
+    doi: qm5w
   parent:
     type: periodical
     title: Journal of The Korea Society of Computer and Information
@@ -278,6 +312,8 @@ Lombardi2015:
   publisher:
     name: O'Reilly Media, Inc.
     location: CA, USA
+  serial-number:
+    isbn: 978-1-449-36927-9
 
 Knuth81:
   type: article
@@ -287,6 +323,8 @@ Knuth81:
     - Plass, Michael F
   date: 1981-11
   page-range: 1119-1184
+  serial-number:
+    doi: dqnx96
   parent:
     type: periodical
     title: "Software: Practice and Experience"
@@ -322,6 +360,8 @@ Elkhayati2022:
     - Elkettani, Youssfi
     - Mourchid, Mohammed
   date: 2022
+  serial-number:
+    doi: qm5x
   parent:
     type: periodical
     title: Pattern Recognition
@@ -336,6 +376,8 @@ Rougier18:
     - Esfahbod, Behdad
   date: 2018
   page-range: 1-29
+  serial-number:
+    doi: ghfz5z
   parent:
     type: anthology
     title: ACM SIGGRAPH 2018 Courses
@@ -357,6 +399,8 @@ Fisher91:
   author: Fisher, A.J
   date: 1991-09
   page-range: 3-16
+  serial-number:
+    doi: ctgdsf
   parent:
     type: periodical
     title: Journal of Systems and Software
@@ -456,12 +500,17 @@ Peskin95:
   publisher:
     name: CRC Press
     location: FL, USA
+  serial-number:
+    doi: qm5z
+    isbn: 9780429503559
 
 Kottwitz23:
   type: article
   title: "LaTeX Graphics with TikZ: A practitioner’s guide to drawing 2D and 3D images, diagrams, charts, and plots"
   author: Kottwitz, Stefan
   date: 2023
+  serial-number:
+    isbn: 978-1-80461-823-3
   publisher:
     name: Packt Publishing
     location: Birmingham, UK
@@ -472,6 +521,8 @@ Tosi09:
   author: Tosi, Sandro
   date: 2009
   volume: 307
+  serial-number:
+    isbn: 978-1-847197-90-0
   publisher:
     name: Packt Publishing
     location: Birmingham, UK

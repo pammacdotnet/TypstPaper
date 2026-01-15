@@ -97,21 +97,6 @@ Klabnik23:
     name: No Starch Press
     location: CA, USA
 
-Crichton24:
-  type: article
-  title: "A core calculus for documents: Or, lambda: The ultimate document"
-  author:
-    - Crichton, Will
-    - Krishnamurthi, Shriram
-  date: 2024
-  page-range: 667-694
-  parent:
-    type: periodical
-    title: Proceedings of the ACM on Programming Languages
-    publisher: ACM New York, NY, USA
-    issue: POPL
-    volume: 8
-
 Barron87:
   type: book
   title: Text processing and typesetting with UNIX
@@ -406,19 +391,6 @@ Fenner14:
       name: Springer International Publishing
       location: London, UK
 
-Knuth89:
-  type: article
-  title: The errors of TeX
-  author: Knuth, Donald E
-  date: 1989
-  page-range: 607-685
-  parent:
-    type: periodical
-    title: "Software: Practice and Experience"
-    publisher: Wiley Online Library
-    issue: 7
-    volume: 19
-
 Baumer15:
   type: article
   title: R Markdown
@@ -433,13 +405,6 @@ Baumer15:
     publisher: Wiley Online Library
     issue: 3
     volume: 7
-
-Airbus09:
-  type: report
-  title: Final report on the accident on the 1st June 2009 to the Airbus A330-203
-  author: Bureau d'Enquêtes et d'Analyses pour la sécurité de l'aviation civile
-  date: 2009
-  organization: Minist{è}re de l'{É}cologie et de la Transition {é}nerg{é}tique
 
 Chaleplioglou23:
   type: article
@@ -457,15 +422,6 @@ Chaleplioglou23:
       location: London, UK
     issue: 1
     volume: 55
-
-Altarelli05:
-  type: article
-  title: The Standard model of particle physics
-  author: Altarelli, Guido
-  date: 2005
-  parent:
-    type: periodical
-    title: arXiv preprint hep-ph/0510281
 
 Dominici14:
   type: article
@@ -500,17 +456,6 @@ Peskin95:
   publisher:
     name: CRC Press
     location: FL, USA
-
-Wald84:
-  type: book
-  title: "General Relativity"
-  author: Wald, Robert M.
-  date: 1984
-  publisher:
-    name: CRC Press
-    location: FL, USA
-  serial-number:
-    doi: 10.7208/chicago/9780226870373.001.0001
 
 Kottwitz23:
   type: article

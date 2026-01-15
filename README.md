@@ -15,12 +15,12 @@ just
 
 ### From PDF (Attached files)
 
-You need to (ideally) copy the `fonts` directory from
+You need to (ideally) copy the [`fonts`] directory from
 https://github.com/pammacdotnet/TypstPaper. Technically, if all the listed
 fonts are already installed on the machine, this is not required, but font
 version and therefore output can differ.
 
-To make it seamless, copy the `.justfile` from
+To make it seamless, copy the [`.justfile`] from
 https://github.com/pammacdotnet/TypstPaper as well.
 
 ```sh
@@ -41,6 +41,8 @@ cd source
 just pdf # paper.pdf is the default file name.
 ```
 
+Note that the attached to the PDF file `.justfile` will overwrite any existing `.justfile` upon completion of the `pdfdetach` command.
+
 Or its content directly:
 
 ```sh
@@ -53,3 +55,6 @@ pdfdetach -list "$paper" | sed -E 's/^[0-9]+: //' | xargs -I{} dirname '{}' | gr
 pdfdetach -saveall "$paper"
 just compile
 ```
+
+[`fonts`]: https://github.com/pammacdotnet/TypstPaper/blob/main/fonts
+[`.justfile`]: https://github.com/pammacdotnet/TypstPaper/blob/main/.justfile

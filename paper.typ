@@ -6,6 +6,14 @@
 #import "@preview/codly-languages:0.1.8": codly-languages
 #import "@preview/titleize:0.1.1": string-to-titlecase
 
+// Temporary
+#let highlight-color = green.transparentize(50%)
+#let place-highlight(dx, dy, width, height) = {
+  show: place.with(top + left, dx: dx, dy: dy)
+  box(width: width, height: height, radius: 0.2em, fill: highlight-color)
+}
+#set highlight(radius: 0.2em, fill: highlight-color, extent: 0.1em)
+
 #let config = toml("paper.toml")
 #show: ijimai.with(
   config: config,
@@ -211,8 +219,10 @@
 )
 #files.map(pdf.attach).join()
 
+#place-highlight(11mm, -85.3mm, 6.4em, 1em)
+
 = Introduction
-Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and very easy to use. For instance, with Typst, it is possible to:
+Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and #highlight[very] easy to use. For instance, with Typst, it is possible to:
 
 - Create professional-quality documents with ease.
 - Access extensive functionality, including mathematical typesetting, figure management, and an auto-generated table of contents.
@@ -220,16 +230,18 @@ Typst is a new markup-based typesetting language (and its tooling ecosystem) for
 - Benefit from high-quality typographical output with uncompromising word- and character-level justification and overall layout.
 - View changes instantly with real-time preview functionality.
 - Make use of clear and understandable error messages.
-- Apply a consistent styling to fonts, margins, headings, lists, etc.
+- Apply a consistent styling to fonts, margins, headings, lists, #highlight[etc].
 - Collaborate seamlessly with team members.
 
 #let arxiv-url = "https://arxiv.org"
 #let arXiv = link(arxiv-url)[arXiv]
 #let arxiv-monthly = link.with(arxiv-url + "/stats/monthly_submissions")
 
+#highlight(extent: 0pt, radius: 0pt)[
 According to #arXiv, monthly submissions have #arxiv-monthly[steadily grown for decades], peaking at over 27,000 in October 2025 --- underscoring strong demand in academia for tools like Typst to produce high-quality papers.
 
 The main contributions of the paper include: systematic analysis, comparative evaluation, and cross-domain case studies.
+]
 
 The Typst realm comprises a refined and easy-to-understand markup language for defining the content, structure and style of a document, a reasonably fast (and community-driven) document renderer, and a companion web application that enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler, and @sec:typstapp, respectively.
 
@@ -518,7 +530,7 @@ Normally, `show` and `set` statements are combined to tweak an element's appeara
   raw-size(0.982em, grid(
     columns: (1.05fr, 3fr),
     gutter: 0.5em,
-    [Global set rule], [Show and show-set rules for heading styling],
+    [Global #highlight[set] rule], [Show and show-set rules for heading styling],
     no-lang(```typ
     #set text(9pt)
     ```),
@@ -592,10 +604,11 @@ Beyond basic syntax, Typst allows for advanced customization of mathematical exp
   no-lang(raw-size(0.88em, code-grid(
     "./examples/physica.typ",
     left-column: 1.63fr,
-  ))),
+  ))) + place-highlight(38.2mm, 0.1em, 0.5em, 1em),
   caption: [Example of advanced math with the #Physica package],
   kind: image,
 ) <fig:physica>
+#place-highlight(67.5mm, 240mm, 1em, 1em)
 
 Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related packages to enhance mathematical typesetting:
 / #Quick-Maths: package  allows users to define custom shorthands for complex expressions, streamlining the writing process.
@@ -881,8 +894,11 @@ Supporting many image formats is convenient but increases compiler size because 
 #let Pergamon = package-link("Pergamon")
 #let Meander = package-link("Meander")
 
+#place-highlight(0mm, 82.5mm, 7em, 1.3em)
 == Limitations <sec:limitations>
+#highlight(extent: 0pt, radius: 0pt)[
 Typst has notable limitations. Compilation time and RAM scale with document size and complexity: cold/incremental builds can take tens of seconds or more and consume 2--7 GiB. Contributing factors may include aggressive caching, Wasm plugins, computational code, and complex styling (justification, references, floats). Missing features include: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #variable-fonts, #interactive-forms, #runaround (#Meander), #vertical-writing. Advanced state/context styling has a steep learning curve, and institutional academic adoption is low (see @sec:adoption).
+]
 
 #let notion-url = "https://www.notion.com"
 #let Notion = link(notion-url)[Notion]
@@ -917,7 +933,7 @@ Because of Typst's high compilation speeds and instant preview, the web app can 
 
 = Adoption of Typst <sec:adoption>
 
-Typst has attracted significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a flourishing community, with its GitHub repository amassing over 50,000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
+Typst has attracted significant interest since its public beta launch and the open-sourcing of its compiler in March 2023. The platform's user-friendly syntax and modern features have attracted a flourishing community, with its GitHub repository amassing over #highlight[50],000 stars, indicating strong developer engagement. Typst's open-source nature and active development suggest a promising future as it continues to evolve and address the needs of its users.
 
 During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like #CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., #Tinymist, commented in @sec:ide) aim to solidify its position #footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
 
@@ -946,7 +962,7 @@ Finally, although not its intention, the online service typst.app can also be us
 #let Siunitx = ctan-link("Siunitx")
 
 = Typst Universe <sec:universe>
-Typst Universe #footnote[http://typst.app/universe] is an online platform that offers a curated collection of over 1,000 templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
+Typst Universe #footnote[http://typst.app/universe] is an online platform that offers a curated collection of#highlight[ over 1,000] templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
 #figure(
   placement: none,
   caption: [Some of the most reputed packages in Typst Universe],

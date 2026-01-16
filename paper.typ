@@ -253,6 +253,7 @@ The output of the Typst part in @fig:LaTeXvTypst is rendered in @fig:affine (alt
   placement: none,
   {
     set text(9pt)
+    set heading(outlined: false)
     show heading: set align(center)
     show heading: set text(9pt, weight: "bold")
     show heading: it => block(smallcaps(it.body))

@@ -922,7 +922,7 @@ Finally, although not its intention, the online service typst.app can also be us
 #let Siunitx = ctan-link("Siunitx")
 
 = Typst Universe <sec:universe>
-Typst Universe #footnote[http://typst.app/universe] is an online platform that offers a curated collection of templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
+Typst Universe #footnote[http://typst.app/universe] is an online platform that offers a curated collection of over 1,000 templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present in this site are briefly described in @tab:packages.
 #figure(
   placement: none,
   caption: [Some of the most reputed packages in Typst Universe],

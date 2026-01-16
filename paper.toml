@@ -35,7 +35,7 @@ corresponding = false
 email = "dgilo@aemet.es"
 institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Madrid, España"
 credit = ["software", "methodology", "formal-analysis"]
-bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialist. He is currently pursuing a Bachelor's degree in Physics at the Universidad Internacional de La Rioja (UNIR) with the goal of becoming a meteorologist and working with Numerical Weather Prediction systems. His work involves programming (preferring functional programming languages), high-performance computing, and developing web applications that deliver weather forecast products to forecasters. He is also engaged in projects related to containerization technologies and workflow automation, aiming to bridge computer science and meteorology."
+bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialist. He is currently pursuing a bachelor's degree in Physics at the Universidad Internacional de La Rioja (UNIR) with the goal of becoming a meteorologist and working with Numerical Weather Prediction systems. His work involves programming (preferring functional programming languages), high-performance computing, and developing web applications that deliver weather forecast products to forecasters. He is also engaged in projects related to containerization technologies and workflow automation, aiming to bridge computer science and meteorology."
 
 [paper]
 title = "Typst: a modern typesetting engine for science"

@@ -856,14 +856,15 @@ Typst integrates seamlessly with existing integrated development environments (I
 ) <fig:vscodium>
 
 == Export options
-As of Q3 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, offering high-quality, resolution-independent documents compliant with the PDF 1.7 standard, but it also supports PDF versions 1.4, 1.5, 1.6, and 2.0, with Tagged PDF supported by default. It includes all PDF/A standards for archival purposes and PDF/UA-1 for enhanced accessibility, allowing options to specify page ranges and standards via the command-line interface or the web application (the web app). SVG export is well-supported, ideal for embedding vector graphics into web pages, and allows exporting each page as a separate SVG file with customizable naming templates and page range selection. PNG export has the same feature set as SVG, except it is a raster graphics format instead of vector graphics. HTML export is currently experimental (@fig:compiler) and under active development, requiring a feature flag for command line support.
+As of Q3 2025, Typst exports four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, producing high-quality, resolution-independent documents compliant with PDF 1.7 (also supporting 1.4, 1.5, 1.6, and 2.0). Tagged PDF is enabled by default; all PDF/A archival standards and PDF/UA-1 for enhanced accessibility are supported. Page ranges and standards can be specified via the command-line interface or the web app. SVG export is well-supported for embedding vector graphics into web pages, allowing per-page SVG files with customizable naming and page-range selection. PNG export offers the same options as SVG but as raster images. HTML export is experimental (@fig:compiler), under active development, and requires a feature flag on the command line.
 
 == Image formats
-Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, WebP, GIF (static-only), and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
+Supporting many image formats is convenient but increases compiler size because each format requires handling code. Typst's maintainers limited supported formats to the most popular: PNG, JPEG, WebP, GIF (static-only), and SVG. Since version 0.14.0, PDF images can be embedded as-is, giving a small file-size increase, sharp vector graphics, and selectable text. This feature can already be used in the web application.
 
 #let EPUB = issue(188)[EPUB]
 #let multi-page-HTML-export = issue(721)[multi-page HTML export]
 #let multiple-bibliographies = issue(1097)[multiple bibliographies]
+#let variable-fonts = issue(185)[variable fonts]
 #let interactive-forms = issue(1765)[interactive forms]
 #let runaround = issue(5181)[runaround]
 #let vertical-writing = issue(5908)[vertical writing]
@@ -876,14 +877,14 @@ Having a big variety of image formats that can be included in a document is unde
 #let Meander = package-link("Meander")
 
 == Limitations <sec:limitations>
-Despite its development stage and advantages over other typesetting tools, Typst has several limitations. As the document's content size and complexity grows, so is the cold (and sometimes incremental) compilation time and RAM usage that can reach tens of seconds or more and 2--7 GiB, respectively. Some of the potential reasons include: aggressive caching, use of Wasm plugins, computation-heavy code, and some styling (e.g., many text transformation rules, paragraph justification, references, floating objects). Notable features missing: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #interactive-forms, #runaround (#Meander), #vertical-writing and #some-other-East-Asian-layout-features, #line-height, #resetting-show-set-rules. Some advanced state/context/styling usage has steep learning curve. The adoption by academic institutions is low (explained in @sec:adoption).
+Typst has notable limitations. Compilation time and RAM scale with document size and complexity: cold/incremental builds can take tens of seconds or more and consume 2--7 GiB. Contributing factors may include aggressive caching, Wasm plugins, computational code, and complex styling (justification, references, floats). Missing features include: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #variable-fonts, #interactive-forms, #runaround (#Meander), #vertical-writing. Advanced state/context styling has a steep learning curve, and institutional academic adoption is low (see @sec:adoption).
 
 #let notion-url = "https://www.notion.com"
 #let Notion = link(notion-url)[Notion]
 
 #set raw(lang: "typc")
 = Web application <sec:typstapp>
-The shift to cloud-based tools is revolutionizing content creation, academic work, and document editing, with platforms like Binder @Corbi23, and Overleaf being the two most currently known. These tools, alongside mainstream platforms like Google Docs and #Notion #footnote(link(notion-url)), reflect a broader trend: cloud-based tools reduce access barriers, foster collaboration, and integrate advanced workflows that were once confined to local software. As a result, education, research, and professional documentation are becoming more dynamic, inclusive, and efficient.
+The move to cloud tools is reshaping content creation, and academic work. Platforms like Binder @Corbi23, Overleaf, Google Docs, and #Notion #footnote(link(notion-url)) show cloud services lower access barriers, enable real-time collaboration, and migrate workflows from local software. Consequently, education, research, and documentation are more dynamic, inclusive, and efficient.
 
 #figure(
   frame-round(image("./assets/web_app.jpg")),

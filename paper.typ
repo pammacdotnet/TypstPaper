@@ -212,7 +212,7 @@
 #files.map(pdf.attach).join()
 
 = Introduction
-Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and exceptionally easy to use. For instance, with Typst, it is possible to:
+Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and very easy to use. For instance, with Typst, it is possible to:
 
 - Create professional-quality documents with ease.
 - Access extensive functionality, including mathematical typesetting, figure management, and an auto-generated table of contents.

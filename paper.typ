@@ -841,7 +841,7 @@ Typst integrates seamlessly with existing integrated development environments (I
 
 #figure(
   frame-round({
-    let s = 99% // scale/width
+    let s = 98.7% // scale/width
     image("./assets/vscodium.jpg", width: s)
     let place-link(dx, dy, width, height, url) = {
       let link = link(url, box(width: width, height: height))

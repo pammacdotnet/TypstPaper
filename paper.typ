@@ -138,6 +138,9 @@
   box(link("https://typst.app/docs/reference/" + path, ..name))
 }
 #let github-url(user-repo) = "https://github.com/" + user-repo
+#let issue(number, body) = {
+  link(github-url("typst/typst/issues/" + str(number)), body)
+}
 #let github-link(user-repo, name) = box(link(github-url(user-repo), name))
 #let ctan-link(package-name) = {
   box(link("https://ctan.org/pkg/" + lower(package-name), package-name))
@@ -857,6 +860,23 @@ As of Q3 2025, Typst supports exporting documents in four formats: PDF, SVG, PNG
 
 == Image formats
 Having a big variety of image formats that can be included in a document is undeniably convenient. However, this comes at a cost of having more code that handles each separate image format, which in turn can greatly increase compiler program size. This matter is taken very seriously by the Typst maintainers, which resulted in a small set of supported image formats (but also the most popular). As such, PNG, JPEG, WebP, GIF (static-only), and SVG formats can be included as images in a Typst project. Beginning with version 0.14.0, a PDF image can embedded as is, providing a small file increase, sharp vector graphics, and selectable text. This feature is already available for testing in the web app, which will be our next topic.
+
+#let EPUB = issue(188)[EPUB]
+#let multi-page-HTML-export = issue(721)[multi-page HTML export]
+#let multiple-bibliographies = issue(1097)[multiple bibliographies]
+#let interactive-forms = issue(1765)[interactive forms]
+#let runaround = issue(5181)[runaround]
+#let vertical-writing = issue(5908)[vertical writing]
+#let some-other-East-Asian-layout-features = issue(193)[some other East-Asian layout features]
+#let line-height = issue(4224)[line-height]
+#let resetting-show-set-rules = issue(420)[resetting show/set rules]
+
+#let Alexandria = package-link("Alexandria")
+#let Pergamon = package-link("Pergamon")
+#let Meander = package-link("Meander")
+
+== Limitations <sec:limitations>
+Despite its development stage and advantages over other typesetting tools, Typst has several limitations. As the document's content size and complexity grows, so is the cold (and sometimes incremental) compilation time and RAM usage that can reach tens of seconds or more and 2--7 GiB, respectively. Some of the potential reasons include: aggressive caching, use of Wasm plugins, computation-heavy code, and some styling (e.g., many text transformation rules, paragraph justification, references, floating objects). Notable features missing: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #interactive-forms, #runaround (#Meander), #vertical-writing and #some-other-East-Asian-layout-features, #line-height, #resetting-show-set-rules. Some advanced state/context/styling usage has steep learning curve. The adoption by academic institutions is low (explained in @sec:adoption).
 
 #let notion-url = "https://www.notion.com"
 #let Notion = link(notion-url)[Notion]

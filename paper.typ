@@ -226,6 +226,14 @@ Typst is a new markup-based typesetting language (and its tooling ecosystem) for
 - Modify document formatting at any time.
 - Obtain a deterministic output, i.e., the user gets the same result every time a document is compiled from the same source.
 
+#let arxiv-url = "https://arxiv.org"
+#let arXiv = link(arxiv-url)[arXiv]
+#let arxiv-monthly = link.with(arxiv-url + "/stats/monthly_submissions")
+
+According to #arXiv, monthly submissions have #arxiv-monthly[steadily grown for decades], peaking at over 27,000 in October 2025 --- underscoring strong demand in academia for tools like Typst to produce high-quality papers.
+
+The main contributions of the paper include: systematic analysis, comparative evaluation, and cross-domain case studies.
+
 The Typst realm comprises a refined and easy-to-understand markup language for defining the content, structure and style of a document, a reasonably fast (and community-driven) document renderer, and a companion web application that enables real-time in-browser compilation. All these components will be explored in @sec:markup, @sec:compiler, and @sec:typstapp, respectively.
 
 Additionally, the project hosts a repository of extensions (packages and templates) called Typst Universe, discussed in @sec:universe. However, given that Typst is becoming popular and its adoption is growing steadily over the years (as observed in @sec:adoption), it is now often compared against the well-established LaTeX system. For this reason, we will start with a quick analogy of both environments (@sec:latex).
@@ -916,8 +924,6 @@ Typst has attracted significant interest since its public beta launch and the op
 
 During the period 2020--2025, Typst evolved from a niche LaTeX alternative into a widely adopted document-formatting tool. Early development (2020--2022) focused on core features like a Rust-based compiler, attracting tech-savvy users. By 2023, public beta releases and improved documentation spurred initial growth, though gaps like CJK support persisted. In 2024, corporate adoption (e.g., in banking software) and features like #CeTZ for graphics expanded its reach. Projections for 2026 hinge on addressing accessibility and localization, while compiler optimizations (e.g., faster builds) and community tools (e.g., #Tinymist, commented in @sec:ide) aim to solidify its position #footnote[https://github.com/qjcg/awesome-typst]. The Typst community is also providing templates for the most reputed journals, as evinced in @fig:papers for IEEE and MDPI.
 
-#let arxiv-url = "https://arxiv.org"
-#let arXiv = link(arxiv-url)[arXiv]
 #let hal-url = "https://hal.science"
 #let HAL = link(hal-url)[HAL]
 

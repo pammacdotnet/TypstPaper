@@ -219,12 +219,9 @@ Typst is a new markup-based typesetting language (and its tooling ecosystem) for
 - Utilize powerful templates that automatically apply consistent formatting during the writing process.
 - Benefit from high-quality typographical output with uncompromising word- and character-level justification and overall layout.
 - View changes instantly with real-time preview functionality.
-- Make use of clear and understandable error messages for efficient corrections.
-- Apply a consistent styling system to configure fonts, margins, headings, lists, and other elements uniformly.
-- Work with familiar programming constructs (no complex macros).
+- Make use of clear and understandable error messages.
+- Apply a consistent styling to fonts, margins, headings, lists, etc.
 - Collaborate seamlessly with team members.
-- Modify document formatting at any time.
-- Obtain a deterministic output, i.e., the user gets the same result every time a document is compiled from the same source.
 
 #let arxiv-url = "https://arxiv.org"
 #let arXiv = link(arxiv-url)[arXiv]

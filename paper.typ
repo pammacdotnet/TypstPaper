@@ -219,7 +219,7 @@
 )
 #files.map(pdf.attach).join()
 
-#place-highlight(11mm, -85.3mm, 6.4em, 1em)
+// #place-highlight(11mm, -85.3mm, 6.4em, 1em)
 
 = Introduction
 Typst is a new markup-based typesetting language (and its tooling ecosystem) for technical and scientific documents. It is designed to be an alternative both to advanced tools like LaTeX and simpler tools like Microsoft Word and Google Docs. The goal with Typst is to build a typesetting framework that is highly capable, extensible, reliable, fast and #highlight[very] easy to use. For instance, with Typst, it is possible to:
@@ -238,7 +238,7 @@ Typst is a new markup-based typesetting language (and its tooling ecosystem) for
 #let arxiv-monthly = link.with(arxiv-url + "/stats/monthly_submissions")
 
 #highlight(extent: 0pt, radius: 0pt)[
-According to #arXiv, monthly submissions have #arxiv-monthly[steadily grown for decades], peaking at over 27,000 in October 2025 --- underscoring strong demand in academia for tools like Typst to produce high-quality papers.
+According to the #arXiv preprint repository, submissions have #arxiv-monthly[steadily grown], peaking at over 24,226 in October 2024, underscoring strong demand in academia for tools like Typst to produce high-quality papers#footnote[https://info.arxiv.org/about/reports/2024_arXiv_annual_report.pdf].
 
 The main contributions of the paper include: systematic analysis, comparative evaluation, and cross-domain case studies.
 ]
@@ -897,7 +897,7 @@ Supporting many image formats is convenient but increases compiler size because 
 #place-highlight(0mm, 82.5mm, 7em, 1.3em)
 == Limitations <sec:limitations>
 #highlight(extent: 0pt, radius: 0pt)[
-Typst has notable limitations. Compilation time and RAM scale with document size and complexity: cold/incremental builds can take tens of seconds or more and consume 2--7 GiB. Contributing factors may include aggressive caching, Wasm plugins, computational code, and complex styling (justification, references, floats). Missing features include: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #variable-fonts, #interactive-forms, #runaround (#Meander), #vertical-writing. Advanced state/context styling has a steep learning curve, and institutional academic adoption is low (see @sec:adoption).
+Typst has notable limitations. Compilation time and RAM scale with document size and complexity: builds can take tens of seconds or more, and consume 2--7 GiB. Contributing factors may comprise aggressive caching, Wasm plugins, computational code, and complex styling (justification, references, floats, etc.). Missing features include: #EPUB and #multi-page-HTML-export, #multiple-bibliographies (#Alexandria, #Pergamon), #variable-fonts, #interactive-forms, #runaround (#Meander), #vertical-writing. Advanced state/context styling has a steep learning curve, and institutional academic adoption is low (see @sec:adoption).
 ]
 
 #let notion-url = "https://www.notion.com"

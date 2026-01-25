@@ -2,7 +2,6 @@
 add image alt text?
 
 = After submission for publication:
-try to upstream gantty changes
 Remove leading whitespaces
 Add missing EOF newlines
 Add links to all fonts.

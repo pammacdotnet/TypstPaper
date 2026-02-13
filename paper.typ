@@ -424,16 +424,16 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 
 Knitr @Xie18, Sweave @Leisch02, and similar computational document applications, such as #RMarkdown @Baumer15 and #Jupyter-Notebook #footnote(link(jupyter-notebook-url)), integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
-#let pyrunner-url = universe-url("pyrunner")
-#let neoplot-url = universe-url("neoplot")
-#let jlyfish-url = universe-url("jlyfish")
-#let callisto-url = universe-url("callisto")
-#let diagraph-url = universe-url("diagraph")
-#let nulite-url = universe-url("nulite")
-#let jogs-url = universe-url("jogs")
+#let pyrunner-footnote = footnote(link(universe-url("pyrunner")))
+#let neoplot-footnote = footnote(link(universe-url("neoplot")))
+#let jlyfish-footnote = footnote(link(universe-url("jlyfish")))
+#let callisto-footnote = footnote(link(universe-url("callisto")))
+#let diagraph-footnote = footnote(link(universe-url("diagraph")))
+#let nulite-footnote = footnote(link(universe-url("nulite")))
+#let jogs-footnote = footnote(link(universe-url("jogs")))
 
 In contrast, Typst offers a more unified and modern approach: rather than embedding a separate scripting language into markup, it merges typesetting and computation into a single, consistent language. This seamless integration allows Typst to support sophisticated layout logic, styling, and even data-driven approaches without the verbosity or complexity found in the aforementioned tools. Besides, when teaming up with modern web technologies such as WebAssembly (or Wasm, discussed in @sec:wasm), the possibilities are almost endless.
-For instance, the package #Pyrunner #footnote(link(pyrunner-url)) allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
+For instance, the package #Pyrunner #pyrunner-footnote allows the execution of arbitrary chunks of Python code within a Typst document (@fig:pyrunner).
 
 #figure(
   code-grid("./examples/pyrunner.typ", gutter: 0.5em, left-column: none),
@@ -442,12 +442,12 @@ For instance, the package #Pyrunner #footnote(link(pyrunner-url)) allows the exe
 ) <fig:pyrunner>
 
 Other current WebAssembly-grounded integration solutions for computational documents in Typst are:
-/ #Neoplot #footnote(link(neoplot-url)): for generating plots with Gnuplot (@fig:neoplot).
-/ #Jlyfish #footnote(link(jlyfish-url)): for integrating Julia code.
-/ #Callisto #footnote(link(callisto-url)): for reading and rendering Jupyter notebooks.
-/ #Diagraph #footnote(link(diagraph-url)): for binding simple Graphviz-based diagrams (@fig:dot).
-/ #Nulite #footnote(link(nulite-url)): for plotting Vega-based charts.
-/ #Jogs #footnote(link(jogs-url)): a native JavaScript runtime.
+/ #Neoplot #neoplot-footnote: for generating plots with Gnuplot (@fig:neoplot).
+/ #Jlyfish #jlyfish-footnote: for integrating Julia code.
+/ #Callisto #callisto-footnote: for reading and rendering Jupyter notebooks.
+/ #Diagraph #diagraph-footnote: for binding simple Graphviz-based diagrams (@fig:dot).
+/ #Nulite #nulite-footnote: for plotting Vega-based charts.
+/ #Jogs #jogs-footnote: a native JavaScript runtime.
 
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
@@ -698,7 +698,7 @@ Typst offers integrated support for bibliographic references, streamlining the c
 
 
 
-Currently, both BibLaTeX `.bib` files @Datta17 and Hayagriva `.yaml` files are supported as sources for bibliographic data (@fig:haya). The system utilizes the Citation Style Language (CSL) to format citations and bibliographies @Fenner14, providing a wide range of built-in styles such as APA, MLA, IEEE, and Chicago. Users can also add custom CSL files to accommodate specific formatting requirements.
+Currently, both BibLaTeX `.bib` files @Datta17 and Hayagriva `.yaml` files are supported as sources for bibliographic data (@fig:haya). The system utilizes the Citation Style Language (CSL) to format citations and bibliographies @Fenner14, providing a wide range of built-in styles such as APA, MLA, IEEE, and Chicago. Furthermore, users can also add custom CSL files to accommodate specific formatting requirements, enhancing overall flexibility in citation management.
 
 #let hayagriva-url = "https://github.com/typst/hayagriva"
 #let Hayagriva = link(hayagriva-url)[Hayagriva]
@@ -758,7 +758,7 @@ complexity by hiding irrelevant details through two primary mechanisms:
 == Value semantics and coercion
 Typst employs _value semantics_, meaning values are treated as if they are copied whenever they are passed or modified. This approach prevents unintended side effects and simplifies reasoning about code. For instance, modifying a dictionary inside a function or during iteration does not affect the original structure because the function or loop receives a copy. This avoids common pitfalls such as cyclic data structures, iterator invalidation, and unintended global mutations. As a result, code becomes easier to test and debug, and features like multi-threading are safer and simpler to implement. In Typst, even function arguments and global variables behave as immutable within the scope of a function, reinforcing this isolation.
 
-Although value semantics suggest potential performance costs due to frequent copying, Typst mitigates this with a _copy-on-write_ strategy, i.e., data is only duplicated when it is modified and shared across references. This offers a practical balance between performance and clarity. Unlike some languages that explicitly distinguish between _owned_ and _shared_ data, Typst keeps its model implicit, which aligns well with its role as a typesetting tool. Users can focus on layout and content without needing to manage complex memory models. For example, mutating an array inside a function does not affect the original.
+Although value semantics suggest potential performance costs due to frequent data copying, Typst mitigates this concern with a _copy-on-write_ strategy. This means that data is only duplicated when it is modified, allowing it to be efficiently shared across various references without creating unnecessary overhead. This offers a practical balance between performance and clarity. Unlike some languages that explicitly distinguish between _owned_ and _shared_ data, Typst keeps its model implicit, which aligns well with its role as a typesetting tool. Users can focus on layout and content creation without needing to manage complex memory models. For example, mutating an array inside a function does not affect the original array, ensuring straightforward data manipulation.
 
 #let eval-func = api-link("foundations/eval", text(typst-blue, `eval`))
 
@@ -779,7 +779,7 @@ As with LaTeX and as commented above, Typst also supports the addition of functi
 #set raw(lang: "typ")
 #let preview = raw("@preview", lang: none)
 
-Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation, packages can be placed in designated local data directories, making them accessible without publishing to the shared repository. The #preview namespace in Typst serves as a dedicated space for community-contributed packages. These packages are hosted in the Typst package repository.
+Packages are typically stored in a directory hierarchy following the pattern `{namespace}/{name}/{version}` and can be imported into Typst documents using the syntax `#import "@{namespace}/{name}:{version}"`. For local development or experimentation purposes, packages can be placed in designated local data directories, making them accessible without the need for publishing to the shared repository. The #preview namespace in Typst serves as a dedicated space for various community-contributed packages. These packages are hosted in the Typst package repository.
 
 == Web technologies <sec:wasm>
 As introduced in @sec:computed, Typst leverages WebAssembly (Wasm) to enable its core functionalities to run efficiently in web environments @Haas17. This approach allows Typst to execute its typesetting engine directly within web browsers, facilitating seamless integration into web-based applications and services. By compiling its Rust-based codebase to Wasm, Typst ensures consistent performance across different platforms without the need for native installations. This strategy not only enhances accessibility but also simplifies the deployment process, making Typst a versatile tool for developers and content creators alike.
@@ -865,7 +865,7 @@ Typst integrates seamlessly with existing integrated development environments (I
 As of Q3 2025, Typst exports four formats: PDF, SVG, PNG, and HTML. PDF export is the most mature, producing high-quality, resolution-independent documents compliant with PDF 1.7 (also supporting 1.4, 1.5, 1.6, and 2.0). Tagged PDF is enabled by default; all PDF/A archival standards and PDF/UA-1 for enhanced accessibility are supported. Page ranges and standards can be specified via the command-line interface or the web app. SVG export is well-supported for embedding vector graphics into web pages, allowing per-page SVG files with customizable naming and page-range selection. PNG export offers the same options as SVG but as raster images. HTML export is experimental (@fig:compiler), under active development, and requires a feature flag on the command line.
 
 == Image formats
-Supporting many image formats is convenient but increases compiler size because each format requires handling code. Typst's maintainers limited supported formats to the most popular: PNG, JPEG, WebP, GIF (static-only), and SVG. Since version 0.14.0, PDF images can be embedded as-is, giving a small file-size increase, sharp vector graphics, and selectable text. This feature can already be used in the web application.
+Supporting many image formats is convenient but increases compiler size because each format requires handling code. Typst's maintainers limited supported formats to the most popular: PNG, JPEG, GIF (static-only), and SVG. Since version 0.14.0, WebP is added, PDF images can be embedded as-is, giving a small file-size increase, sharp vector graphics, and selectable text. The feature is already available in the web application.
 
 #let EPUB = issue(188)[EPUB]
 #let multi-page-HTML-export = issue(721)[multi-page HTML export]
@@ -904,7 +904,7 @@ The move to cloud tools is reshaping content creation, and academic work. Platfo
 #let plmlatex-url = "https://plmlatex.math.cnrs.fr"
 #let PLMLatex = link(plmlatex-url)[PLMLatex]
 
-#Papeeria #footnote(link(papeeria-url)) and #Authorea #footnote(link(authorea-url)) offer similar collaborative LaTeX editing capabilities but have smaller user bases. #PLMLatex #footnote(link(plmlatex-url)), developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration.
+#Papeeria and #Authorea offer similar collaborative LaTeX editing capabilities but have smaller user bases. #PLMLatex, developed by the _National Centre for Scientific Research_ (CNRS), is a French-language LaTeX editor based on the open-source version of Overleaf. It provides a user interface and functionality closely resembling Overleaf, though it lacks certain premium features. CoCalc also supports LaTeX editing alongside tools for calculations, research, and collaboration.
 
 The Typst online editor (@fig:typstapp) is a collaborative, web-based platform designed for creating and typesetting documents with Typst. It offers a seamless writing experience with features like instant preview, syntax highlighting, and autocompletion, making it ideal for composing academic papers, technical reports, and other long-form documents. The editor splits the interface into two panels: a source panel for writing Typst markup and a preview panel that renders the document in real time. Users can easily format text, insert images (_drag and drop_ gestures can even be used), equations, and bibliographies, and leverage Typst's scripting capabilities for advanced customization. The web app also supports collaboration through the WebSocket standard @Lombardi2015, allowing users to share projects, track changes, and integrate with tools like Zotero and Mendeley for reference management.
 
@@ -1392,7 +1392,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 As listed in @tab:packages, QR and bar codes can be issued and customized via the #Tiaoma package, using a Wasm version of Zint.
 
 = Slide composition <sec:slides>
-Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar in spirit to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control the visual style while focusing on content. #Touying enables the creation of consistent, professional slides with minimal boilerplate. This makes it especially appealing for academic and technical presentations where precision, readability, and customization are key (@fig:slides).
+Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control visual style while focusing on content. #Touying enables the creation of professional slides with minimal boilerplate, making it especially appealing for academic and technical presentations where precision and readability are key (@fig:slides).
 
 #figure(
   image("./examples/slide/slide.pdf", width: 98%),

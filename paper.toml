@@ -4,7 +4,7 @@ name = "Andrey Voynov"
 photo = "andrey.jpg"
 corresponding = false
 orcid = "0009-0001-6335-4135"
-institution = "Bauman Moscow State Technical University (BMSTU), Russia"
+institution = "Bauman Moscow State Technical University (BMSTU) (Russia)"
 credit = ["software", "validation", "writing-review-editing"]
 bio = "Andrey Voynov is a master's student in software engineering with a strong passion for programming and free/open-source software. He began coding in QBasic and Pascal during school, actively competed in Informatics Olympiads, and earned a 2nd-degree diploma at the 2020 All-Russian Forum of Scientific Youth. Andrey has created hundreds of projects, contributed to many others, and since discovering Typst in 2023, uses it exclusively for documents and slides, promoting its adoption in Russia through teaching, curriculum updates, and feature contributions."
 
@@ -14,7 +14,7 @@ photo = "alberto.jpg"
 corresponding = true
 email = "alberto.corbi@unir.net"
 orcid = "0000-0002-7282-4557"
-institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja, Spain"
+institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, 26006 Logroño, La Rioja (Spain)"
 credit = ["software", "conceptualization", "writing-original-draft", "project-administration", "supervision"]
 bio = "Alberto Corbi is a tenured professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
 
@@ -27,7 +27,7 @@ photo = "pau.jpg"
 corresponding = false
 email = "pau.oliver@uv.es"
 orcid = "0009-0009-0037-9739"
-institution = "The University of Valencia (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia, Spain"
+institution = "The University of Valencia (UV), Carrer del Dr. Moliner, 50, Burjassot, Valencia (Spain)"
 credit = ["software", "writing-review-editing"]
 bio = "Pau is a theoretical physicist with a M.Sc. in Advanced Physics from the University of Valencia and a B.Sc. in Physics from the University of Murcia. His research centers on understanding particle creation in quantum field theory in curved and dynamical backgrounds. He is dedicated to advancing fundamental physics while promoting science communication. He currently teaches in the Physics degree program at the Universidad Internacional de La Rioja (UNIR)."
 
@@ -37,7 +37,7 @@ photo = "david.jpg"
 corresponding = false
 email = "dgilo@aemet.es"
 orcid = "0009-0007-3969-298X"
-institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Madrid, España"
+institution = "Agencia Estatal de Meteorología (AEMET), Leonardo Prieto Castro, 8, Madrid (España)"
 credit = ["software", "methodology", "formal-analysis"]
 bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialist. He is currently pursuing a bachelor's degree in Physics at the Universidad Internacional de La Rioja (UNIR) with the goal of becoming a meteorologist and working with Numerical Weather Prediction systems. His work involves programming (preferring functional programming languages), high-performance computing, and developing web applications that deliver weather forecast products to forecasters. He is also engaged in projects related to containerization technologies and workflow automation, aiming to bridge computer science and meteorology."
 

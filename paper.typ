@@ -14,9 +14,6 @@
 )
 
 #set document(
-  title: string-to-titlecase(config.paper.title),
-  author: config.authors.map(x => x.name),
-  keywords: config.paper.keywords.sorted(),
   description: "The paper is available at https://github.com/pammacdotnet/TypstPaper.",
 )
 #set text(fallback: false, font: (

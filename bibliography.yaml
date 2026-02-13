@@ -73,7 +73,7 @@ Voegler14:
   date: 2014
   page-range: 545-548
   serial-number:
-    doi: 10.1007/978-3-319-08596-8_85
+    # doi: 10.1007/978-3-319-08596-8_85
     isbn: 978-3-319-08596-8
   parent:
     type: proceedings
@@ -90,7 +90,7 @@ Ewelina20:
   date: 2020
   page-range: 75-89
   serial-number:
-    doi: 10.1007/978-3-030-32861-0_5
+    # doi: 10.1007/978-3-030-32861-0_5
     isbn: 978-3-030-32861-0
   parent:
     type: proceedings
@@ -128,7 +128,7 @@ Derose97:
   date: 1997
   volume: 7
   serial-number:
-    doi: 10.1007/B102416
+    # doi: 10.1007/B102416
     isbn: 978-0-585-34049-4
   publisher:
     name: Springer Science+Business Media
@@ -166,7 +166,7 @@ Mittelbach24:
   author: Mittelbach, Frank
   date: 2024
   page-total: 31
-  url: https://www.latex-project.org/help/documentation/lthooks-doc.pdf
+  # url: https://www.latex-project.org/help/documentation/lthooks-doc.pdf
 
 Xie18:
   type: anthos
@@ -218,7 +218,7 @@ Doherty82:
   date: 1986
   page-range: 306-320
   serial-number:
-    doi: 10.1147/SJ.253.0306
+    # doi: 10.1147/SJ.253.0306
   parent:
     type: periodical
     title: IBM Systems Journal
@@ -231,7 +231,7 @@ Chagnon02:
   author: Chagnon, Bevi
   date: 2002
   serial-number:
-    doi: 10.3998/3336451.0008.107
+    # doi: 10.3998/3336451.0008.107
   parent:
     type: periodical
     title: Journal of Electronic Publishing
@@ -248,7 +248,7 @@ Clark07:
   date: 2007
   page-range: 35-60
   serial-number:
-    doi: 10.1080/10572250701588624
+    # doi: 10.1080/10572250701588624
   parent:
     type: periodical
     title: Technical communication quarterly
@@ -265,7 +265,7 @@ Hassan15:
   date: 2015
   page-range: 17-20
   serial-number:
-    doi: 10.1145/2682571.2797091
+    # doi: 10.1145/2682571.2797091
   parent:
     type: proceedings
     title: Proceedings of the 2015 ACM Symposium on Document Engineering
@@ -280,7 +280,7 @@ Corbi23:
   date: 2023
   page-range: 893-902
   serial-number:
-    doi: 10.1109/TLT.2023.3343690
+    # doi: 10.1109/TLT.2023.3343690
   parent:
     type: periodical
     title: IEEE Transactions on Learning Technologies
@@ -296,7 +296,7 @@ Kim24:
   date: 2024
   page-range: 109-115
   serial-number:
-    doi: 10.9708/JKSCI.2024.29.07.109
+    # doi: 10.9708/JKSCI.2024.29.07.109
   parent:
     type: periodical
     title: Journal of The Korea Society of Computer and Information
@@ -324,7 +324,7 @@ Knuth81:
   date: 1981-11
   page-range: 1119-1184
   serial-number:
-    doi: 10.1002/SPE.4380111102
+    # doi: 10.1002/SPE.4380111102
   parent:
     type: periodical
     title: "Software: Practice and Experience"
@@ -361,7 +361,7 @@ Elkhayati2022:
     - Mourchid, Mohammed
   date: 2022
   serial-number:
-    doi: 10.1016/J.PATCOG.2021.108288
+    # doi: 10.1016/J.PATCOG.2021.108288
   parent:
     type: periodical
     title: Pattern Recognition
@@ -377,7 +377,7 @@ Rougier18:
   date: 2018
   page-range: 1-29
   serial-number:
-    doi: 10.1145/3214834.3214837
+    # doi: 10.1145/3214834.3214837
   parent:
     type: anthology
     title: ACM SIGGRAPH 2018 Courses
@@ -400,7 +400,7 @@ Fisher91:
   date: 1991-09
   page-range: 3-16
   serial-number:
-    doi: 10.1016/0164-1212(91)90027-4
+    # doi: 10.1016/0164-1212(91)90027-4
   parent:
     type: periodical
     title: Journal of Systems and Software

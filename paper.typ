@@ -6,6 +6,11 @@
 #import "@preview/codly-languages:0.1.8": codly-languages
 #import "@preview/titleize:0.1.1": string-to-titlecase
 
+#set par(justification-limits: (tracking: (min: -0.01em, max: 0.005em)))
+#show bibliography: set par(
+  justification-limits: (tracking: (min: -0.025em, max: 0em)),
+)
+
 #let config = toml("paper.toml")
 #show: ijimai.with(
   config: config,
@@ -22,7 +27,6 @@
   "Noto Naskh Arabic UI",
   "Noto Color Emoji",
 ))
-#set par(justification-limits: (tracking: (min: -0.01em, max: 0.005em)))
 #set scale(reflow: true)
 
 #show: codly-init

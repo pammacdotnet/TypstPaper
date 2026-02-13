@@ -1,4 +1,4 @@
-#import "@preview/ijimai:1.0.0": blue-unir
+#import "@preview/ijimai:2.0.0": blue-unir
 #import "@preview/cetz:0.3.4": *
 
 #canvas({

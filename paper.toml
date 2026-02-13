@@ -53,6 +53,7 @@ publication-year = 2025
 volume = 0
 number = 0
 starting-page = 1
+preprint = false
 journal = "International Journal of Interactive Multimedia and Artificial Intelligence"
 special-issue-title = ""
 special-issue = false

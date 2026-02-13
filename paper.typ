@@ -1,4 +1,4 @@
-#import "@preview/ijimai:1.0.0": *
+#import "@preview/ijimai:2.0.0": *
 
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
 #import "@preview/metalogo:1.2.0"

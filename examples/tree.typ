@@ -1,4 +1,4 @@
-#import "@preview/ijimai:1.0.0": blue-unir, blue-unir-soft
+#import "@preview/ijimai:2.0.0": blue-unir, blue-unir-soft
 #import "@preview/cetz:0.4.2"
 
 #set text(font: "Liberation Sans")

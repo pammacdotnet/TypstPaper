@@ -1,10 +1,10 @@
 $ ∑_(α = 1)^γ α = β(β+1) / 2 $
 ${(x, 💩), (x, 🔥), (y, 💩)} \
-  A times B = {(🍷,🍺) | 🍷 in B}$
+  A times B = {(🧃,🍵) | 🧃 in B}$
 #table(
-  columns: 6,
+  columns: 5,
   gutter: 2pt,
-  stroke: 0.3pt,
-  [炬], [كتاب], [🍺], [🤡], [🍷], [🤡],
-  [#emoji.checkmark], [👻], [∆], math.arrow, emoji.alien, sym.angstrom,
+  stroke: 0.5pt,
+  [炬], [كتاب], [🍵], [🤡], [∆],
+  [#emoji.checkmark], $=>$, emoji.alien, sym.angstrom, [👻],
 )

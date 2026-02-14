@@ -1,10 +1,18 @@
-#import "@preview/ijimai:2.0.0": *
-
-#import "@preview/grayness:0.3.0": image-blur, image-darken, image-grayscale, image-huerotate, image-show
-#import "@preview/metalogo:1.2.0"
+#import "@preview/chronos:0.2.1"
 #import "@preview/codly:1.3.0": codly, codly-init, local as codly-local
 #import "@preview/codly-languages:0.1.8": codly-languages
-#import "@preview/titleize:0.1.1": string-to-titlecase
+#import "@preview/commute:0.3.0"
+#import "@preview/diagraph:0.3.6": render
+#import "@preview/gantty:0.5.1"
+#import "@preview/grayness:0.3.0": image-blur, image-darken, image-show
+#import "@preview/ijimai:2.0.0": blue-unir, blue-unir-soft, ijimai, read-raw
+#import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
+#import "@preview/mannot:0.3.1": annot, mark, markhl, markrect
+#import "@preview/metalogo:1.2.0"
+#import "@preview/pintorita:0.1.4"
+#import "@preview/physica:0.9.8": bra, crossproduct, curl, dd, dv, grad, isotope, laplacian, pdv, signals, tensor
+// Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.
+#import "@preview/typsium:0.2.0": ce
 
 #set par(justification-limits: (tracking: (min: -0.01em, max: 0.005em)))
 #show bibliography: set par(
@@ -725,7 +733,6 @@ The compilation itself follows a structured yet flexible process. First, the inp
 
 Typst's choice of Rust @Klabnik23 as its underlying programming language provides several key benefits, including high performance, memory safety, and modern tooling. Rust's efficiency allows Typst to compile documents significantly faster than traditional LaTeX systems, with benchmarks showing near-instantaneous updates after initial compilation (e.g., 200~ms for changes in a 77-page document). The language's memory safety guarantees prevent common bugs like data races, which is critical for a typesetting system handling complex document structures. Additionally, Rust's strong type system and zero-cost abstractions enable Typst to implement features like cross-platform development, including WebAssembly for browser-based tools.
 
-#import "@preview/pintorita:0.1.4"
 #show raw.where(lang: "pintora"): it => pintorita.render(it.text)
 
 
@@ -1013,51 +1020,48 @@ In addition to spacetime visualizations, Typst's #CeTZ package can be applied in
 
 Another common diagram type in math and present in some branches of theoretical physics, is the commutative one. For example, in @Giachetta09, when speaking of classical field theory on fiber bundles, the commutative diagram shown in @fig:commutative-diagram appears, and we can reproduce it using the #Commute package, a library designed to draw such diagrams.
 
-#import "@preview/commute:0.3.0": *
 
 #figure(
   placement: none,
-  commutative-diagram(
-    node-padding: (32pt, 30pt),
-    node((0, -1), $dots$, "dots_upper"),
-    node((0, 0), $cal(O)^(n-1)_infinity$, "n-1"),
-    node((0, 1), $cal(O)^(n)_infinity$, "n"),
-    node((0, 2), $cal(O)^(n+1)_infinity$, "n+1"),
-    node((0, 3), $cal(O)^(n+2)_infinity$, "n+2"),
-    node((0, 4), $dots$, "dots_upper_right"),
-    node((1, -1), $dots$, "dots_lower"),
-    node((1, 0), $cal(O)^(0, n-1)_infinity$, "0, n-1"),
-    node((1, 1), $cal(O)^(0, n)_infinity$, "0, n"),
-    node((1, 2), $bold(E)_(1)$, "E_1"),
-    node((1, 3), $bold(E)_(2)$, "E_2"),
-    node((1, 4), $dots$, "dots_lower_right"),
-    arr("dots_upper", "n-1", ""),
-    arr("n-1", "n", $d$),
-    arr("n", "n+1", $d$),
-    arr("n+1", "n+2", $d$),
-    arr("n+2", "dots_upper_right", ""),
-    arr("n-1", "0, n-1", $h_(0)$),
-    arr("n", "0, n", $h_(0)$),
-    arr("n+1", "E_1", $rho$),
-    arr("n-1", "0, n-1", $h_(0)$),
-    arr("n+2", "E_2", $h_(0)$),
-    arr("dots_lower", "0, n-1", ""),
-    arr("0, n-1", "0, n", $d_(H)$),
-    arr("0, n", "E_1", $delta$),
-    arr("E_1", "E_2", $delta$),
-    arr("E_2", "dots_lower_right", ""),
-  ),
+  {
+    import commute: *
+    commutative-diagram(
+      node-padding: (32pt, 30pt),
+      node((0, -1), $dots$, "dots_upper"),
+      node((0, 0), $cal(O)^(n-1)_infinity$, "n-1"),
+      node((0, 1), $cal(O)^(n)_infinity$, "n"),
+      node((0, 2), $cal(O)^(n+1)_infinity$, "n+1"),
+      node((0, 3), $cal(O)^(n+2)_infinity$, "n+2"),
+      node((0, 4), $dots$, "dots_upper_right"),
+      node((1, -1), $dots$, "dots_lower"),
+      node((1, 0), $cal(O)^(0, n-1)_infinity$, "0, n-1"),
+      node((1, 1), $cal(O)^(0, n)_infinity$, "0, n"),
+      node((1, 2), $bold(E)_(1)$, "E_1"),
+      node((1, 3), $bold(E)_(2)$, "E_2"),
+      node((1, 4), $dots$, "dots_lower_right"),
+      arr("dots_upper", "n-1", ""),
+      arr("n-1", "n", $d$),
+      arr("n", "n+1", $d$),
+      arr("n+1", "n+2", $d$),
+      arr("n+2", "dots_upper_right", ""),
+      arr("n-1", "0, n-1", $h_(0)$),
+      arr("n", "0, n", $h_(0)$),
+      arr("n+1", "E_1", $rho$),
+      arr("n-1", "0, n-1", $h_(0)$),
+      arr("n+2", "E_2", $h_(0)$),
+      arr("dots_lower", "0, n-1", ""),
+      arr("0, n-1", "0, n", $d_(H)$),
+      arr("0, n", "E_1", $delta$),
+      arr("E_1", "E_2", $delta$),
+      arr("E_2", "dots_lower_right", ""),
+    )
+  },
   caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex @Giachetta09],
 ) <fig:commutative-diagram>
 
 The flexibility of the #CeTZ package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop concepts in Physics and Math, not just communicate them via papers, books, etc.
 
 
-#import "@preview/physica:0.9.8": *
-#import "@preview/unify:0.7.1": add-prefix, add-unit, num, numrange, qty, qtyrange, unit
-#import "@preview/mannot:0.3.0": *
-// Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.
-#import "@preview/typsium:0.2.0": ce
 
 #let Mannot = package-link("Mannot")
 
@@ -1130,17 +1134,6 @@ Finally, #Atomic allows the drawing of electronic shells (@fig:atom).
 ) <fig:atom>
 
 
-#import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
-#import "@preview/chronos:0.2.1"
-#import "@preview/suiji:0.4.0": gen-rng-f, random-f
-#import "@preview/gantty:0.5.1": (
-  dependencies.default-dependencies-drawer, dividers,
-  dividers.default-dividers-drawer, field.default-field-drawer, gantt,
-  header.default-headers-drawer, header.default-month-header,
-  header.default-week-header, milestones.default-milestones-drawer,
-  sidebar.default-sidebar-drawer, task.default-tasks-drawer,
-)
-#import "@preview/cetz:0.3.4"
 
 
 
@@ -1182,7 +1175,6 @@ Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns ou
 ) <fig:tree>
 
 The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly inside any document by using Wasm to render them without the need for an external software like  Graphviz (@fig:cart-prod).
-#import "@preview/diagraph:0.3.6": render
 #figure(
   placement: none,
   kind: image,
@@ -1327,27 +1319,39 @@ The #eval-func function allows writing the code only once while showing both the
 #let gantt-yaml = yaml("./examples/gantt.yaml")
 #let table-style = (stroke: (paint: blue-unir))
 #let milestone-style = (stroke: (paint: green))
-#let drawer = (
-  dependencies: default-dependencies-drawer,
-  tasks: default-tasks-drawer,
-  field: default-field-drawer.with(style: table-style),
-  milestones: default-milestones-drawer.with(style: milestone-style),
-  dividers: default-dividers-drawer.with(
-    styles: (table-style, dividers.default-styles.at(1)),
-  ),
-  headers: default-headers-drawer.with(headers: (
-    default-month-header(table-style: table-style),
-    default-week-header(table-style: table-style),
-  )),
-  sidebar: default-sidebar-drawer.with(
-    formatters: (
-      x => align(left, strong(smallcaps(x.name))),
-      x => align(left, x.name),
+#let drawer = {
+  // Consider a more concise or easier way of importing default drawers
+  // https://gitlab.com/john_t/typst-gantty/-/issues/22
+  import gantty: *
+  import dependencies: *
+  import dividers: *
+  import field: *
+  import header: *
+  import milestones: *
+  import sidebar: *
+  import task: *
+  (
+    dependencies: default-dependencies-drawer,
+    tasks: default-tasks-drawer,
+    field: default-field-drawer.with(style: table-style),
+    milestones: default-milestones-drawer.with(style: milestone-style),
+    dividers: default-dividers-drawer.with(
+      styles: (table-style, dividers.default-styles.at(1)),
     ),
-    dividers: (table-style, none),
-    ..table-style,
-  ),
-)
+    headers: default-headers-drawer.with(headers: (
+      default-month-header(table-style: table-style),
+      default-week-header(table-style: table-style),
+    )),
+    sidebar: default-sidebar-drawer.with(
+      formatters: (
+        x => align(left, strong(smallcaps(x.name))),
+        x => align(left, x.name),
+      ),
+      dividers: (table-style, none),
+      ..table-style,
+    ),
+  )
+}
 
 From a management perspective, creating Gantt charts is possible with packages like #Timeliney and #Gantty (@fig:gantt), while kanban board can be created with the #Kantan package (@fig:kanban).
 
@@ -1355,7 +1359,7 @@ From a management perspective, creating Gantt charts is possible with packages l
   {
     show: scale.with(66%)
     show: pad.with(left: 1.15em, right: 0.55em, top: 0.05em)
-    gantt(gantt-yaml, drawer: drawer)
+    gantty.gantt(gantt-yaml, drawer: drawer)
   },
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>

@@ -40,7 +40,7 @@ bio = "David Gil works at the Spanish weather service (AEMET) as an IT Specialis
 [paper]
 title = "Typst: a modern typesetting engine for science"
 abstract = "Typst is a modern, markup-based document preparation system designed for producing professional documents with a strong emphasis on simplicity, performance, and powerful scripting for structured content and automated layout and styling. This paper presents a comprehensive review of the platform and its surrounding ecosystem through the systematic and comparative analysis, highlighting key features, some unique to this approach, that are relevant to both general-purpose and niche use cases. It introduces the system and compares its output and functionality with LaTeX, outlines the historical development of document technologies and the core layout and composition algorithms they rely on, and explains the language through visual examples accompanied by corresponding source code. The paper also examines the official Typst compiler and web application, as well as adoption trends and ecosystem growth. It concludes with cross-domain case studies in Physics, Math, and Computer Science, intended for beginners and readers interested in modern document workflows and systems."
-keywords = ["Typesetting system", "Incremental parsers", "Markup language", "Paper composition", "Reproducibility", "Performance"]
+keywords = ["Typesetting systems", "Incremental parsers", "Markup languages", "Paper composition", "Reproducibility", "Performance"]
 doi = "10.9781/ijimai.2026.2269"
 received-date = 2025-10-14
 accepted-date = 2026-02-02

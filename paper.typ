@@ -104,6 +104,13 @@
   it
 }
 
+// Make text in table header bold. Only applied to first table row.
+// Using a global show rule will affect other figures.
+#let bold-header(table) = {
+  show std.table.cell.where(y: 0): strong
+  table
+}
+
 // Both looks good/correct only with bold font.
 // Buenard font for some reason makes text jump high, hence the `baseline` fix.
 // See https://github.com/typst/typst/issues/6769.
@@ -314,14 +321,14 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
 }
 #figure(
   caption: [Main differences between LaTeX and Typst],
-  unjustify(feature(table(
+  unjustify(feature(bold-header(table(
     columns: (1.01fr, 2fr, 2fr),
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
     inset: 4.8pt,
     stroke: 0.1mm,
-    table.header(..([Feature], LaTeX, typst).map(strong)),
+    table.header([Feature], LaTeX, typst),
     table.hline(stroke: 1pt),
     [Syntax],
     [Command-based (`\command{arg}`)],
@@ -358,7 +365,7 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [Deploy], [Can be initially heavy (\~5 GiB) for most distros], [Starts with a single binary (\~45 MiB)],
     // Current minimal Universe distribution is around 442 MiB.
     // While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html).
-  ))),
+  )))),
 ) <tab:diffs>
 
 = State of the art <sec:art>
@@ -371,38 +378,41 @@ These setups rely on compiling source text into formatted output like PDF, separ
 
 Additionally, avoiding formatting issues like _widows_ (the last line of a paragraph stranded at the top of a page) and _orphans_ (the first line of a paragraph left alone at the bottom of a page) is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
-#figure(caption: [Most important typesetting algorithms], unjustify(table(
-  columns: (1fr, 2fr, 2fr),
-  align: horizon,
-  stroke: 0.1mm,
-  table.header(..([Challenge], [Description], [Algorithm/Approach]).map(strong)),
-  table.hline(stroke: 1pt),
-  [Paragraph breaking],
-  [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
-  [Knuth-Plass line breaking algorithm @Hassan15.],
-  [Justification],
-  [Lines align evenly at margins],
-  [Spacing adjustments with the Knuth-Plass @Knuth81],
-  [Grid Layout],
-  [Optimal space for rows/columns in grids],
-  [Constraint-based layout calculation @Feiner98],
-  [Page Breaking],
-  [Page division while respecting layout],
-  [Greedy + backtracking algorithms @Plass81],
-  [Glyph Selection],
-  [Correct glyphs depending on context],
-  [Font shaping and context-sensitive glyphs @Rougier18],
-  [Bidirectional Text],
-  [Mixing LTR and RTL scripts],
-  [Unicode Bidirectional Algorithm @Toledo01],
-  [Incremental Layout],
-  [Reusing layout computations after small edits],
-  [Constraint-based layout cache/region reuse @Fisher91],
-  [Styling], [Consistent styles], [Programmable layouts],
-  [Unicode],
-  justify[Modern scripts, ligatures, and grapheme clusters],
-  [Shaping and grapheme line breaking @Elkhayati2022],
-))) <tab:typesetting>
+#figure(
+  caption: [Most important typesetting algorithms],
+  unjustify(bold-header(table(
+    columns: (1fr, 2fr, 2fr),
+    align: horizon,
+    stroke: 0.1mm,
+    table.header[Challenge][Description][Algorithm/Approach],
+    table.hline(stroke: 1pt),
+    [Paragraph breaking],
+    [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
+    [Knuth-Plass line breaking algorithm @Hassan15.],
+    [Justification],
+    [Lines align evenly at margins],
+    [Spacing adjustments with the Knuth-Plass @Knuth81],
+    [Grid Layout],
+    [Optimal space for rows/columns in grids],
+    [Constraint-based layout calculation @Feiner98],
+    [Page Breaking],
+    [Page division while respecting layout],
+    [Greedy + backtracking algorithms @Plass81],
+    [Glyph Selection],
+    [Correct glyphs depending on context],
+    [Font shaping and context-sensitive glyphs @Rougier18],
+    [Bidirectional Text],
+    [Mixing LTR and RTL scripts],
+    [Unicode Bidirectional Algorithm @Toledo01],
+    [Incremental Layout],
+    [Reusing layout computations after small edits],
+    [Constraint-based layout cache/region reuse @Fisher91],
+    [Styling], [Consistent styles], [Programmable layouts],
+    [Unicode],
+    justify[Modern scripts, ligatures, and grapheme clusters],
+    [Shaping and grapheme line breaking @Elkhayati2022],
+  ))),
+) <tab:typesetting>
 
 Historically, the development of markup-oriented systems began in the 1960s with tools like Runoff, and evolved significantly with programs like Troff @Barron87 and TeX. Troff brought enhanced typographic features to Unix environments, while TeX revolutionized typesetting with its advanced paragraph layout algorithms and extensible macro system. LaTeX, built on top of TeX, pushed the concept further by introducing _descriptive markup_, where authors focus on the logical structure of content rather than its appearance. Parallel to this, systems like GML, SGML, and eventually HTML and XML developed the idea of defining structure through custom tags @Derose97, with SGML forming the basis for later web standards. Over time (@fig:mlevolution), styling systems like CSS and XSL emerged to handle the transformation of structured content into presentational formats @Cole00. Yet, limitations persisted, such as verbosity in XML and complexity in LaTeX customization.
 
@@ -483,17 +493,17 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
     set raw(lang: "typ")
     show raw: set text(0.95em)
     show "...": sym.dots
-    table(
+    bold-header(table(
       columns: (0.55fr, 1.5fr, 1.7fr),
       inset: 5pt,
       align: left,
       stroke: 0.1mm,
-      table.header([*Mode*], [*Syntax*], [*Example*]),
+      table.header[Mode][Syntax][Example],
 
       [Code], [Prefix code with `#`], `Number: #(1 + 2)`,
       [Math], [Surround math with `$...$`], `$-x$ is the opposite of $x$`,
       [Markup], [Put markup in `[...]`], `#let name = [*Typst!*]`,
-    )
+    ))
   },
 ) <tab:modes>
 
@@ -945,11 +955,11 @@ Typst Universe #footnote[http://typst.app/universe] is an online platform that o
 #figure(
   placement: none,
   caption: [Some of the most reputed packages in Typst Universe],
-  table(
+  bold-header(table(
     columns: (0.9fr, 4fr),
     align: (right, left),
     stroke: 0.1mm,
-    table.header([*Package*], [*Description*]),
+    table.header[Package][Description],
     table.hline(),
     Touying,
     [A powerful package for creating presentation slides.],
@@ -963,7 +973,7 @@ Typst Universe #footnote[http://typst.app/universe] is an online platform that o
     [Template for problem sets, homework, or assignments.],
     Quill,
     [#Quill is a package for quantum circuit diagrams.],
-  ),
+  )),
 ) <tab:packages>
 
 = Application of Typst for theoretical Physics <sec:theophys>
@@ -1134,7 +1144,7 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
   kind: image,
   align(horizon, grid(
     columns: 2,
-    table(
+    bold-header(table(
       columns: 2,
       table.header[$A$][$B$],
       [🛼], [💧],
@@ -1142,7 +1152,7 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
       [🐬], [🪼],
       [🩵], [🪼],
       [], [🥶],
-    ),
+    )),
     render(read("./examples/cartesian_product.dot"), width: 98%),
   )),
   caption: [Diagram of a Cartesian product of two emoji sets created with Wasm, Graphviz and the #Diagraph package],
@@ -1319,7 +1329,7 @@ From a management perspective, creating Gantt charts is possible with packages l
     set align(left)
     set par(justify: false)
     // @typstyle off
-    kanban(
+    bold-header(kanban(
       width: 97%,
       font-size: 0.56em,
       font: "Liberation Sans",
@@ -1351,7 +1361,7 @@ From a management perspective, creating Gantt charts is possible with packages l
         kanban-item(stroke: rgb("#FF007F"))[25][medium][Chris][Database migration],
         kanban-item(stroke: rgb("#33FF57"))[1][low][Arthur]["About Us" page mockup],
       ),
-    )
+    ))
   },
   kind: image,
   caption: [Example of a kanban board made with the #Kantan package],

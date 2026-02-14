@@ -10,7 +10,10 @@
 #import "@preview/mannot:0.3.1": annot, mark, markhl, markrect
 #import "@preview/metalogo:1.2.0"
 #import "@preview/pintorita:0.1.4"
-#import "@preview/physica:0.9.8": bra, crossproduct, curl, dd, dv, grad, isotope, laplacian, pdv, signals, tensor
+#import "@preview/physica:0.9.8": (
+  bra, crossproduct, curl, dd, dv, grad, isotope, laplacian, pdv, signals,
+  tensor,
+)
 // Wait for https://github.com/aargar1/atomic/pull/3 in Typst Universe.
 #import "@preview/typsium:0.2.0": ce
 
@@ -268,7 +271,8 @@ Typst and LaTeX @Knuth86 @Lamport94 are both markup-based typesetting systems (w
   grid(
     columns: (1fr, 1.323fr),
     gutter: 0.28em,
-    raw-size(1.087em, code-block(affine-typst)), raw-size(1.08em, code-block(affine-latex)),
+    raw-size(1.087em, code-block(affine-typst)),
+    raw-size(1.08em, code-block(affine-latex)),
   ),
 ) <fig:LaTeXvTypst>
 
@@ -362,7 +366,9 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
     [Very package-dependent (#Listings, #Minted, etc.)],
     [Own native support for code blocks (#raw-size(0.98em, `#raw(code)`))],
     [Citations], [Managed externally], [Built-in (also Hayagriva)],
-    [Deploy], [Can be initially heavy (\~5 GiB) for most distros], [Starts with a single binary (\~45 MiB)],
+    [Deploy],
+    [Can be initially heavy (\~5 GiB) for most distros],
+    [Starts with a single binary (\~45 MiB)],
     // Current minimal Universe distribution is around 442 MiB.
     // While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html).
   )))),
@@ -476,7 +482,10 @@ Other current WebAssembly-grounded integration solutions for computational docum
 // Nested code block highlighting is not support:
 // https://github.com/typst/typst/issues/2844
 #figure(
-  no-lang(raw-size(0.91em, code-grid("./examples/diagraph.typ", left-column: 1.7fr))),
+  no-lang(raw-size(0.91em, code-grid(
+    "./examples/diagraph.typ",
+    left-column: 1.7fr,
+  ))),
   caption: [Example of a Graphviz diagram, rendered natively with Wasm],
   kind: image,
 ) <fig:dot>
@@ -510,7 +519,10 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
 All this content is written in Unicode @Bettels93. Typst has embraced this computing standard as a first-class citizen (@fig:math-unicode), making it much more modern and intuitive than traditional typesetting systems.
 
 #figure(
-  raw-size(0.96em, code-grid("./examples/unicode_math.typ", left-column: 1.73fr)),
+  raw-size(0.96em, code-grid(
+    "./examples/unicode_math.typ",
+    left-column: 1.73fr,
+  )),
   caption: [Illustration of Unicode use in Typst for text and math.],
   kind: image,
   placement: none,
@@ -631,7 +643,10 @@ The module also allows for the inclusion of images (both raster and vector) and 
 
 #figure(
   placement: none,
-  no-lang(raw-size(0.91em, code-grid("./examples/chess.typ", left-column: 1.8fr))),
+  no-lang(raw-size(0.91em, code-grid(
+    "./examples/chess.typ",
+    left-column: 1.8fr,
+  ))),
   caption: [Chessboard tiled pattern (with the board-n-pieces package)],
   kind: image,
 ) <fig:chess>
@@ -808,7 +823,9 @@ The #Grayness package allows the application of complex image manipulation algor
   grid(
     columns: 3,
     gutter: 2pt,
-    image-show(data), image-blur(data, sigma: 20), image-darken(data, amount: 0.4),
+    image-show(data),
+    image-blur(data, sigma: 20),
+    image-darken(data, amount: 0.4),
   ),
 ) <fig:mileva>
 
@@ -849,9 +866,15 @@ Typst integrates seamlessly with existing integrated development environments (I
       let link = link(url, box(width: width, height: height))
       place(top + left, dx: dx, dy: dy, link)
     }
-    place-link(21.7%, 34.8%, 44.5% * s, 0.75% * s, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
-    place-link(18.2%, 92.4%, 28.9% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Mora_(linguistics)")
-    place-link(18.2%, 94.7%, 34.2% * s, 0.55% * s, "https://en.wikipedia.org/wiki/Romanization_of_Japanese")
+    place-link.with(21.7%, 34.8%, 44.5% * s, 0.75% * s)(
+      "https://en.wikipedia.org/wiki/Mora_(linguistics)",
+    )
+    place-link.with(18.2%, 92.4%, 28.9% * s, 0.55% * s)(
+      "https://en.wikipedia.org/wiki/Mora_(linguistics)",
+    )
+    place-link.with(18.2%, 94.7%, 34.2% * s, 0.55% * s)(
+      "https://en.wikipedia.org/wiki/Romanization_of_Japanese",
+    )
   }),
   kind: image,
   caption: [Creation of a document in #VSCodium with #Tinymist extension (the links in the figure are interactive via the #place-func and #link-func functions)],
@@ -870,7 +893,9 @@ Supporting many image formats is convenient but increases compiler size because 
 #let interactive-forms = issue(1765)[interactive forms]
 #let runaround = issue(5181)[runaround]
 #let vertical-writing = issue(5908)[vertical writing]
-#let some-other-East-Asian-layout-features = issue(193)[some other East-Asian layout features]
+#let some-other-East-Asian-layout-features = {
+  issue(193)[some other East-Asian layout features]
+}
 #let line-height = issue(4224)[line-height]
 #let resetting-show-set-rules = issue(420)[resetting show/set rules]
 
@@ -937,7 +962,8 @@ Finally, although not its intention, the online service typst.app can also be us
     columns: (1fr, 1fr),
     column-gutter: 2pt,
     gutter: 5pt,
-    image("./assets/ieee.jpg", width: image-width), image("./assets/mdpi.jpg", width: image-width),
+    image("./assets/ieee.jpg", width: image-width),
+    image("./assets/mdpi.jpg", width: image-width),
   ),
 ) <fig:papers>
 
@@ -1181,10 +1207,11 @@ A prominent part of Computer Science is software and software engineering. For t
 #figure(
   text(font: "Liberation Sans", chronos.diagram(width: 59%, {
     import chronos: *
-    _par("a", display-name: "alice", show-bottom: false, color: blue-unir-soft)
-    _par("b", display-name: "bob", show-bottom: false, color: blue-unir-soft)
-    _par("c", display-name: "charlie", show-bottom: false, color: blue-unir-soft)
-    _par("d", display-name: "derek", show-bottom: false, color: blue-unir-soft)
+    let par = _par.with(show-bottom: false, color: blue-unir-soft)
+    par("a", display-name: "alice")
+    par("b", display-name: "bob")
+    par("c", display-name: "charlie")
+    par("d", display-name: "derek")
     let style = (lifeline-style: (fill: blue-unir))
     _seq("a", "b", comment: "hello", enable-dst: true)
     _seq("b", "b", comment: "self call", enable-dst: true)

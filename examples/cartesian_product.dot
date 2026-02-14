@@ -20,7 +20,7 @@ digraph MyGraph {
         🪼 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
         🩵 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
       }
-      
+
       🐬 -> 🪼
       🛼 -> 💧
       🦋 -> 🪼

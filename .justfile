@@ -1,6 +1,7 @@
 PRE_COMMIT_SCRIPT := "\
 #!/bin/sh
 set -eu
+just format --check
 just check-missing-references
 just check-package-links
 "
@@ -25,6 +26,23 @@ compile-from-pdf paper="paper.pdf":
 
 watch: slide
   {{typst}} watch --ignore-system-fonts --font-path fonts paper.typ
+
+# Spaces and quotes in file names are not supported.
+# These files use special formatting to make examples shorter and more readable.
+do-not-format := "
+atom.typ
+cetz-plot.typ
+unicode_math.typ
+"
+
+alias f := format
+format mode="--inplace":
+  find examples \
+    -name "*.typ" \
+    $(printf "! -name %s " $(echo "{{do-not-format}}")) \
+    -exec typstyle '{{mode}}' '{}' \;
+  typstyle '{{mode}}' *.typ
+  typstyle '{{mode}}' --wrap-text assets
 
 # Fails if any figure or table is not referenced at least once.
 # Requires poppler-utils package.

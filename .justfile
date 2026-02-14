@@ -6,24 +6,22 @@ just check-missing-references
 just check-package-links
 "
 
-alias c := compile
-alias pdf := compile-from-pdf
-alias w := watch
-alias init := pre-commit
-
 # Automatically use local (Git version) binary over global (release version)
 # one, if present. Typst's version 0.14.0-rc1 or above is REQUIRED. The web app
 # already has such version.
 typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
+alias c := compile
 compile: slide
   {{typst}} compile --ignore-system-fonts --font-path fonts paper.typ
 
+alias pdf := compile-from-pdf
 compile-from-pdf paper="paper.pdf":
   pdfdetach -list '{{paper}}' | sed -E 's/^[0-9]+: //' | xargs -I{} dirname '{}' | grep -vxF . | sort | uniq | xargs -I{} mkdir -p '{}'
   pdfdetach -saveall '{{paper}}'
   just compile
 
+alias w := watch
 watch: slide
   {{typst}} watch --ignore-system-fonts --font-path fonts paper.typ
 
@@ -54,6 +52,7 @@ check-package-links:
   sh ./scripts/check_unused_package_links.sh paper.typ
   sh ./scripts/check_duplicate_package_link_definitions.sh paper.typ
 
+alias init := pre-commit
 # Initialize the pre-commit Git hook, overriding (potentially) existing one.
 pre-commit:
   printf '%s' '{{PRE_COMMIT_SCRIPT}}' > .git/hooks/pre-commit

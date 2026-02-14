@@ -1,4 +1,3 @@
-
 [[authors]]
 name = "Andrey Voynov"
 photo = "andrey.jpg"
@@ -17,9 +16,6 @@ orcid = "0000-0002-7282-4557"
 institution = "Universidad Internacional de La Rioja (UNIR), Av. de la Paz, 137, Logroño, La Rioja (Spain)"
 credit = ["software", "conceptualization", "writing-original-draft", "project-administration", "supervision"]
 bio = "Alberto Corbi is a tenured professor at the Universidad Internacional de La Rioja (UNIR). He is currently involved in a variety of research fields: e-learning standards, systems interoperability, medical physics, radiological protection, STEAM education, the social implications of technology (with emphasis on social networks), e-health advancement. He has published over 20 research papers on all these subjects, and he is a speaker and knowledge disseminator on radios, podcasts, scientific workshops, magazines, academic settings, and outreach events."
-
-
-
 
 [[authors]]
 name = "Pau López-Oliver"

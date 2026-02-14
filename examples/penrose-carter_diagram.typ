@@ -1,5 +1,5 @@
 #import "@preview/ijimai:2.0.0": blue-unir
-#import "@preview/cetz:0.3.4": *
+#import "@preview/cetz:0.4.2": *
 
 #canvas(length: 2cm, {
   import draw: content, line

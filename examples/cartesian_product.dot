@@ -1,28 +1,28 @@
 digraph MyGraph {
+  subgraph cluster_a {
+    fontsize = 14
+    label="A"
+    style = "filled, rounded"
+    color=AliceBlue
+    🛼 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🐬 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🦋 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🩵 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+  }
 
-      subgraph cluster_a {
-        fontsize = 14
-        label="A"
-        style = "filled, rounded"
-        color=AliceBlue
-        🛼 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🐬 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🦋 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🩵 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-      }
-     subgraph cluster_b {
-        label="B"
-        fontsize = 14
-        style = "filled, rounded"
-        color=PowderBlue
-        💧 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🥶 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🪼 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-        🩵 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled ]
-      }
+  subgraph cluster_b {
+    label="B"
+    fontsize = 14
+    style = "filled, rounded"
+    color=PowderBlue
+    💧 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🥶 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🪼 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+    🩵 [margin=0 shape=oval fontsize="20" fillcolor=white style=filled]
+  }
 
-      🐬 -> 🪼
-      🛼 -> 💧
-      🦋 -> 🪼
-      🩵 -> 🪼
-    }
+  🐬 -> 🪼
+  🛼 -> 💧
+  🦋 -> 🪼
+  🩵 -> 🪼
+}

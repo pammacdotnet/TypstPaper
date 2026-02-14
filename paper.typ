@@ -22,15 +22,15 @@
   justification-limits: (tracking: (min: -0.025em, max: 0em)),
 )
 
-#let config = toml("paper.toml")
 #show: ijimai.with(
-  config: config,
+  config: toml("paper.toml"),
   bibliography: "bibliography.yaml",
   read: path => read-raw(path),
 )
 
 #set document(
-  description: "The paper is available at https://github.com/pammacdotnet/TypstPaper.",
+  description: [The paper source code is available at
+    https://github.com/pammacdotnet/TypstPaper.],
 )
 #set text(fallback: false, font: (
   "Libertinus Serif",
@@ -1177,7 +1177,7 @@ The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly 
       [🦋], [🪼],
       [🐬], [🪼],
       [🩵], [🪼],
-      [], [🥶],
+      none, [🥶],
     )),
     render(read("./examples/cartesian_product.dot"), width: 98%),
   )),
@@ -1345,7 +1345,7 @@ From a management perspective, creating Gantt charts is possible with packages l
 #figure(
   {
     show: scale.with(66%)
-    show: pad.with(left: 1.15em, right: 0.55em, top: 0.05em)
+    show: pad.with(left: 1.15em, right: 0.55em)
     gantty.gantt(gantt-yaml, drawer: drawer)
   },
   caption: [Example of a Gantt chart designed with the #Gantty package],

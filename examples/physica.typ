@@ -2,7 +2,7 @@
 $
   curl (grad f), tensor(T, -mu, +nu), pdv(f, x, y, [1,2]) \
   H(f) = hmat(f; x, y; delim: "[", big: #true) \
-  arrow.l quad arrow.long quad chevron.l.double \
+  arrow.l quad arrow.long quad chevron.l.double quad ✠ \
   arrow.r quad arrow.l.long.squiggly
 $
 The Ehrenfest theorem is:

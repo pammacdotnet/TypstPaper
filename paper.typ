@@ -29,8 +29,7 @@
 )
 
 #set document(
-  description: [The paper source code is available at
-    https://github.com/pammacdotnet/TypstPaper.],
+  description: [The paper source code is available at https://github.com/pammacdotnet/TypstPaper and https://typst.app/project/rCbyFps722cFtqa8mf84oT.],
 )
 #set text(fallback: false, font: (
   "Libertinus Serif",

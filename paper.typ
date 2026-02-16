@@ -5,7 +5,7 @@
 #import "@preview/diagraph:0.3.6": render
 #import "@preview/gantty:0.5.1"
 #import "@preview/grayness:0.3.0": image-blur, image-darken, image-show
-#import "@preview/ijimai:2.0.0": blue-unir, blue-unir-soft, ijimai, read-raw
+#import "@preview/ijimai:3.0.0": blue-unir, blue-unir-soft, ijimai, read-raw
 #import "@preview/kantan:0.1.0": kanban, kanban-column, kanban-item
 #import "@preview/mannot:0.3.1": annot, mark, markhl, markrect
 #import "@preview/metalogo:1.2.0"

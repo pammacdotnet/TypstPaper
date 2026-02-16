@@ -1,4 +1,4 @@
-#import "@preview/ijimai:2.0.0": blue-unir
+#import "@preview/ijimai:3.0.0": blue-unir
 #import "@preview/matofletcher:0.1.1": *
 
 #diagram(

@@ -413,8 +413,10 @@ Dynamic content generation is a crucial feature of modern markup languages and t
 #let RMarkdown = link("https://rmarkdown.rstudio.com")[RMarkdown]
 #let jupyter-notebook-url = "https://jupyter.org"
 #let Jupyter-Notebook = link(jupyter-notebook-url)[Jupyter Notebook]
+#let Knitr = link("https://yihui.org/knitr/")[Knitr]
+#let Sweave = link("https://en.wikipedia.org/wiki/Sweave")[Sweave]
 
-Knitr @Xie18, Sweave @Leisch02, and similar computational document applications, such as #RMarkdown @Baumer15 and #Jupyter-Notebook #footnote(link(jupyter-notebook-url)), integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
+#Knitr @Xie18, #Sweave @Leisch02, and similar computational document applications, such as #RMarkdown @Baumer15 and #Jupyter-Notebook #footnote(link(jupyter-notebook-url)), integrate code execution with document authoring, allowing authors to embed live code chunks that produce figures, tables, and statistical results within a narrative. These systems are particularly prevalent in data science and scientific writing, where reproducibility is crucial. Built on top of LaTeX or Markdown, they provide a powerful, albeit often complex, workflow that couples typesetting with dynamic content generation.
 
 #let pyrunner-footnote = footnote(link(universe-url("pyrunner")))
 #let neoplot-footnote = footnote(link(universe-url("neoplot")))
@@ -584,7 +586,7 @@ Beyond basic syntax, Typst allows for advanced customization of mathematical exp
 ) <fig:physica>
 
 Besides, the Typst Universe (@sec:universe) site hosts a variety of math-related packages to enhance mathematical typesetting:
-/ #Quick-Maths: package  allows users to define custom shorthands for complex expressions, streamlining the writing process.
+/ #Quick-Maths: package allows users to define custom shorthands for complex expressions, streamlining the writing process.
 / #Great-Theorems: provides structured environments for theorems, lemmas, and proofs with customizable styling and numbering.
 / #Game-Theoryst: facilitates the typesetting of payoff matrices.
 / #Physica: offers tools for scientific and engineering mathematics, including matrix operations and vector calculus (@fig:physica).
@@ -648,7 +650,7 @@ On the other hand, #CeTZ-Plot extends the #CeTZ drawing library, offering functi
 #let at = text(typst-cyan, `@`)
 
 == Bibliographic references
-Typst offers integrated support for bibliographic references. It allows authors to include citations in their documents using the #cite function or the `@key` notation. The #at syntax allows to reference not only entries from bibliography files, but also figures, headings, equations, and footnotes.
+Typst offers integrated support for bibliographic references. It allows authors to include citations in their documents using the #cite function or the `@key` notation. The #at syntax allows referencing not only entries from bibliography files, but also figures, headings, equations, and footnotes.
 
 #figure(
   caption: [Sample of a BibLaTeX entry and its Hayagriva equivalent for @Corbi23],
@@ -884,6 +886,7 @@ Typst has notable limitations. Compilation time and RAM scale with document size
 
 #let notion-url = "https://www.notion.com"
 #let Notion = link(notion-url)[Notion]
+#let typst-app = link("https://typst.app")[typst.app]
 
 #set raw(lang: "typc")
 
@@ -892,7 +895,7 @@ The shift to cloud is transforming content creation and academic work. Platforms
 
 #figure(
   frame-round(image("./assets/web_app.jpg")),
-  caption: [Screenshot of the typst.app web application (online editor)],
+  caption: [Screenshot of the #typst-app web application (online editor)],
 ) <fig:typstapp>
 
 #let Papeeria = link("https://papeeria.com")[Papeeria]
@@ -908,7 +911,7 @@ The development team is actively working on improvements, including better mobil
 
 #let Soviet-Matrix = package-link("Soviet-Matrix")
 
-Because of Typst's high compilation speeds and instant preview, the web app can even support interactive games, such as a fully functional Tetris. It is published as the  #Soviet-Matrix package.
+Because of Typst's high compilation speeds and instant preview, the web app can even support interactive games, such as a fully functional Tetris. It is published as the #Soviet-Matrix package.
 
 #let repository = link("https://github.com/typst/typst")[repository]
 #let businesses = (
@@ -927,7 +930,7 @@ During the period 2020--2025, Typst evolved from a niche LaTeX alternative into 
 #let hal-url = "https://hal.science"
 #let HAL = link(hal-url)[HAL]
 
-Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like #arXiv #footnote(link(arxiv-url)) and #HAL #footnote(link(hal-url)) play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work before peer review, enabling quick access to new ideas. The number of Typst-based articles on arXiv is growing, with \~100 research preprints accumulated so far (after analyzing the Computer Science category from 2023 to 2025).
+Finally, although not its intention, the online service #typst-app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like #arXiv #footnote(link(arxiv-url)) and #HAL #footnote(link(hal-url)) play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work before peer review, enabling quick access to new ideas. The number of Typst-based articles on arXiv is growing, with \~100 research preprints accumulated so far (after analyzing the Computer Science category from 2023 to 2025).
 
 #figure(
   caption: [Some Typst-based journal templates already qualified to be used for editorial purposes: _Institute of Electrical and Electronics Engineers_ #footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_ #footnote[https://mdpi.com]],
@@ -1035,7 +1038,7 @@ Another common diagram type in Math and present in some branches of Theoretical 
   caption: [Cochain morphism of the de Rham complex of the differential graded algebra $cal(O)^(*)_infinity$ of all exterior forms on finite order jet manifolds (modulo pull-back identification) to its variational complex],
 ) <fig:commutative-diagram>
 
-The flexibility of the #CeTZ package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop complex concepts around Physics, Cosmology and Mathematics, not just communicate them via papers, books, etc.
+The flexibility of the #CeTZ package enables the creation of a wide range of diagrams, while many other packages specialize in convenience and ease of use. Moreover, the near real-time output preview, intuitive syntax and possibility of collaboration enable Typst to be used as a tool to develop complex concepts around Physics, Cosmology, and Mathematics, not just communicate them via papers, books, etc.
 
 #let Mannot = package-link("Mannot")
 
@@ -1075,7 +1078,7 @@ The didactic layout can be fine-tuned with fully customizable annotations. The r
 }
 
 == Physics and Chemistry
-Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica (@fig:physica) make it  straightforward. #Physica provides concise, compact, and semantically meaningful commands for advanced mathematical notation, ranging from linear spaces/algebra to tensor and quantum-mechanical expressions. For vector calculus, #Grad, #Curl, and #Div or #Laplacian can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
+Scientific typesetting can be cumbersome, but packages like the aforementioned #Physica (@fig:physica) make it straightforward. #Physica provides concise, compact, and semantically meaningful commands for advanced mathematical notation, ranging from linear spaces/algebra to tensor and quantum-mechanical expressions. For vector calculus, #Grad, #Curl, and #Div or #Laplacian can be used: $curl f$, $div arrow(v)$, $grad phi$, $laplacian u$. With specific commands for differentials and derivatives, first-order, mixed partials, and higher orders are automatically formatted. For instance, the code `$dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2)$` renders as: $ dd(x), dv(T, t), pdv(P, x), pdv(rho, y, 2). $
 
 Using tensor and quantum notations is also an effortless task with #Physica. For instance: `$tensor(h, +mu, +nu)$` will be presented as $tensor(h, +mu, +nu)$, and `$bra(u)$` will be shown as $bra(u)$. There is even a way to visualize digital signals with convenient built-in procedures (@fig:signals).
 
@@ -1139,7 +1142,7 @@ Also, the #Matofletcher package (an abstraction over the #Fletcher one) turns ou
   caption: [Example of a tree diagram created with #CeTZ's tree library],
 ) <fig:tree>
 
-The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly inside any document by using Wasm to render them without the need for an external software like  Graphviz (@fig:cart-prod).
+The #Diagraph package enables the inclusion of DOT diagrams @Gansner09 directly inside any document by using Wasm to render them without the need for an external software like Graphviz (@fig:cart-prod).
 
 #figure(
   placement: none,

@@ -12,8 +12,8 @@ just check-package-links
 typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
 alias c := compile
-compile: slide
-  {{typst}} compile --ignore-system-fonts --font-path fonts paper.typ
+compile *args: slide
+  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} paper.typ
 
 alias pdf := compile-from-pdf
 compile-from-pdf paper="paper.pdf":
@@ -65,30 +65,42 @@ pre-commit:
 alias s := slide
 alias sw := slide-watch
 
-slide:
-  {{typst}} compile --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
+slide *args:
+  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/slide/slide.typ
 
 slide-watch:
   {{typst}} watch --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
 
+additional-files := "
+.justfile
+README.md
+assets/vscodium_screenshot_source/pronunciation/main.typ
+"
+
 # Produce code to embed all the source code in the paper to make it reproducible.
-# Requires fd, wl-clipboard packages.
+# Requires: numfmt
 pdf-attach:
   #!/bin/sh
   set -eu
-  files=$(fd -e md -e typ -e latex -e csv -e dot -e yaml -e toml -e jpg -e png)
-  sorted=$(
-    echo "$files" | grep / | sort -f
-    echo ".justfile"
-    echo "$files" | grep -v / | sort -f
-  )
-  lines=$(echo "$sorted" | sed 's/.*/  "&",/')
-  cat << EOF | wl-copy -n
+  command -v numfmt > /dev/null
+  get_size() { just compile && du -b paper.pdf | cut -f 1; }
+  format() { numfmt --to=iec-i --suffix=B --format='%.2f' --unit-separator=' '; }
+  printf '' > files.typ
+  without_files=$(get_size)
+  deps=$(just compile --deps - && just slide --deps -)
+  files=$(echo "$deps" | grep -Eo '"[^"]+"' | grep -ve '\.pdf"$' -e '^"/' -e '"inputs"')
+  additional_files=$(echo '{{additional-files}}' | sed '/^$/d;s/.*/"&"/')
+  lines=$({ echo "$files" && echo "$additional_files"; } | sort | sed 's/.*/  &,/')
+  cat << EOF > files.typ
   #let files = (
   $lines
   )
   #files.map(pdf.attach).join()
   EOF
+  with_files=$(get_size)
+  diff=$(echo "$((with_files - without_files))" | format)
+  line=$(sed -n '/#include "files.typ"/=' paper.typ)
+  sed -i "$((line - 1))c// +$diff" paper.typ
 
 # Check for "'" contractions.
 # Requires rg package.

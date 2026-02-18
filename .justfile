@@ -6,6 +6,8 @@ just check-missing-references
 just check-package-links
 "
 
+export TYPST_IGNORE_SYSTEM_FONTS := "true"
+export TYPST_FONT_PATHS := "fonts"
 export TYPST_FEATURES := "a11y-extras"
 
 # Automatically use local (Git version) binary over global (release version)
@@ -15,7 +17,7 @@ typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
 alias c := compile
 compile *args: slide ieee mdpi
-  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} paper.typ
+  {{typst}} compile {{args}} paper.typ
 
 alias pdf := compile-from-pdf
 compile-from-pdf paper="paper.pdf":
@@ -25,7 +27,7 @@ compile-from-pdf paper="paper.pdf":
 
 alias w := watch
 watch: slide ieee mdpi
-  {{typst}} watch --ignore-system-fonts --font-path fonts paper.typ
+  {{typst}} watch paper.typ
 
 # Spaces and quotes in file names are not supported.
 # These files use special formatting to make examples shorter and more readable.
@@ -68,16 +70,16 @@ alias s := slide
 alias sw := slide-watch
 
 slide *args:
-  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/slide/slide.typ
+  {{typst}} compile {{args}} ./examples/slide/slide.typ
 
 slide-watch:
-  {{typst}} watch --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
+  {{typst}} watch ./examples/slide/slide.typ
 
 ieee *args:
-  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/ieee/main.typ
+  {{typst}} compile {{args}} ./examples/ieee/main.typ
 
 mdpi *args:
-  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/mdpi/main.typ
+  {{typst}} compile {{args}} ./examples/mdpi/main.typ
 
 additional-files := "
 .justfile

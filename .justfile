@@ -6,6 +6,8 @@ just check-missing-references
 just check-package-links
 "
 
+export TYPST_FEATURES := "a11y-extras"
+
 # Automatically use local (Git version) binary over global (release version)
 # one, if present. Typst's version 0.14.0-rc1 or above is REQUIRED. The web app
 # already has such version.
@@ -101,7 +103,7 @@ pdf-attach:
   #let files = (
   $lines
   )
-  #files.map(pdf.attach).join()
+  #files.map(pdf.attach.with(description: "source file")).join()
   EOF
   with_files=$(get_size)
   diff=$(echo "$((with_files - without_files))" | format)

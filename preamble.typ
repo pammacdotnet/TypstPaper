@@ -229,3 +229,6 @@
 }
 
 #let mathbf(input) = $upright(bold(input))$
+
+#let row-header = pdf.header-cell.with(scope: "row")
+#let both-header = pdf.header-cell.with(scope: "both")

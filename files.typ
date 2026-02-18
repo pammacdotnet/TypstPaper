@@ -42,4 +42,4 @@
   "photos/pau.jpg",
   "preamble.typ",
 )
-#files.map(pdf.attach).join()
+#files.map(pdf.attach.with(description: "source file")).join()

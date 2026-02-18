@@ -113,55 +113,58 @@ Regarding the operating procedure, unlike LaTeX, Typst does not require boilerpl
   }
   table
 }
+#let table-summary = pdf.table-summary.with(
+  summary: "The first column names a feature. The last two columns describe the given feature for each system.",
+)
 #figure(
   caption: [Main differences between LaTeX and Typst],
-  unjustify(hyphenate: false, feature(bold-header(table(
+  unjustify(hyphenate: false, feature(bold-header(table-summary(table(
     columns: (1.01fr, 2fr, 2fr),
     align: (x, y) => {
       if y == 0 { center + horizon } else if x == 0 { auto } else { left }
     },
     inset: 4.8pt,
     stroke: 0.1mm,
-    table.header([Feature], LaTeX, typst),
+    table.header(both-header[Feature], LaTeX, typst),
     table.hline(stroke: 1pt),
-    [Syntax],
+    row-header[Syntax],
     [Command-based (`\command{arg}`)],
     [Markdown-inspired (#box[`= Heading`], `_italic_`) + code mode (`#func()`)],
-    [Math Mode],
+    row-header[Math Mode],
     [`$...$` or `\[...\]`, verbose (`\frac{}{}`)],
     [`$...$`, concise (auto-fractions, variants, etc.)],
-    [Headings],
+    row-header[Headings],
     raw-size(0.93em)[`\section{}`, `\subsection{}`],
     raw-size(0.93em)[`= Heading`, `== Subheading`],
-    [Lists],
+    row-header[Lists],
     [`itemize`/`enumerate` environments],
     [`-` (bullets), `+` (numbers), #box(`/ Term:`) (descriptions)],
-    [Commands],
+    row-header[Commands],
     [Macros (`\newcommand`)],
     justify[1st-class functions (#raw-size(0.99em, `#let f(x) = x + 1`), composable],
-    [Compiler],
+    row-header[Compiler],
     [Slow (s) and multi-pass],
     justify[Fast (ms) and incremental],
-    [Packages],
+    row-header[Packages],
     [Large TeX distributions],
     [Cached downloads],
-    [Errors], [Cryptic], [User-friendly, detailed],
-    [Graphics],
+    row-header[Errors], [Cryptic], [User-friendly, detailed],
+    row-header[Graphics],
     [#TikZ, #PSTricks, etc.],
     justify[#CeTZ, #Lilaq, #Fletcher, etc.],
-    [Team work],
+    row-header[Team work],
     [Overleaf (third-party)],
     [Own app (@sec:typstapp)],
-    [Code blocks],
+    row-header[Code blocks],
     [Very package-dependent (#Listings, #Minted, etc.)],
     [Own native support for code blocks (#raw-size(0.98em, `#raw(code)`))],
-    [Citations], [Managed externally], [Built-in (also Hayagriva)],
-    [Deploy],
+    row-header[Citations], [Managed externally], [Built-in (also Hayagriva)],
+    row-header[Deploy],
     [Can be initially heavy (\~5 GiB) for most distros],
     [Starts with a single binary (\~45 MiB)],
     // Current minimal Universe distribution is around 700–750 MiB.
     // While TeX Live distribution can take 7+ GiB (https://tug.org/texlive/quickinstall.html).
-  )))),
+  ))))),
 ) <tab:diffs>
 
 = State of the art <sec:art>
@@ -174,40 +177,43 @@ These setups rely on compiling source text into formatted output like PDF, separ
 
 Additionally, avoiding formatting issues like _widows_ (the last line of a paragraph stranded at the top of a page) and _orphans_ (the first line of a paragraph left alone at the bottom of a page) is part of achieving professional-quality results. However, this visual precision is only one side of the coin. These systems must also support complex content like sections, tables, and figures in a structured manner (@tab:typesetting).
 
+#let table-summary = pdf.table-summary.with(
+  summary: "The first column names a typesetting challenge. The second column gives a description for the challenge. The last column provides an algorithm or approach for the given challenge.",
+)
 #figure(
   caption: [Most important typesetting algorithms],
-  unjustify(bold-header(table(
+  unjustify(bold-header(table-summary(table(
     columns: (1fr, 2fr, 2fr),
     align: horizon,
     stroke: 0.1mm,
     table.header[Challenge][Description][Algorithm/Approach],
     table.hline(stroke: 1pt),
-    [Paragraph breaking],
+    row-header[Paragraph breaking],
     [Breaking text into lines with aesthetically pleasing spacing/hyphenation],
     [Knuth-Plass line breaking algorithm @Hassan15],
-    [Justification],
+    row-header[Justification],
     [Lines align evenly at margins],
     [Spacing adjustments with the Knuth-Plass @Knuth81],
-    [Grid Layout],
+    row-header[Grid Layout],
     [Optimal space for rows/columns in grids],
     [Constraint-based layout calculation @Feiner98],
-    [Page Breaking],
+    row-header[Page Breaking],
     [Page division while respecting layout],
     [Greedy + backtracking algorithms @Plass81],
-    [Glyph Selection],
+    row-header[Glyph Selection],
     [Correct glyphs depending on context],
     [Font shaping and context-sensitive glyphs @Rougier18],
-    [Bidirectional Text],
+    row-header[Bidirectional Text],
     [Mixing LTR and RTL scripts],
     [Unicode Bidirectional Algorithm @Toledo01],
-    [Incremental Layout],
+    row-header[Incremental Layout],
     [Reusing layout computations after small edits],
     [Constraint-based layout cache/region reuse @Fisher91],
-    [Styling], [Consistent styles], [Programmable layouts],
-    [Unicode],
+    row-header[Styling], [Consistent styles], [Programmable layouts],
+    row-header[Unicode],
     justify[Modern scripts, ligatures, and grapheme clusters],
     [Shaping and grapheme line breaking @Elkhayati2022],
-  ))),
+  )))),
 ) <tab:typesetting>
 
 #let XSL = link("https://www.w3.org/Style/XSL")[XSL]
@@ -289,6 +295,9 @@ Typst employs straightforward markup syntax for standard formatting operations. 
 
 Typst employs three distinct syntactical modes: markup, math, and code. By default, a `.typ` document operates in _markup mode_, which handles standard text formatting. _Math mode_ enables the composition of mathematical expressions, while _code mode_ provides access to Typst's scripting capabilities for dynamic content generation. Transitions between these modes are governed by specific markers (@tab:modes).
 
+#let table-summary = pdf.table-summary.with(
+  summary: "The first column names a mode in the Typst language. The second column shows syntax how to enter a given mode. The last column provides a simple of how to switch from another mode to the given mode.",
+)
 #figure(
   placement: none,
   caption: [Typst syntactical modes],
@@ -296,17 +305,20 @@ Typst employs three distinct syntactical modes: markup, math, and code. By defau
     set raw(lang: "typ")
     show raw: set text(0.95em)
     show "...": sym.dots
-    bold-header(table(
+    bold-header(table-summary(table(
       columns: (0.55fr, 1.5fr, 1.7fr),
       inset: 5pt,
       align: left,
       stroke: 0.1mm,
       table.header[Mode][Syntax][Example],
 
-      [Code], [Prefix code with `#`], `Number: #(1 + 2)`,
-      [Math], [Surround math with `$...$`], `$-x$ is the opposite of $x$`,
-      [Markup], [Put markup in `[...]`], `#let name = [*Typst!*]`,
-    ))
+      row-header[Code], [Prefix code with `#`], `Number: #(1 + 2)`,
+      row-header[Math],
+      [Surround math with `$...$`],
+      `$-x$ is the opposite of $x$`,
+
+      row-header[Markup], [Put markup in `[...]`], `#let name = [*Typst!*]`,
+    )))
   },
 ) <tab:modes>
 
@@ -785,10 +797,13 @@ Finally, although not its intention, the online service #typst-app can also be u
 = Typst Universe <sec:universe>
 Typst Universe #footnote[http://typst.app/universe] is an online platform that offers a curated collection of over 1,000 templates and packages designed to automate Typst documents. Users can find resources ranging from thesis templates to visualization tools, all aimed at simplifying the document creation process. The platform allows users to search, browse categories, and submit their own contributions, fostering a collaborative environment. Some of the packages present on this site are briefly described in @tab:packages.
 
+#let table-summary = pdf.table-summary.with(
+  summary: "The first column names a package from Typst Universe. The second column provides a description for a given package.",
+)
 #figure(
   placement: none,
   caption: [Some examples of packages in Typst Universe],
-  bold-header(table(
+  bold-header(table-summary(table(
     columns: (0.9fr, 4fr),
     align: (right, left),
     stroke: 0.1mm,
@@ -806,7 +821,7 @@ Typst Universe #footnote[http://typst.app/universe] is an online platform that o
     [Template for problem sets, homework, or assignments.],
     Quill,
     [#Quill is a package for quantum circuit diagrams.],
-  )),
+  ))),
 ) <tab:packages>
 
 = Application of Typst for Theoretical Physics <sec:theophys>
@@ -1157,6 +1172,7 @@ From a management perspective, creating Gantt charts is possible with packages l
     show: pad.with(left: 1.15em, right: 0.55em)
     gantty.gantt(gantt-yaml, drawer: drawer)
   },
+  alt: "Gantt chart has 3 groups of tasks on the left. It has month and week headers at the top. In the center it has a timeline where all the tasks are drawn. Finally, it has 3 milestones drawn vertically on top of the timeline.",
   caption: [Example of a Gantt chart designed with the #Gantty package],
 ) <fig:gantt>
 
@@ -1199,6 +1215,7 @@ From a management perspective, creating Gantt charts is possible with packages l
       ),
     ))
   },
+  alt: "Kanban board has 4 columns with different number of tasks. Each task has a name, hardness level, priority level, and optionally an assignee.",
   kind: image,
   caption: [Example of a kanban board made with the #Kantan package],
 ) <fig:kanban>
@@ -1209,7 +1226,11 @@ As listed in @tab:packages, QR and bar codes can be issued and customized via th
 Typst can be extended for slide creation through the #Touying package, which provides a flexible framework similar to LaTeX's Beamer @Hofert10. With #Touying, users can design presentation slides directly in Typst, benefiting from its concise syntax, powerful layout capabilities, and smooth PDF output. The package supports themes, overlays, and structured elements, making it easy to control visual style while focusing on content. #Touying enables the creation of professional slides with minimal boilerplate, making it especially appealing for academic and technical presentations where precision and readability are key (@fig:slides).
 
 #figure(
-  image("./examples/slide/slide.pdf", width: 98%),
+  image(
+    "./examples/slide/slide.pdf",
+    width: 98%,
+    alt: "Slide has two main parts. Left half provides listing of Typst code. Right half demonstrates advanced styling, produced by the code from the left half.",
+  ),
   kind: image,
   caption: [A slide with complex content (code, gradients, advanced styling, etc.) created with the #Touying package and the Metropolis theme],
   placement: none,

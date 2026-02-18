@@ -22,6 +22,56 @@
   justification-limits: (tracking: (min: -0.025em, max: 0em)),
 )
 
+// References to floating figures point to wrong location
+// https://github.com/typst/typst/issues/4359#issuecomment-3564926925
+#show figure: it => {
+  if it.placement == none { return it }
+
+  // Re-wrap placed figures to include metadata containing
+  // the body's location.
+  place(it.placement, float: true, scope: it.scope, block(width: 100%, {
+    let fields = it.fields()
+    _ = fields.remove("scope")
+    let body = fields.remove("body")
+    let label = fields.remove("label")
+    let counter = fields.remove("counter")
+
+    // Need to step back to keep the same number in the new figure.
+    counter.update(n => n - 1)
+
+    let meta = context metadata((
+      figure-location: it.location(),
+      body-location: here(),
+    ))
+
+    figure(meta + body, ..fields, placement: none)
+  }))
+}
+
+#show ref: it => {
+  let fig = it.element
+  if fig == none { return it }
+  if fig.func() != figure { return it }
+  if fig.numbering == none { return it }
+  if fig.placement == none { return it }
+
+  // Rebuild reference from scratch.
+  let num = numbering(fig.numbering, ..fig.counter.at(fig.location()))
+  let supplement = (if it.supplement == auto { fig } else { it }).supplement
+  if supplement not in (text(""), [], none) { supplement += [~] }
+
+  // Use location of figure's body for linking.
+  let location = query(metadata)
+    .find(data => (
+      type(data.value) == dictionary
+        and data.value.at("figure-location", default: none) == fig.location()
+    ))
+    .value
+    .body-location
+
+  link(location, [#supplement#num])
+}
+
 #show: ijimai.with(
   config: toml("paper.toml"),
   bibliography: "bibliography.yaml",

@@ -187,7 +187,7 @@
 
 #let mathbf(input) = $upright(bold(input))$
 
-// +1.15 MiB
+// +803.08 KiB
 #include "files.typ"
 
 = Introduction
@@ -929,15 +929,15 @@ During the period 2020--2025, Typst evolved from a niche LaTeX alternative into 
 
 Finally, although not its intention, the online service typst.app can also be used as a scientific preprint dissemination platform. Scientific preprint repositories like #arXiv #footnote(link(arxiv-url)) and #HAL #footnote(link(hal-url)) play a crucial role in the rapid publication of research findings across various academic disciplines @Chaleplioglou23. These platforms allow researchers to share their work before peer review, enabling quick access to new ideas. The number of Typst-based articles on arXiv is growing, with \~100 research preprints accumulated so far (after analyzing the Computer Science category from 2023 to 2025).
 
-#let image-width = 100%
 #figure(
   caption: [Some Typst-based journal templates already qualified to be used for editorial purposes: _Institute of Electrical and Electronics Engineers_ #footnote[https://ieee.org], and _Multidisciplinary Digital Publishing Institute_ #footnote[https://mdpi.com]],
   grid(
     columns: (1fr, 1fr),
     column-gutter: 2pt,
-    gutter: 5pt,
-    image("./assets/ieee.jpg", width: image-width),
-    image("./assets/mdpi.jpg", width: image-width),
+    row-gutter: 5pt,
+    align: bottom,
+    frame(inset: 0pt, image("./examples/ieee/main.pdf")),
+    frame(inset: 0pt, image("./examples/mdpi/main.pdf")),
   ),
 ) <fig:papers>
 

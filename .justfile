@@ -12,7 +12,7 @@ just check-package-links
 typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
 alias c := compile
-compile *args: slide
+compile *args: slide ieee mdpi
   {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} paper.typ
 
 alias pdf := compile-from-pdf
@@ -22,7 +22,7 @@ compile-from-pdf paper="paper.pdf":
   just compile
 
 alias w := watch
-watch: slide
+watch: slide ieee mdpi
   {{typst}} watch --ignore-system-fonts --font-path fonts paper.typ
 
 # Spaces and quotes in file names are not supported.
@@ -71,6 +71,12 @@ slide *args:
 slide-watch:
   {{typst}} watch --ignore-system-fonts --font-path fonts ./examples/slide/slide.typ
 
+ieee *args:
+  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/ieee/main.typ
+
+mdpi *args:
+  {{typst}} compile --ignore-system-fonts --font-path fonts {{args}} ./examples/mdpi/main.typ
+
 additional-files := "
 .justfile
 README.md
@@ -87,7 +93,7 @@ pdf-attach:
   format() { numfmt --to=iec-i --suffix=B --format='%.2f' --unit-separator=' '; }
   printf '' > files.typ
   without_files=$(get_size)
-  deps=$(just compile --deps - && just slide --deps -)
+  deps=$(for recipe in compile slide ieee mdpi; do just "$recipe" --deps -; done)
   files=$(echo "$deps" | grep -Eo '"[^"]+"' | grep -ve '\.pdf"$' -e '^"/' -e '"inputs"')
   additional_files=$(echo '{{additional-files}}' | sed '/^$/d;s/.*/"&"/')
   lines=$({ echo "$files" && echo "$additional_files"; } | sort | sed 's/.*/  &,/')

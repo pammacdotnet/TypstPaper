@@ -5,7 +5,7 @@ corresponding = false
 orcid = "0009-0001-6335-4135"
 institution = "Bauman Moscow State Technical University (BMSTU), 2nd Baumanskaya, 5, Moscow (Russia)"
 credit = ["software", "validation", "writing-review-editing"]
-bio = "Andrey Voynov is a master's student in software engineering with a strong passion for programming and free/open-source software. He began coding in QBasic and Pascal during school, actively competed in Informatics Olympiads, and earned a 2nd-degree diploma at the 2020 All-Russian Forum of Scientific Youth. Andrey has created hundreds of projects, contributed to many others, and since discovering Typst in 2023, uses it exclusively for documents and slides, promoting its adoption in Russia through teaching, curriculum updates, and feature contributions."
+bio = "Andrey Voynov is a master's student in software engineering with a strong passion for programming and free/open-source software. He began coding in QBasic and Pascal during elementary school, actively competed in Informatics Olympiads, and earned a 2nd-degree diploma at the 2020 All-Russian Forum of Scientific Youth. Andrey has created hundreds of projects, contributed to many others, and since discovering Typst in 2023, uses it exclusively for documents and slides, promoting its adoption in Russia through teaching, curriculum updates, and feature contributions."
 
 [[authors]]
 name = "Alberto Corbi"

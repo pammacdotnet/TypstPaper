@@ -2,7 +2,7 @@
 \usepackage{amssymb}
 \begin{document}
 \section*{Affine Spaces}
-Let $A$ be a linear subspace of another space $V$. Then, $A$ is a Euclidean and affine linear space if there exists a mapping: \[ f: A \times A \rightarrow V \] where $A \times A$ means \emph{linear mapping that takes a tuple from} $A$.
+Let $A$ be a linear subspace of another space $V$. Then, $A$ is a Euclidean and affine linear space if there exists a mapping: \[ f: A \times A \rightarrow V \] where $A \times A$ means \emph{linear mapping that takes a tuple from $A$}.
 \section*{Example}
 Let the mapping $f$ take two elements $\mathbf{a} = (a_x, a_y)$ and $\mathbf{b} = (b_x, b_y)$ from $A \subseteq \mathbb{R}^2$ and do the following with them:
 \[ f(\mathbf{a}, \mathbf{b}) = (a_x - b_x, a_y - b_y) \]

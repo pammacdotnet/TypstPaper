@@ -829,16 +829,26 @@ Typst integrates seamlessly with existing integrated development environments (I
     let s = 98.65% // scale/width
     image("./assets/vscodium.png", width: s)
     let place-link(dx, dy, width, height, url) = {
-      let link = link(url, box(width: width, height: height))
+      let link = link(url, box(width: width * s, height: height * s))
       place(top + left, dx: dx, dy: dy, link)
     }
-    place-link.with(21.7%, 34.8%, 44.5% * s, 0.75% * s)(
+    let footnote-link(dx, dy, width, height, link-it, place-it) = {
+      link-it = label("vscodium-" + link-it)
+      place-it = label("vscodium-" + place-it)
+      place(top + left, dx: dx, dy: dy)[#metadata(none)#place-it]
+      place-link(dx, dy, width * s, height * s, link-it)
+    }
+    footnote-link(45.1%, 71.8%, 0.5%, 0.26%, "1f", "1b")
+    footnote-link(25.7%, 77.6%, 0.6%, 0.25%, "2f", "2b")
+    place-link.with(19.2%, 30.5%, 39.4%, 0.75%)(
       "https://en.wikipedia.org/wiki/Mora_(linguistics)",
     )
-    place-link.with(18.2%, 92.4%, 28.9% * s, 0.55% * s)(
+    footnote-link(17.2%, 91.6%, 0.5%, 0.25%, "1b", "1f")
+    place-link.with(17.8%, 91.6%, 29.1%, 0.55%)(
       "https://en.wikipedia.org/wiki/Mora_(linguistics)",
     )
-    place-link.with(18.2%, 94.7%, 34.2% * s, 0.55% * s)(
+    footnote-link(17.2%, 93.9%, 0.5%, 0.25%, "2b", "2f")
+    place-link.with(17.8%, 93.9%, 34.4%, 0.55%)(
       "https://en.wikipedia.org/wiki/Romanization_of_Japanese",
     )
   }),

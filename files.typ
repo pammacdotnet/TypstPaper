@@ -40,5 +40,6 @@
   "photos/andrey.jpg",
   "photos/david.jpg",
   "photos/pau.jpg",
+  "preamble.typ",
 )
 #files.map(pdf.attach).join()

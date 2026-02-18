@@ -4,7 +4,7 @@
   "assets/ieee.jpg",
   "assets/mdpi.jpg",
   "assets/mileva.jpg",
-  "assets/vscodium.jpg",
+  "assets/vscodium.png",
   "assets/vscodium_screenshot_source/pronunciation/main.typ",
   "assets/web_app.jpg",
   "bibliography.yaml",

@@ -187,7 +187,7 @@
 
 #let mathbf(input) = $upright(bold(input))$
 
-// +1.03 MiB
+// +1.15 MiB
 #include "files.typ"
 
 = Introduction
@@ -826,8 +826,8 @@ Typst integrates seamlessly with existing integrated development environments (I
 
 #figure(
   frame-round({
-    let s = 98.6% // scale/width
-    image("./assets/vscodium.jpg", width: s)
+    let s = 98.65% // scale/width
+    image("./assets/vscodium.png", width: s)
     let place-link(dx, dy, width, height, url) = {
       let link = link(url, box(width: width, height: height))
       place(top + left, dx: dx, dy: dy, link)

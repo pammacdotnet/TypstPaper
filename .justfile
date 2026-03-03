@@ -9,6 +9,7 @@ just check-package-links
 export TYPST_IGNORE_SYSTEM_FONTS := "true"
 export TYPST_FONT_PATHS := "fonts"
 export TYPST_FEATURES := "a11y-extras"
+export TYPST_ROOT := "."
 
 # Automatically use local (Git version) binary over global (release version)
 # one, if present. Typst's version 0.14.0-rc1 or above is REQUIRED. The web app
@@ -17,7 +18,7 @@ typst := shell("if [ -f typst ]; then echo ./typst; else echo typst; fi")
 
 alias c := compile
 compile *args: slide ieee mdpi
-  {{typst}} compile {{args}} paper.typ
+  {{typst}} compile paper.typ {{args}}
 
 alias pdf := compile-from-pdf
 compile-from-pdf paper="paper.pdf":
@@ -45,6 +46,7 @@ format mode="--inplace":
     -exec typstyle '{{mode}}' '{}' \;
   typstyle '{{mode}}' *.typ
   typstyle '{{mode}}' --wrap-text assets
+  typstyle '{{mode}}' --wrap-text announcement
 
 # Fails if any figure or table is not referenced at least once.
 # Requires poppler-utils package.
@@ -116,3 +118,31 @@ pdf-attach:
 # Requires rg package.
 check-contractions:
   rg -o "\\w+'[st]"
+
+pages:
+  rm -rf ./announcement/pages/page*.png
+  just compile --ppi 60 './announcement/pages/page{n}.png'
+
+# Can't see passed font path when used in "script file" recipe.
+announcement-pdf: compile
+  {{typst}} compile --pdf-standard ua-1 ./announcement/announcement.typ
+
+# Compile the announcement in PDF and Markdown: for the Typst Forum and Discord.
+# Here, `typst compile` doesn't use any font, so it's fine.
+announcement: pages announcement-pdf
+  #!/bin/sh
+  set -eu
+  cd ./announcement
+  input='announcement.typ'
+  rm -rf pages/collage*.png
+  markdown() {
+    {{typst}} compile --input "version=$1" pages/collage.typ "pages/collage-$1.png"
+    typlite --input "version=$1" "$input" "announcement-$1.md"
+    sed -i '
+      1{s/^## /# /};
+      s/(\(http[^)]\+\))/(<\1>)/g;
+      s/\[\(http[^]]\+\)\](<\1>)/<\1>/g
+    ' "announcement-$1.md"
+  }
+  markdown forum
+  markdown discord

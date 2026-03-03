@@ -39,3 +39,6 @@ example.pdf
 typst
 paper.txt
 *.pdf
+announcement/*.md
+announcement/*.pdf
+announcement/pages/*.png
